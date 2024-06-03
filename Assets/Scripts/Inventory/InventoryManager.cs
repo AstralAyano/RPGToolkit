@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
@@ -7,12 +9,15 @@ public class InventoryManager : MonoBehaviour
     public static GameObject instance;
 
     [Header("Objects")]
+    public InventoryData inventoryData;
     public InventorySlot[] invSlots;
     public GameObject invItemPrefab;
+    public int selectedSlot = -1;
 
-    //public SystemText sysText;
-
-    int selectedSlot = -1;
+    public void SetInventorySlots(InventorySlot[] slots)
+    {
+        inventoryData.inventorySlots = slots;
+    }
 
     void Awake()
     {
@@ -24,6 +29,15 @@ public class InventoryManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
+        }
+
+        if (inventoryData != null)
+        {
+            invSlots = inventoryData.inventorySlots;
+        }
+        else
+        {
+            Debug.LogWarning("Inventory data is not set in the InventoryManager.");
         }
     }
 

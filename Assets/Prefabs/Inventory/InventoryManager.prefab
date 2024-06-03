@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7445095559244600987}
   m_Layer: 0
   m_Name: InventoryManager
-  m_TagString: Untagged
+  m_TagString: InventoryModule
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4294986599b157246890df7d9dcf30a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inventoryData: {fileID: 11400000, guid: 18798e4c01913eb44b9c00b8592e46bf, type: 2}
   invSlots:
   - {fileID: 0}
   - {fileID: 0}
@@ -85,3 +86,4 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   invItemPrefab: {fileID: 4931020788774058754, guid: 6c5c0302745a74941a96f8bc306e5e43, type: 3}
+  selectedSlot: -1

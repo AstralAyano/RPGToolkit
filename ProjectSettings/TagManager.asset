@@ -13,6 +13,10 @@ TagManager:
   - Item
   - Portal
   - SceneManager
+  - InventoryHotbar
+  - InventoryBag
+  - RPGToolkitUI
+  - InventoryModule
   layers:
   - Default
   - TransparentFX

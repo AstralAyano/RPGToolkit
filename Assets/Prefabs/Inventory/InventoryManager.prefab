@@ -44,7 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4294986599b157246890df7d9dcf30a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryData: {fileID: 11400000, guid: 18798e4c01913eb44b9c00b8592e46bf, type: 2}
   invSlots:
   - {fileID: 0}
   - {fileID: 0}

@@ -11,6 +11,7 @@ public class UseItem : MonoBehaviour
     void Awake()
     {
         controller = GetComponent<PlayerController>();
+        invManager = GameObject.FindWithTag("InventoryModule").GetComponent<InventoryManager>();
     }
 
     void Update()

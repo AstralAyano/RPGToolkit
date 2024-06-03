@@ -10,7 +10,12 @@ public class PickUpItem : MonoBehaviour
     [Header("List of Scriptable Objects")]
     public Item[] itemsToPickup;
 
-    void OnTriggerEnter2D(Collider2D other)
+    private void Awake()
+    {
+        invManager = GameObject.FindWithTag("InventoryModule").GetComponent<InventoryManager>();
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
     {
         //Debug.Log(col.gameObject.name + " : " + gameObject.name + " : " + Time.time);
         

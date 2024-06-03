@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
@@ -85,6 +84,10 @@ public class RPGToolkitModules
             // Start waiting for the UIModule to become active
             EditorApplication.update += WaitForUIModule;
         }
+        else
+        {
+            CreateModule(modulePath);
+        }
     }
 
     static void WaitForUIModule()
@@ -136,23 +139,19 @@ public class RPGToolkitModules
                     Debug.Log("Found " + taggedObjects.Count + " InventorySlots.");
 
                     // Set the references in InventoryManager.cs of the InventoryPrefab
-                    GameObject inventoryPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(modulePath);
-                    if (inventoryPrefab != null)
+                    InventoryManager inventoryManager = moduleInstance.GetComponent<InventoryManager>();
+                    if (inventoryManager != null)
                     {
-                        InventoryManager inventoryManager = inventoryPrefab.GetComponent<InventoryManager>();
-                        if (inventoryManager != null)
-                        {
-                            inventoryManager.SetInventorySlots(taggedObjects.ToArray());
-                            Debug.Log("InventorySlots assigned to InventoryManager.");
-                        }
-                        else
-                        {
-                            Debug.LogWarning("InventoryManager component not found in InventoryPrefab.");
-                        }
+                        // Assign the found slots to the InventoryManager
+                        inventoryManager.invSlots = taggedObjects.ToArray();
+
+                        // Save the changes to the InventoryManager prefab
+                        PrefabUtility.SaveAsPrefabAsset(moduleInstance, modulePath);
+                        Debug.Log("InventorySlots assigned to InventoryManager.");
                     }
                     else
                     {
-                        Debug.LogWarning("InventoryPrefab not found.");
+                        Debug.LogWarning("InventoryManager component not found in InventoryPrefab.");
                     }
                 }
 

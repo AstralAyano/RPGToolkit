@@ -9,17 +9,11 @@ public class InventoryManager : MonoBehaviour
     public static GameObject instance;
 
     [Header("Objects")]
-    public InventoryData inventoryData;
     public InventorySlot[] invSlots;
     public GameObject invItemPrefab;
     public int selectedSlot = -1;
 
-    public void SetInventorySlots(InventorySlot[] slots)
-    {
-        inventoryData.inventorySlots = slots;
-    }
-
-    void Awake()
+    private void Awake()
     {
         if (instance == null)
         {
@@ -30,18 +24,9 @@ public class InventoryManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
-        if (inventoryData != null)
-        {
-            invSlots = inventoryData.inventorySlots;
-        }
-        else
-        {
-            Debug.LogWarning("Inventory data is not set in the InventoryManager.");
-        }
     }
 
-    void Update()
+    private void Update()
     {
         if (Input.inputString != null)
         {
@@ -54,7 +39,7 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    void ChangeSlot(int newSlot)
+    private void ChangeSlot(int newSlot)
     {
         selectedSlot = newSlot;
         Debug.Log("Selected slot " + selectedSlot);
@@ -89,7 +74,7 @@ public class InventoryManager : MonoBehaviour
         return false;
     }
 
-    void SpawnNewItem(Item item, InventorySlot slot)
+    private void SpawnNewItem(Item item, InventorySlot slot)
     {
         GameObject newItemGO = Instantiate(invItemPrefab, slot.transform);
 

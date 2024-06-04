@@ -8,44 +8,82 @@ public class RPGToolkitModules
     private const string InventoryPath = "Assets/Prefabs/Inventory/InventoryManager.prefab";
     private const string QuestPath = "Assets/Prefabs/Quest/QuestManager.prefab";
 
-    private static GameObject uiModule;
+    private static GameObject uiModule, inventoryModule, questModule;
     private static string modulePath;
     private static string moduleName;
-    private static bool inventoryModuleExist = false;
 
-    [MenuItem("GameObject/RPG Toolkit Modules/Create RPGToolkit UI", false, 10)]
+    // RPG Toolkit UI
+    [MenuItem("RPG Toolkit/Create RPGToolkit UI", false, 10)]
     static void CreateUI()
     {
-        CreateModule(UIPath, "UI Module");
+        if (uiModule == null)
+        {
+            CreateModule(UIPath, "UI Module");
+        }
+    }
+    [MenuItem("RPG Toolkit/Create RPGToolkit UI", true, 10)]
+    static bool ValidateCreateUI()
+    {
+        return uiModule == null;
     }
 
-    [MenuItem("GameObject/RPG Toolkit Modules/Create Inventory Module", false, 11)]
+    // Inventory Module
+    [MenuItem("RPG Toolkit/Create Inventory Module", false, 11)]
     static void CreateInventory()
     {
-        CreateModuleWithUI(InventoryPath, "Inventory Module", true);
+        if (inventoryModule == null)
+        {
+            CreateModuleWithUI(InventoryPath, "Inventory Module", true);
+        }
+    }
+    [MenuItem("RPG Toolkit/Create Inventory Module", true, 11)]
+    static bool ValidateCreateInventory()
+    {
+        return inventoryModule == null;
     }
 
-    [MenuItem("GameObject/RPG Toolkit Modules/Create Quest Module", false, 12)]
+    // Quest Module
+    [MenuItem("RPG Toolkit/Create Quest Module", false, 12)]
     static void CreateQuest()
     {
-        CreateModuleWithUI(QuestPath, "Quest Module", false);
+        if (questModule == null)
+        {
+            CreateModuleWithUI(QuestPath, "Quest Module", false);
+        }
+    }
+    [MenuItem("RPG Toolkit/Create Quest Module", true, 12)]
+    static bool ValidateCreateQuest()
+    {
+        return questModule == null;
     }
 
     static GameObject CreateModule(string prefabPath, string moduleName)
     {
-        GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
-        if (prefab == null)
+        GameObject modulePrefab = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
+        if (modulePrefab == null)
         {
             Debug.LogError("Module Creation Error : Prefab cannot be found at " + prefabPath);
         }
 
-        GameObject moduleInstance = PrefabUtility.InstantiatePrefab(prefab) as GameObject;
+        GameObject moduleInstance = PrefabUtility.InstantiatePrefab(modulePrefab) as GameObject;
         if (moduleInstance != null)
         {
+            Debug.Log("Module Creation Successful : " + moduleName + " is active.");
             Undo.RegisterCreatedObjectUndo(moduleInstance, "Create " + moduleInstance.name);
             Selection.activeObject = moduleInstance;
 
-            Debug.Log("Module Creation Successful : " + moduleName + " is active.");
+            switch (moduleName)
+            {
+                case "UI Module":
+                    uiModule = moduleInstance;
+                    break;
+                case "Inventory Module":
+                    inventoryModule = moduleInstance;
+                    break;
+                case "Quest Module":
+                    questModule = moduleInstance;
+                    break;
+            }
 
             return moduleInstance;
         }

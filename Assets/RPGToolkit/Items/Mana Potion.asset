@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d60e16ee135f0224dbd87ab8d19e0a44, type: 3}
-  m_Name: Major Health Potion
+  m_Name: Mana Potion
   m_EditorClassIdentifier: 
-  image: {fileID: 21300000, guid: d495612ce9c4f774388e6d2acd885f5a, type: 3}
+  image: {fileID: 21300000, guid: a46ea3797d0b64548996e66ebfd81ad9, type: 3}
   stackable: 0
-  itemName: Major Health Potion
-  itemDesc: A potion of concentrated healing herbs in liquid form. Heals for 20 HP.
+  itemName: Mana Potion
+  itemDesc: A potion of magical essense in liquid form. Gathered in a unique method.
+    Regains 10 MP.

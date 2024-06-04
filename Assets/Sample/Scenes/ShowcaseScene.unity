@@ -3502,7 +3502,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7036369559136021588, guid: 7b66a5ea40fcb1145967a9f3f6b9db42, type: 3}
       propertyPath: m_Name
-      value: Major Health Potion
+      value: Health Potion
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7b66a5ea40fcb1145967a9f3f6b9db42, type: 3}
@@ -13899,7 +13899,7 @@ Transform:
   m_Children:
   - {fileID: 263625587}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &898469359616562677
 PrefabInstance:
@@ -13914,7 +13914,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4479119457141846794, guid: 93384b3acc77067458ae6a1ea916d834, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4479119457141846794, guid: 93384b3acc77067458ae6a1ea916d834, type: 3}
       propertyPath: m_LocalPosition.x

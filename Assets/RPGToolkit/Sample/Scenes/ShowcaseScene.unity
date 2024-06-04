@@ -250,10 +250,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4479119457141846773, guid: 93384b3acc77067458ae6a1ea916d834, type: 3}
-      propertyPath: hasInventory
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4479119457141846793, guid: 93384b3acc77067458ae6a1ea916d834, type: 3}
       propertyPath: m_Name
       value: RPGToolkitPlayer

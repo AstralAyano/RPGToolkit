@@ -15,4 +15,18 @@ MonoBehaviour:
   enableDynamicUpdate: 1
   enableExtendedColorPicker: 1
   editorHints: 1
-  backgroundColorTint: {r: 255, g: 255, b: 255, a: 255}
+  hasInventory: 0
+  hasQuestBook: 0
+  primaryColor: {r: 255, g: 255, b: 255, a: 255}
+  secondaryColor: {r: 255, g: 255, b: 255, a: 255}
+  primaryReversed: {r: 255, g: 255, b: 255, a: 255}
+  negativeColor: {r: 255, g: 255, b: 255, a: 255}
+  backgroundColor: {r: 255, g: 255, b: 255, a: 255}
+  lightFont: {fileID: 0}
+  regularFont: {fileID: 0}
+  mediumFont: {fileID: 0}
+  semiBoldFont: {fileID: 0}
+  boldFont: {fileID: 0}
+  backgroundMusic: {fileID: 0}
+  hoverSound: {fileID: 0}
+  clickSound: {fileID: 0}

@@ -5,10 +5,11 @@ using UnityEditor;
 public class RPGToolkitModules
 {
     private const string UIPath = "Assets/RPGToolkit/Prefabs/RPGToolkitUI.prefab";
+    private const string PlayerPath = "Assets/RPGToolkit/Prefabs/Player.prefab";
     private const string InventoryPath = "Assets/RPGToolkit/Prefabs/Inventory/InventoryManager.prefab";
     private const string QuestPath = "Assets/RPGToolkit/Prefabs/Quest/QuestManager.prefab";
 
-    private static GameObject uiModule, inventoryModule, questModule;
+    private static GameObject uiModule, playerModule, inventoryModule, questModule;
     private static string modulePath;
     private static string moduleName;
 
@@ -27,8 +28,23 @@ public class RPGToolkitModules
         return uiModule == null;
     }
 
+    // Player Module
+    [MenuItem("RPG Toolkit/Create Player Module", false, 11)]
+    static void CreatePlayer()
+    {
+        if (playerModule == null)
+        {
+            CreateModule(PlayerPath, "Player Module");
+        }
+    }
+    [MenuItem("RPG Toolkit/Create Player Module", true, 11)]
+    static bool ValidateCreatePlayer()
+    {
+        return playerModule == null;
+    }
+
     // Inventory Module
-    [MenuItem("RPG Toolkit/Create Inventory Module", false, 11)]
+    [MenuItem("RPG Toolkit/Create Inventory Module", false, 12)]
     static void CreateInventory()
     {
         if (inventoryModule == null)
@@ -36,14 +52,14 @@ public class RPGToolkitModules
             CreateModuleWithUI(InventoryPath, "Inventory Module", true);
         }
     }
-    [MenuItem("RPG Toolkit/Create Inventory Module", true, 11)]
+    [MenuItem("RPG Toolkit/Create Inventory Module", true, 12)]
     static bool ValidateCreateInventory()
     {
         return inventoryModule == null;
     }
 
     // Quest Module
-    [MenuItem("RPG Toolkit/Create Quest Module", false, 12)]
+    [MenuItem("RPG Toolkit/Create Quest Module", false, 13)]
     static void CreateQuest()
     {
         if (questModule == null)
@@ -51,7 +67,7 @@ public class RPGToolkitModules
             CreateModuleWithUI(QuestPath, "Quest Module", false);
         }
     }
-    [MenuItem("RPG Toolkit/Create Quest Module", true, 12)]
+    [MenuItem("RPG Toolkit/Create Quest Module", true, 13)]
     static bool ValidateCreateQuest()
     {
         return questModule == null;

@@ -8,14 +8,22 @@ public class PickUpItem : MonoBehaviour
     [Header("List of Scriptable Objects")]
     public Item[] itemsToPickup;
 
-    private void Awake()
+    private void Start()
     {
-        invManager = GameObject.FindWithTag("InventoryModule").GetComponent<InventoryManager>();
+        if (PlayerController.instance.hasInventory)
+        {
+            invManager = GameObject.FindWithTag("InventoryModule").GetComponent<InventoryManager>();
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         //Debug.Log(col.gameObject.name + " : " + gameObject.name + " : " + Time.time);
+
+        if (!PlayerController.instance.hasInventory)
+        {
+            return;
+        }
         
         if (other.gameObject.name.Contains("Health Potion") && invManager.AddItem(itemsToPickup[0]))
         {

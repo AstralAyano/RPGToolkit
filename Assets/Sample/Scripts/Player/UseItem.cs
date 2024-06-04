@@ -8,10 +8,17 @@ public class UseItem : MonoBehaviour
     public InventoryManager invManager;
     [HideInInspector] public PlayerController controller;
 
-    void Awake()
+    private void Awake()
     {
         controller = GetComponent<PlayerController>();
-        invManager = GameObject.FindWithTag("InventoryModule").GetComponent<InventoryManager>();
+    }
+
+    private void Start()
+    {
+        if (PlayerController.instance.hasInventory)
+        {
+            invManager = GameObject.FindWithTag("InventoryModule").GetComponent<InventoryManager>();
+        }
     }
 
     void Update()

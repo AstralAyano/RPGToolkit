@@ -5749,7 +5749,7 @@ MonoBehaviour:
   hasWallJump: 0
   hasAttack: 0
   hasBlock: 0
-  hasInventory: 1
+  hasInventory: 0
   hasQuestBook: 0
   currentHealthPoint: 0
   maxHealthPoint: 0

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController instance;
+
     [Header("PlayerState")]
     const string IDLE = "Idle";
     const string WALK = "Walk";
@@ -74,6 +76,16 @@ public class PlayerController : MonoBehaviour
     
     private void Awake()
     {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
         SFXClips = Resources.LoadAll<AudioClip>("Audio/PlayerSFXs");
     }
 

@@ -4,9 +4,9 @@ using UnityEditor;
 
 public class RPGToolkitModules
 {
-    private const string UIPath = "Assets/Prefabs/RPGToolkitUI.prefab";
-    private const string InventoryPath = "Assets/Prefabs/Inventory/InventoryManager.prefab";
-    private const string QuestPath = "Assets/Prefabs/Quest/QuestManager.prefab";
+    private const string UIPath = "Assets/RPGToolkit/Prefabs/RPGToolkitUI.prefab";
+    private const string InventoryPath = "Assets/RPGToolkit/Prefabs/Inventory/InventoryManager.prefab";
+    private const string QuestPath = "Assets/RPGToolkit/Prefabs/Quest/QuestManager.prefab";
 
     private static GameObject uiModule, inventoryModule, questModule;
     private static string modulePath;

@@ -1,20 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
-[CreateAssetMenu(menuName = "Scriptable Item")]
-public class Item : ScriptableObject
+namespace RPGToolkit
 {
-    public Sprite image;
-    public bool stackable = true;
+    [CreateAssetMenu(menuName = "Scriptable Item")]
+    public class Item : ScriptableObject
+    {
+        public Sprite image;
+        public bool stackable = true;
 
-    public string itemName;
+        public string itemName;
 
-    [TextArea]
-    public string itemDesc;
+        [TextArea]
+        public string itemDesc;
 
-    //public ItemType type;
-    //public ActionType actionType;
-    //public Vector2Int range = new Vector2Int(5, 4);
+        //public ItemType type;
+        //public ActionType actionType;
+        //public Vector2Int range = new Vector2Int(5, 4);
+    }
 }

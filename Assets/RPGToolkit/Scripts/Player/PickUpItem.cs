@@ -1,39 +1,42 @@
 using UnityEngine;
 
-public class PickUpItem : MonoBehaviour
+namespace RPGToolkit
 {
-    [Header("Object")]
-    public InventoryManager invManager;
-
-    [Header("List of Scriptable Objects")]
-    public Item[] itemsToPickup;
-
-    private void Start()
+    public class PickUpItem : MonoBehaviour
     {
-        if (PlayerController.instance.hasInventory)
-        {
-            invManager = GameObject.FindWithTag("InventoryModule").GetComponent<InventoryManager>();
-        }
-    }
+        [Header("Object")]
+        public InventoryManager invManager;
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        //Debug.Log(col.gameObject.name + " : " + gameObject.name + " : " + Time.time);
+        [Header("List of Scriptable Objects")]
+        public Item[] itemsToPickup;
 
-        if (!PlayerController.instance.hasInventory)
+        private void Start()
         {
-            return;
+            if (PlayerController.instance.hasInventory)
+            {
+                invManager = GameObject.FindWithTag("RPGToolkitInventory").GetComponent<InventoryManager>();
+            }
         }
-        
-        if (other.gameObject.name.Contains("Health Potion") && invManager.AddItem(itemsToPickup[0]))
+
+        private void OnTriggerEnter2D(Collider2D other)
         {
-            //gameObject.GetComponentInParent<PlayerController>().PlaySFX("Health");
-            Destroy(other.gameObject);
-        }
-        else if (other.gameObject.name.Contains("Mana Potion") && invManager.AddItem(itemsToPickup[1]))
-        {
-            //gameObject.GetComponentInParent<PlayerController>().PlaySFX("Mana");
-            Destroy(other.gameObject);
+            //Debug.Log(col.gameObject.name + " : " + gameObject.name + " : " + Time.time);
+
+            if (!PlayerController.instance.hasInventory)
+            {
+                return;
+            }
+            
+            if (other.gameObject.name.Contains("Health Potion") && invManager.AddItem(itemsToPickup[0]))
+            {
+                //gameObject.GetComponentInParent<PlayerController>().PlaySFX("Health");
+                Destroy(other.gameObject);
+            }
+            else if (other.gameObject.name.Contains("Mana Potion") && invManager.AddItem(itemsToPickup[1]))
+            {
+                //gameObject.GetComponentInParent<PlayerController>().PlaySFX("Mana");
+                Destroy(other.gameObject);
+            }
         }
     }
 }

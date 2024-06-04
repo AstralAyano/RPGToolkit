@@ -1,16 +1,19 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class InventorySlot : MonoBehaviour, IDropHandler
+namespace RPGToolkit
 {
-    [HideInInspector] public Transform parentAfterDrag;
-
-    public void OnDrop(PointerEventData eventData)
+    public class InventorySlot : MonoBehaviour, IDropHandler
     {
-        if (transform.childCount == 0)
+        [HideInInspector] public Transform parentAfterDrag;
+
+        public void OnDrop(PointerEventData eventData)
         {
-            InventoryItem invItem = eventData.pointerDrag.GetComponent<InventoryItem>();
-            invItem.parentAfterDrag = transform;
+            if (transform.childCount == 0)
+            {
+                InventoryItem invItem = eventData.pointerDrag.GetComponent<InventoryItem>();
+                invItem.parentAfterDrag = transform;
+            }
         }
     }
 }

@@ -3,75 +3,78 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
 
-public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler
+namespace RPGToolkit
 {
-    [Header("UI")]
-    public Image image;
-    public TMP_Text countText;
-    public GameObject invUI;
-    public InventoryUI ui;
-
-    [HideInInspector] public Item item;
-    [HideInInspector] public int count = 1;
-    [HideInInspector] public Transform parentAfterDrag;
-
-    private void Start()
+    public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler
     {
-        invUI = GameObject.Find("InventoryUI");
-        ui = invUI.GetComponent<InventoryUI>();
-    }
+        [Header("UI")]
+        public Image image;
+        public TMP_Text countText;
+        public GameObject invUI;
+        public InventoryUI ui;
 
-    public void InitialiseItem(Item newItem)
-    {
-        item = newItem;
-        image.sprite = newItem.image;
+        [HideInInspector] public Item item;
+        [HideInInspector] public int count = 1;
+        [HideInInspector] public Transform parentAfterDrag;
 
-        UpdateCount();
-    }
-
-    public void UpdateCount()
-    {
-        countText.text = count.ToString();
-
-        if (count > 1)
+        private void Start()
         {
-            countText.gameObject.SetActive(true);
+            invUI = GameObject.Find("InventoryUI");
+            ui = invUI.GetComponent<InventoryUI>();
         }
-        else
+
+        public void InitialiseItem(Item newItem)
         {
-            countText.gameObject.SetActive(false);
+            item = newItem;
+            image.sprite = newItem.image;
+
+            UpdateCount();
         }
-    }
 
-    public void OnBeginDrag(PointerEventData eventData)
-    {
-        image.raycastTarget = false;
-        parentAfterDrag = transform.parent;
-        transform.SetParent(transform.root);
-    }
+        public void UpdateCount()
+        {
+            countText.text = count.ToString();
 
-    public void OnDrag(PointerEventData eventData)
-    {
-        Vector3 mousePos = Input.mousePosition;
-        transform.position = Camera.main.ScreenToWorldPoint(mousePos);
-        transform.position = new Vector3(transform.position.x, transform.position.y, 0);
-    }
+            if (count > 1)
+            {
+                countText.gameObject.SetActive(true);
+            }
+            else
+            {
+                countText.gameObject.SetActive(false);
+            }
+        }
 
-    public void OnEndDrag(PointerEventData eventData)
-    {
-        image.raycastTarget = true;
-        transform.SetParent(parentAfterDrag);
-    }
+        public void OnBeginDrag(PointerEventData eventData)
+        {
+            image.raycastTarget = false;
+            parentAfterDrag = transform.parent;
+            transform.SetParent(transform.root);
+        }
 
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        ui.nameText.text = item.itemName;
-        ui.descText.text = item.itemDesc;
-    }
+        public void OnDrag(PointerEventData eventData)
+        {
+            Vector3 mousePos = Input.mousePosition;
+            transform.position = Camera.main.ScreenToWorldPoint(mousePos);
+            transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+        }
 
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        ui.nameText.text = "";
-        ui.descText.text = "";
+        public void OnEndDrag(PointerEventData eventData)
+        {
+            image.raycastTarget = true;
+            transform.SetParent(parentAfterDrag);
+        }
+
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            ui.nameText.text = item.itemName;
+            ui.descText.text = item.itemDesc;
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            ui.nameText.text = "";
+            ui.descText.text = "";
+        }
     }
 }

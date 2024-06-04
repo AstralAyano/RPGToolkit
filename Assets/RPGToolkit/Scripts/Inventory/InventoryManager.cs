@@ -1,127 +1,126 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class InventoryManager : MonoBehaviour
+namespace RPGToolkit
 {
-    public static GameObject instance;
-
-    [Header("Objects")]
-    public InventorySlot[] invSlots;
-    public GameObject invItemPrefab;
-    public int selectedSlot = -1;
-
-    private void Awake()
+    public class InventoryManager : MonoBehaviour
     {
-        if (instance == null)
-        {
-            instance = gameObject;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
+        public static GameObject instance;
 
-    private void Update()
-    {
-        if (Input.inputString != null)
-        {
-            bool isNumber = int.TryParse(Input.inputString, out int number);
+        [Header("Objects")]
+        public InventorySlot[] invSlots;
+        public GameObject invItemPrefab;
+        public int selectedSlot = -1;
 
-            if (isNumber && number > 0 && number < 10)
+        private void Awake()
+        {
+            if (instance == null)
             {
-                ChangeSlot(number - 1);
+                instance = gameObject;
+                DontDestroyOnLoad(gameObject);
+            }
+            else
+            {
+                Destroy(gameObject);
             }
         }
-    }
 
-    private void ChangeSlot(int newSlot)
-    {
-        selectedSlot = newSlot;
-        Debug.Log("Selected slot " + selectedSlot);
-    }
-
-    public bool AddItem(Item item)
-    {
-        for (int i = 0; i < invSlots.Length; i++)
+        private void Update()
         {
-            InventorySlot slot = invSlots[i];
+            if (Input.inputString != null)
+            {
+                bool isNumber = int.TryParse(Input.inputString, out int number);
+
+                if (isNumber && number > 0 && number < 10)
+                {
+                    ChangeSlot(number - 1);
+                }
+            }
+        }
+
+        private void ChangeSlot(int newSlot)
+        {
+            selectedSlot = newSlot;
+            Debug.Log("Selected slot " + selectedSlot);
+        }
+
+        public bool AddItem(Item item)
+        {
+            for (int i = 0; i < invSlots.Length; i++)
+            {
+                InventorySlot slot = invSlots[i];
+                InventoryItem itemSlot = slot.GetComponentInChildren<InventoryItem>();
+
+                if (itemSlot != null && itemSlot.item.stackable == true && itemSlot.item == item && itemSlot.count < 5)
+                {
+                    itemSlot.count++;
+                    itemSlot.UpdateCount();
+                    return true;
+                }
+            }
+
+            for (int i = 0; i < invSlots.Length; i++)
+            {
+                InventorySlot slot = invSlots[i];
+
+                if (slot.GetComponentInChildren<InventoryItem>() == null)
+                {
+                    SpawnNewItem(item, slot);
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private void SpawnNewItem(Item item, InventorySlot slot)
+        {
+            GameObject newItemGO = Instantiate(invItemPrefab, slot.transform);
+
+            InventoryItem invItem = newItemGO.GetComponent<InventoryItem>();
+
+            invItem.InitialiseItem(item);
+        }
+
+        public Item GetSelectedItem(bool consumable, bool isHealthMax, bool isManaMax)
+        {
+            InventorySlot slot = invSlots[selectedSlot];
             InventoryItem itemSlot = slot.GetComponentInChildren<InventoryItem>();
 
-            if (itemSlot != null && itemSlot.item.stackable == true && itemSlot.item == item && itemSlot.count < 5)
+            if (itemSlot != null)
             {
-                itemSlot.count++;
-                itemSlot.UpdateCount();
-                return true;
-            }
-        }
+                Item item = itemSlot.item;
 
-        for (int i = 0; i < invSlots.Length; i++)
-        {
-            InventorySlot slot = invSlots[i];
-
-            if (slot.GetComponentInChildren<InventoryItem>() == null)
-            {
-                SpawnNewItem(item, slot);
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    private void SpawnNewItem(Item item, InventorySlot slot)
-    {
-        GameObject newItemGO = Instantiate(invItemPrefab, slot.transform);
-
-        InventoryItem invItem = newItemGO.GetComponent<InventoryItem>();
-
-        invItem.InitialiseItem(item);
-    }
-
-    public Item GetSelectedItem(bool consumable, bool isHealthMax, bool isManaMax)
-    {
-        InventorySlot slot = invSlots[selectedSlot];
-        InventoryItem itemSlot = slot.GetComponentInChildren<InventoryItem>();
-
-        if (itemSlot != null)
-        {
-            Item item = itemSlot.item;
-
-            if (consumable)
-            {
-                if (item.name.Contains("Health Potion") && isHealthMax)
+                if (consumable)
                 {
-                    Debug.Log("Health is full.");
-                    //sysText.DisplayText("A Scroll of Swift is already in effect.");
-                }
-                else if (item.name.Contains("Mana Potion") && isManaMax)
-                {
-                    Debug.Log("Mana is full.");
-                    //sysText.DisplayText("You can't use this scroll here.");
-                }
-                else
-                {
-                    itemSlot.count--;
-
-                    if (itemSlot.count <= 0)
+                    if (item.name.Contains("Health Potion") && isHealthMax)
                     {
-                        Destroy(itemSlot.gameObject);
+                        Debug.Log("Health is full.");
+                        //sysText.DisplayText("A Scroll of Swift is already in effect.");
+                    }
+                    else if (item.name.Contains("Mana Potion") && isManaMax)
+                    {
+                        Debug.Log("Mana is full.");
+                        //sysText.DisplayText("You can't use this scroll here.");
                     }
                     else
                     {
-                        itemSlot.UpdateCount();
+                        itemSlot.count--;
+
+                        if (itemSlot.count <= 0)
+                        {
+                            Destroy(itemSlot.gameObject);
+                        }
+                        else
+                        {
+                            itemSlot.UpdateCount();
+                        }
                     }
                 }
+
+                return item;
             }
 
-            return item;
+            return null;
         }
-
-        return null;
     }
 }

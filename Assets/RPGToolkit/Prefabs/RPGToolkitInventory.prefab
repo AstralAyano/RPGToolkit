@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7445095559244600984}
   - component: {fileID: 7445095559244600987}
   m_Layer: 0
-  m_Name: InventoryModule
+  m_Name: RPGToolkitInventory
   m_TagString: RPGToolkitInventory
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

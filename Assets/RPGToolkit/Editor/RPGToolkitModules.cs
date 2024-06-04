@@ -8,8 +8,8 @@ namespace RPGToolkit
     {
         private const string UIPath = "Assets/RPGToolkit/Prefabs/RPGToolkitUI.prefab";
         private const string PlayerPath = "Assets/RPGToolkit/Prefabs/RPGToolkitPlayer.prefab";
-        private const string InventoryPath = "Assets/RPGToolkit/Prefabs/Inventory/InventoryModule.prefab";
-        private const string QuestPath = "Assets/RPGToolkit/Prefabs/Quest/QuestManager.prefab";
+        private const string InventoryPath = "Assets/RPGToolkit/Prefabs/RPGToolkitInventory.prefab";
+        private const string QuestPath = "Assets/RPGToolkit/Prefabs/RPGToolkitQuest.prefab";
         
         private static GameObject uiModule, playerModule, inventoryModule, questModule;
         private static string modulePath;

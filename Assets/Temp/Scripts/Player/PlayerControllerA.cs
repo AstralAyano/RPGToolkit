@@ -259,7 +259,7 @@ public class PlayerControllerA : MonoBehaviour
         // Check if player presses Q to activate skill, whether player has enough mana and that skill isn't already in use.
         if (Input.GetKeyDown(KeyCode.Q) && currMP >= 10 && canUseSkill1)
         {
-            StartCoroutine(Skill());
+            //StartCoroutine(Skill());
         }
     }
 
@@ -309,7 +309,7 @@ public class PlayerControllerA : MonoBehaviour
         dashCDStart = false;
     }
 
-    IEnumerator Skill()
+    /*IEnumerator Skill()
     {
         GameObject closestEnemy = GetComponentInChildren<SkillRange>().ClosestEnemy();
 
@@ -350,25 +350,25 @@ public class PlayerControllerA : MonoBehaviour
         {
             Debug.Log("Skill 1 : No enemy in range.");
         }
-    }
+    }*/
 
-    // public void MeleeRangeDetected(MeleeRange meleeRange, Collider2D other)
-    // {
-    //     if (!attackToResolve)
-    //     {
-    //         if (other.gameObject.layer == LayerMask.NameToLayer("Enemy") ||
-    //             other.gameObject.layer == LayerMask.NameToLayer("EnemyShield"))
-    //         {
-    //             if (PlayerState == ATTACK)
-    //             {
-    //                 Debug.Log("Attacked Enemy");
-    //                 attackToResolve = true;
+    /*public void MeleeRangeDetected(MeleeRange meleeRange, Collider2D other)
+    {
+        if (!attackToResolve)
+        {
+            if (other.gameObject.layer == LayerMask.NameToLayer("Enemy") ||
+                other.gameObject.layer == LayerMask.NameToLayer("EnemyShield"))
+            {
+                if (PlayerState == ATTACK)
+                {
+                    Debug.Log("Attacked Enemy");
+                    attackToResolve = true;
 
-    //                 other.gameObject.SendMessage("TakeDamage", 10, SendMessageOptions.DontRequireReceiver);
-    //             }
-    //         }
-    //     }
-    // }
+                    other.gameObject.SendMessage("TakeDamage", 10, SendMessageOptions.DontRequireReceiver);
+                }
+            }
+        }
+    }*/
 
     public void BlockRangeDetected(Collider2D other)
     {

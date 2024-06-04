@@ -10,8 +10,12 @@ namespace RPGToolkit
         private const string PlayerPath = "Assets/RPGToolkit/Prefabs/RPGToolkitPlayer.prefab";
         private const string InventoryPath = "Assets/RPGToolkit/Prefabs/RPGToolkitInventory.prefab";
         private const string QuestPath = "Assets/RPGToolkit/Prefabs/RPGToolkitQuest.prefab";
+
+        private const string InventoryUIPath = "Assets/RPGToolkit/Prefabs/Inventory/InventoryUI.prefab";
         
-        private static GameObject uiModule, playerModule, inventoryModule, questModule;
+        private static GameObject uiCanvas;
+        private static GameObject inventoryUI, questUI;
+        private static GameObject playerModule, inventoryModule, questModule;
         private static string modulePath;
         private static string moduleName;
 
@@ -19,7 +23,7 @@ namespace RPGToolkit
         [MenuItem("RPG Toolkit/Create RPGToolkit UI", false, 10)]
         static void CreateUI()
         {
-            if (uiModule == null)
+            if (uiCanvas == null)
             {
                 CreateModule(UIPath, "UI Module");
             }
@@ -28,7 +32,7 @@ namespace RPGToolkit
         [MenuItem("RPG Toolkit/Create RPGToolkit UI", true, 10)]
         static bool ValidateCreateUI()
         {
-            return uiModule == null && GameObject.FindWithTag("RPGToolkitUI") == null;
+            return uiCanvas == null && GameObject.FindWithTag("RPGToolkitUI") == null;
         }
 
         // Player Module
@@ -97,7 +101,12 @@ namespace RPGToolkit
                 switch (moduleName)
                 {
                     case "UI Module":
-                        uiModule = moduleInstance;
+                        uiCanvas = moduleInstance;
+                        uiCanvas.GetComponent<Canvas>().worldCamera = Camera.main;
+                        if (inventoryModule != null)
+                        {
+                            InventoryReferences(inventoryModule);
+                        }
                         break;
                     case "Player Module":
                         playerModule = moduleInstance;
@@ -124,13 +133,31 @@ namespace RPGToolkit
             modulePath = prefabPath;
             RPGToolkitModules.moduleName = moduleName;
 
-            uiModule = GameObject.FindWithTag("RPGToolkitUI");
-            if (uiModule == null)
+            uiCanvas = GameObject.FindWithTag("RPGToolkitUI");
+            if (uiCanvas == null)
             {
                 Debug.Log("Module Creation : UI Module not found, creating UI Module...");
 
-                uiModule = CreateModule(UIPath, "UI Module");
-                uiModule.GetComponent<Canvas>().worldCamera = Camera.main;
+                uiCanvas = CreateModule(UIPath, "UI Module");
+                uiCanvas.GetComponent<Canvas>().worldCamera = Camera.main;
+            }
+
+            if (uiCanvas.activeSelf)
+            {
+                switch (moduleName)
+                {
+                    case "Inventory Module":
+                        inventoryUI = CreateModule(InventoryUIPath, "Inventory UI");
+                        inventoryUI.transform.SetParent(uiCanvas.transform);
+                        RectTransform rectTransform = inventoryUI.GetComponent<RectTransform>();
+                        rectTransform.localScale = new Vector3(1, 1, 1);
+                        rectTransform.offsetMin = new Vector2(0, 0);
+                        rectTransform.offsetMax = new Vector2(0, 0);
+                        break;
+                    case "Quest Module":
+                        // Need to put
+                        break;
+                }
             }
 
             if (needUIReference)
@@ -149,7 +176,7 @@ namespace RPGToolkit
             Debug.Log("Module Creation : Waiting for UI Module to fully initialize.");
 
             // Wait until the UI Module is active
-            if (uiModule.activeSelf)
+            if (uiCanvas.activeSelf)
             {
                 // Create the Module
                 GameObject moduleInstance = CreateModule(modulePath, moduleName);
@@ -157,54 +184,59 @@ namespace RPGToolkit
                 {
                     if (moduleName.Contains("Inventory"))
                     {
-                        Debug.Log("Inventory Module : Need References.");
-
-                        // Find objects with specific tags within the RPGToolkitUI
-                        List<InventorySlot> taggedObjects = new List<InventorySlot>();
-
-                        // Find InventoryHotbar objects and their children under uiModule
-                        foreach (Transform child in uiModule.transform)
-                        {
-                            if (child.CompareTag("RPGToolkitInventoryBar"))
-                            {
-                                // Add InventorySlots from the hotbar with the name containing "BarSlot"
-                                taggedObjects.AddRange(FindChildObjectsWithName(child, "BarSlot"));
-                            }
-                        }
-
-                        // Find InventoryBag objects and their children (including inactive) under uiModule
-                        foreach (Transform child in uiModule.transform)
-                        {
-                            // Check if the child's tag matches "InventoryBag" regardless of its active state
-                            if (child.tag == "RPGToolkitInventoryBag")
-                            {
-                                // Add InventorySlots from the bag with the name containing "BarSlot"
-                                taggedObjects.AddRange(FindChildObjectsWithNameRecursive(child, "BarSlot"));
-                            }
-                        }
-
-                        Debug.Log("Inventory Module : Found " + taggedObjects.Count + " InventorySlots.");
-
-                        // Set the references in InventoryManager.cs of the InventoryPrefab
-                        InventoryManager inventoryManager = moduleInstance.GetComponent<InventoryManager>();
-                        if (inventoryManager != null)
-                        {
-                            // Assign the found slots to the InventoryManager
-                            inventoryManager.invSlots = taggedObjects.ToArray();
-
-                            // Save the changes to the InventoryManager prefab
-                            PrefabUtility.SaveAsPrefabAsset(moduleInstance, modulePath);
-                            Debug.Log("Inventory Module : InventorySlots assigned to InventoryManager.");
-                        }
-                        else
-                        {
-                            Debug.LogWarning("Inventory Module : InventoryManager component not found in InventoryManager Prefab.");
-                        }
+                        InventoryReferences(moduleInstance);
                     }
 
                     // Unsubscribe from the EditorApplication.update event to prevent further calls to WaitForUIModule
                     EditorApplication.update -= WaitForUIModule;
                 }
+            }
+        }
+
+        static void InventoryReferences(GameObject moduleInstance)
+        {
+            Debug.Log("Inventory Module : Need References.");
+
+            // Find objects with specific tags within the RPGToolkitUI
+            List<InventorySlot> taggedObjects = new List<InventorySlot>();
+
+            // Find InventoryHotbar objects and their children under uiModule
+            foreach (Transform child in inventoryUI.transform)
+            {
+                if (child.CompareTag("RPGToolkitInventoryBar"))
+                {
+                    // Add InventorySlots from the hotbar with the name containing "BarSlot"
+                    taggedObjects.AddRange(FindChildObjectsWithName(child, "BarSlot"));
+                }
+            }
+
+            // Find InventoryBag objects and their children (including inactive) under uiModule
+            foreach (Transform child in inventoryUI.transform)
+            {
+                // Check if the child's tag matches "InventoryBag" regardless of its active state
+                if (child.tag == "RPGToolkitInventoryBag")
+                {
+                    // Add InventorySlots from the bag with the name containing "BarSlot"
+                    taggedObjects.AddRange(FindChildObjectsWithNameRecursive(child, "BarSlot"));
+                }
+            }
+
+            Debug.Log("Inventory Module : Found " + taggedObjects.Count + " InventorySlots.");
+
+            // Set the references in InventoryManager.cs of the InventoryPrefab
+            InventoryManager inventoryManager = moduleInstance.GetComponent<InventoryManager>();
+            if (inventoryManager != null)
+            {
+                // Assign the found slots to the InventoryManager
+                inventoryManager.invSlots = taggedObjects.ToArray();
+
+                // Save the changes to the InventoryManager prefab
+                PrefabUtility.SaveAsPrefabAsset(moduleInstance, modulePath);
+                Debug.Log("Inventory Module : InventorySlots assigned to InventoryManager.");
+            }
+            else
+            {
+                Debug.LogWarning("Inventory Module : InventoryManager component not found in InventoryManager Prefab.");
             }
         }
 

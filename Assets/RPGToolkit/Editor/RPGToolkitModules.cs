@@ -5,8 +5,8 @@ using UnityEditor;
 public class RPGToolkitModules
 {
     private const string UIPath = "Assets/RPGToolkit/Prefabs/RPGToolkitUI.prefab";
-    private const string PlayerPath = "Assets/RPGToolkit/Prefabs/Player.prefab";
-    private const string InventoryPath = "Assets/RPGToolkit/Prefabs/Inventory/InventoryManager.prefab";
+    private const string PlayerPath = "Assets/RPGToolkit/Prefabs/RPGToolkitPlayer.prefab";
+    private const string InventoryPath = "Assets/RPGToolkit/Prefabs/Inventory/InventoryModule.prefab";
     private const string QuestPath = "Assets/RPGToolkit/Prefabs/Quest/QuestManager.prefab";
 
     private static GameObject uiModule, playerModule, inventoryModule, questModule;
@@ -25,7 +25,7 @@ public class RPGToolkitModules
     [MenuItem("RPG Toolkit/Create RPGToolkit UI", true, 10)]
     static bool ValidateCreateUI()
     {
-        return uiModule == null;
+        return uiModule == null && GameObject.FindWithTag("RPGToolkitUI") == null;
     }
 
     // Player Module
@@ -40,7 +40,7 @@ public class RPGToolkitModules
     [MenuItem("RPG Toolkit/Create Player Module", true, 11)]
     static bool ValidateCreatePlayer()
     {
-        return playerModule == null;
+        return playerModule == null && GameObject.FindWithTag("RPGToolkitPlayer") == null;
     }
 
     // Inventory Module
@@ -55,7 +55,7 @@ public class RPGToolkitModules
     [MenuItem("RPG Toolkit/Create Inventory Module", true, 12)]
     static bool ValidateCreateInventory()
     {
-        return inventoryModule == null;
+        return inventoryModule == null && GameObject.FindWithTag("RPGToolkitInventory") == null;
     }
 
     // Quest Module
@@ -92,6 +92,9 @@ public class RPGToolkitModules
             {
                 case "UI Module":
                     uiModule = moduleInstance;
+                    break;
+                case "Player Module":
+                    playerModule = moduleInstance;
                     break;
                 case "Inventory Module":
                     inventoryModule = moduleInstance;
@@ -146,7 +149,7 @@ public class RPGToolkitModules
             GameObject moduleInstance = CreateModule(modulePath, moduleName);
             if (moduleInstance != null)
             {
-                if (modulePath.Contains("Inventory"))
+                if (moduleName.Contains("Inventory"))
                 {
                     Debug.Log("Inventory Module : Need References.");
 
@@ -156,7 +159,7 @@ public class RPGToolkitModules
                     // Find InventoryHotbar objects and their children under uiModule
                     foreach (Transform child in uiModule.transform)
                     {
-                        if (child.CompareTag("InventoryHotbar"))
+                        if (child.CompareTag("RPGToolkitInventoryBar"))
                         {
                             // Add InventorySlots from the hotbar with the name containing "BarSlot"
                             taggedObjects.AddRange(FindChildObjectsWithName(child, "BarSlot"));
@@ -167,7 +170,7 @@ public class RPGToolkitModules
                     foreach (Transform child in uiModule.transform)
                     {
                         // Check if the child's tag matches "InventoryBag" regardless of its active state
-                        if (child.tag == "InventoryBag")
+                        if (child.tag == "RPGToolkitInventoryBag")
                         {
                             // Add InventorySlots from the bag with the name containing "BarSlot"
                             taggedObjects.AddRange(FindChildObjectsWithNameRecursive(child, "BarSlot"));

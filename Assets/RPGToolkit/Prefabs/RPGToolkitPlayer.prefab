@@ -5642,8 +5642,8 @@ GameObject:
   - component: {fileID: 4479119457141846902}
   - component: {fileID: 4479119457141846901}
   m_Layer: 10
-  m_Name: Player
-  m_TagString: Player
+  m_Name: RPGToolkitPlayer
+  m_TagString: RPGToolkitPlayer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

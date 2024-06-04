@@ -13,9 +13,11 @@ TagManager:
   - Item
   - Portal
   - SceneManager
-  - InventoryHotbar
-  - InventoryBag
   - RPGToolkitUI
+  - RPGToolkitPlayer
+  - RPGToolkitInventory
+  - RPGToolkitInventoryBar
+  - RPGToolkitInventoryBag
   - InventoryModule
   layers:
   - Default

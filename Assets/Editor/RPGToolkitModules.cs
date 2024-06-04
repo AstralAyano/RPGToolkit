@@ -30,13 +30,13 @@ public class RPGToolkitModules
         CreateModuleWithUI(QuestPath, false);
     }
 
-    static void CreateModule(string prefabPath)
+    static GameObject CreateModule(string prefabPath)
     {
         GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
         if (prefab == null)
         {
             Debug.LogError("Prefab not found at " + prefabPath);
-            return;
+            return prefab;
         }
 
         GameObject instance = PrefabUtility.InstantiatePrefab(prefab) as GameObject;
@@ -44,10 +44,12 @@ public class RPGToolkitModules
         {
             Undo.RegisterCreatedObjectUndo(instance, "Create " + instance.name);
             Selection.activeObject = instance;
+            return instance;
         }
         else
         {
             Debug.LogError("Failed to instantiate prefab.");
+            return null;
         }
     }
 
@@ -60,23 +62,8 @@ public class RPGToolkitModules
         {
             Debug.Log("UI Module not found. Creating it...");
 
-            GameObject uiPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(UIPath);
-            if (uiPrefab == null)
-            {
-                Debug.LogError("UI Module prefab not found at " + UIPath);
-                return;
-            }
-
-            uiModule = PrefabUtility.InstantiatePrefab(uiPrefab) as GameObject;
-            if (uiModule != null)
-            {
-                Undo.RegisterCreatedObjectUndo(uiModule, "Create " + uiModule.name);
-            }
-            else
-            {
-                Debug.LogError("Failed to instantiate UI Module prefab.");
-                return;
-            }
+            uiModule = CreateModule(UIPath);
+            uiModule.GetComponent<Canvas>().worldCamera = Camera.main;
         }
 
         if (needUIReference)

@@ -10,94 +10,91 @@ public class RPGToolkitModules
 
     private static GameObject uiModule;
     private static string modulePath;
+    private static string moduleName;
     private static bool inventoryModuleExist = false;
 
     [MenuItem("GameObject/RPG Toolkit Modules/Create RPGToolkit UI", false, 10)]
     static void CreateUI()
     {
-        CreateModule(UIPath);
+        CreateModule(UIPath, "UI Module");
     }
 
     [MenuItem("GameObject/RPG Toolkit Modules/Create Inventory Module", false, 11)]
     static void CreateInventory()
     {
-        CreateModuleWithUI(InventoryPath, true);
+        CreateModuleWithUI(InventoryPath, "Inventory Module", true);
     }
 
     [MenuItem("GameObject/RPG Toolkit Modules/Create Quest Module", false, 12)]
     static void CreateQuest()
     {
-        CreateModuleWithUI(QuestPath, false);
+        CreateModuleWithUI(QuestPath, "Quest Module", false);
     }
 
-    static GameObject CreateModule(string prefabPath)
+    static GameObject CreateModule(string prefabPath, string moduleName)
     {
         GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
         if (prefab == null)
         {
-            Debug.LogError("Prefab not found at " + prefabPath);
-            return prefab;
+            Debug.LogError("Module Creation Error : Prefab cannot be found at " + prefabPath);
         }
 
-        GameObject instance = PrefabUtility.InstantiatePrefab(prefab) as GameObject;
-        if (instance != null)
+        GameObject moduleInstance = PrefabUtility.InstantiatePrefab(prefab) as GameObject;
+        if (moduleInstance != null)
         {
-            Undo.RegisterCreatedObjectUndo(instance, "Create " + instance.name);
-            Selection.activeObject = instance;
-            return instance;
+            Undo.RegisterCreatedObjectUndo(moduleInstance, "Create " + moduleInstance.name);
+            Selection.activeObject = moduleInstance;
+
+            Debug.Log("Module Creation Successful : " + moduleName + " is active.");
+
+            return moduleInstance;
         }
         else
         {
-            Debug.LogError("Failed to instantiate prefab.");
+            Debug.LogError("Module Creation Error : Failed to instantiate prefab.");
             return null;
         }
     }
 
-    static void CreateModuleWithUI(string modulePath, bool needUIReference)
+    static void CreateModuleWithUI(string prefabPath, string moduleName, bool needUIReference)
     {
-        RPGToolkitModules.modulePath = modulePath;
+        modulePath = prefabPath;
+        RPGToolkitModules.moduleName = moduleName;
 
         uiModule = GameObject.FindWithTag("RPGToolkitUI");
         if (uiModule == null)
         {
-            Debug.Log("UI Module not found. Creating it...");
+            Debug.Log("Module Creation : UI Module not found, creating UI Module...");
 
-            uiModule = CreateModule(UIPath);
+            uiModule = CreateModule(UIPath, "UI Module");
             uiModule.GetComponent<Canvas>().worldCamera = Camera.main;
         }
 
         if (needUIReference)
         {
-            // Start waiting for the UIModule to become active
+            // Start waiting for the UI Module to become active
             EditorApplication.update += WaitForUIModule;
         }
         else
         {
-            CreateModule(modulePath);
+            CreateModule(modulePath, "");
         }
     }
 
     static void WaitForUIModule()
     {
-        Debug.Log("Waiting for UI Module...");
+        Debug.Log("Module Creation : Waiting for UI Module to fully initialize.");
 
-        // Wait until the UIModule is active
+        // Wait until the UI Module is active
         if (uiModule.activeSelf)
         {
-            Debug.Log("UI Module is active.");
-
-            // Create the InventoryModule
-            GameObject moduleInstance = PrefabUtility.InstantiatePrefab(AssetDatabase.LoadAssetAtPath<GameObject>(modulePath)) as GameObject;
+            // Create the Module
+            GameObject moduleInstance = CreateModule(modulePath, moduleName);
             if (moduleInstance != null)
             {
-                Debug.Log("Inventory Module instantiated.");
-
-                Undo.RegisterCreatedObjectUndo(moduleInstance, "Create " + moduleInstance.name);
-                Selection.activeObject = moduleInstance;
-
                 if (modulePath.Contains("Inventory"))
                 {
-                    Debug.Log("Needs UI References.");
+                    Debug.Log("Inventory Module : Need References.");
 
                     // Find objects with specific tags within the RPGToolkitUI
                     List<InventorySlot> taggedObjects = new List<InventorySlot>();
@@ -123,7 +120,7 @@ public class RPGToolkitModules
                         }
                     }
 
-                    Debug.Log("Found " + taggedObjects.Count + " InventorySlots.");
+                    Debug.Log("Inventory Module : Found " + taggedObjects.Count + " InventorySlots.");
 
                     // Set the references in InventoryManager.cs of the InventoryPrefab
                     InventoryManager inventoryManager = moduleInstance.GetComponent<InventoryManager>();
@@ -134,20 +131,16 @@ public class RPGToolkitModules
 
                         // Save the changes to the InventoryManager prefab
                         PrefabUtility.SaveAsPrefabAsset(moduleInstance, modulePath);
-                        Debug.Log("InventorySlots assigned to InventoryManager.");
+                        Debug.Log("Inventory Module : InventorySlots assigned to InventoryManager.");
                     }
                     else
                     {
-                        Debug.LogWarning("InventoryManager component not found in InventoryPrefab.");
+                        Debug.LogWarning("Inventory Module : InventoryManager component not found in InventoryManager Prefab.");
                     }
                 }
 
                 // Unsubscribe from the EditorApplication.update event to prevent further calls to WaitForUIModule
                 EditorApplication.update -= WaitForUIModule;
-            }
-            else
-            {
-                Debug.LogError("Failed to instantiate module prefab.");
             }
         }
     }

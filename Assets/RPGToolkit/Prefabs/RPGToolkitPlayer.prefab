@@ -5786,7 +5786,7 @@ MonoBehaviour:
   maxStaminaPoint: 0
   baseWalkSpeed: 5
   currentWalkSpeed: 0
-  baseJumpHeight: 0
+  baseJumpHeight: 5
   wallSlidingSpeed: 1
   wallJumpDuration: 0.2
   wallJumpForce: {x: 2, y: 5}

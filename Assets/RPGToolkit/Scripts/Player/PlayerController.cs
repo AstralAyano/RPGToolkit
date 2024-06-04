@@ -110,6 +110,7 @@ namespace RPGToolkit
         private void Update()
         {
             PlayerMovement();
+            PlayerJump();
 
             CheckWallSliding();
 
@@ -167,6 +168,23 @@ namespace RPGToolkit
             //         StartCoroutine(PlayerDash());
             //     }
             // }
+        }
+
+        private void PlayerJump()
+        {
+            // Check if player is pressing Spacebar and if they are either in Land, Attack or Block State.
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                if (isWallSliding)
+                {
+                    isWallJumping = true;
+                    Invoke("StopWallJump", wallJumpDuration);
+                }
+                else if (PlayerState == LAND || PlayerState == ATTACK || PlayerState == SKILL)
+                {
+                    rb.AddForce(Vector3.up * baseJumpHeight, ForceMode2D.Impulse);
+                }
+            }
         }
 
         private void UpdatePlayerDirection()

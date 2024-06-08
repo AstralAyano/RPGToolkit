@@ -42,6 +42,7 @@ namespace RPGToolkit
             if (playerModule == null)
             {
                 CreateModule(PlayerPath, "Player Module");
+                Physics.IgnoreLayerCollision(LayerMask.NameToLayer("PlayerTrigger"), LayerMask.NameToLayer("Item"), true);
             }
         }
 
@@ -58,6 +59,7 @@ namespace RPGToolkit
             if (inventoryModule == null)
             {
                 CreateModuleWithUI(InventoryPath, "Inventory Module", true);
+                Physics.IgnoreLayerCollision(LayerMask.NameToLayer("PlayerTrigger"), LayerMask.NameToLayer("Item"), true);
             }
         }
 

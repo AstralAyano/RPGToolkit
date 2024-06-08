@@ -187,6 +187,11 @@ namespace RPGToolkit
             }
         }
 
+        void StopWallJump()
+        {
+            isWallJumping = false;
+        }
+
         private void UpdatePlayerDirection()
         {
             if (dirH > 0f)

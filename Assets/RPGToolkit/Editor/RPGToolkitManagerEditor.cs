@@ -77,7 +77,7 @@ namespace RPGToolkit
             GUILayout.Space(foldoutItemSpace);
             GUILayout.BeginVertical(EditorStyles.helpBox);
 
-            // Colors       
+            // UI Colors       
             var primaryColor = serializedObject.FindProperty("primaryColor");
             var secondaryColor = serializedObject.FindProperty("secondaryColor");
             var primaryReversed = serializedObject.FindProperty("primaryReversed");
@@ -104,7 +104,7 @@ namespace RPGToolkit
             GUILayout.Space(foldoutItemSpace);
             GUILayout.BeginVertical(EditorStyles.helpBox);
 
-            // Fonts
+            // UI Fonts
             var lightFont = serializedObject.FindProperty("lightFont");
             var regularFont = serializedObject.FindProperty("regularFont");
             var mediumFont = serializedObject.FindProperty("mediumFont");
@@ -131,7 +131,7 @@ namespace RPGToolkit
             GUILayout.Space(foldoutItemSpace);
             GUILayout.BeginVertical(EditorStyles.helpBox);
 
-            // Sounds
+            // UI Sounds
             var backgroundMusic = serializedObject.FindProperty("backgroundMusic");
             var hoverSound = serializedObject.FindProperty("hoverSound");
             var clickSound = serializedObject.FindProperty("clickSound");
@@ -150,7 +150,7 @@ namespace RPGToolkit
                 RPGToolkitEditorHandler.DrawProperty(clickSound, customSkin, "Click SFX");
             }
 
-            // Settings
+            //UI Settings
             GUILayout.EndVertical();
             RPGToolkitEditorHandler.DrawHeader(customSkin, "Options Header", 14);
 

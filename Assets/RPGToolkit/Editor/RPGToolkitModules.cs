@@ -13,7 +13,7 @@ namespace RPGToolkit
         private const string QuestPath = "Assets/RPGToolkit/Prefabs/RPGToolkitQuest.prefab";
 
         private const string InventoryUIPath = "Assets/RPGToolkit/Prefabs/Inventory/InventoryUI.prefab";
-        private const string QuestSOPath = "Assets/RPGToolkit/Quest";
+        private const string QuestSOPath = "Assets/RPGToolkit/Resources/Quests";
         
         private static GameObject uiCanvas;
         private static GameObject inventoryUI, questUI;

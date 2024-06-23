@@ -33,7 +33,7 @@ namespace RPGToolkit
 
         public void UseSelectedItem()
         {
-            Item usingItem = invManager.GetSelectedItem(true, controller.isHealthMax, controller.isManaMax);
+            ItemInfoSO usingItem = invManager.GetSelectedItem(true, controller.isHealthMax, controller.isManaMax);
 
             if (usingItem != null)
             {

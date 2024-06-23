@@ -43,7 +43,7 @@ namespace RPGToolkit
             Debug.Log("Selected slot " + selectedSlot);
         }
 
-        public bool AddItem(Item item)
+        public bool AddItem(ItemInfoSO item)
         {
             for (int i = 0; i < invSlots.Length; i++)
             {
@@ -72,7 +72,7 @@ namespace RPGToolkit
             return false;
         }
 
-        private void SpawnNewItem(Item item, InventorySlot slot)
+        private void SpawnNewItem(ItemInfoSO item, InventorySlot slot)
         {
             GameObject newItemGO = Instantiate(invItemPrefab, slot.transform);
 
@@ -81,14 +81,14 @@ namespace RPGToolkit
             invItem.InitialiseItem(item);
         }
 
-        public Item GetSelectedItem(bool consumable, bool isHealthMax, bool isManaMax)
+        public ItemInfoSO GetSelectedItem(bool consumable, bool isHealthMax, bool isManaMax)
         {
             InventorySlot slot = invSlots[selectedSlot];
             InventoryItem itemSlot = slot.GetComponentInChildren<InventoryItem>();
 
             if (itemSlot != null)
             {
-                Item item = itemSlot.item;
+                ItemInfoSO item = itemSlot.item;
 
                 if (consumable)
                 {

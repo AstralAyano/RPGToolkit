@@ -5,7 +5,7 @@ using TMPro;
 
 namespace RPGToolkit
 {
-    [CreateAssetMenu(fileName = "New RPGToolkit Manager", menuName = "RPGToolkit/New Manager")]
+    [CreateAssetMenu(fileName = "RPGToolkitManager", menuName = "RPGToolkit/New RPGToolkit Manager", order = 11)]
     public class RPGToolkitManager : ScriptableObject
     {
         [HideInInspector] public bool enableDynamicUpdate = true;

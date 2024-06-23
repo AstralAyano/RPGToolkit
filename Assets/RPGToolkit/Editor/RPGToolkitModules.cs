@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using System.IO;
 
 namespace RPGToolkit
 {
@@ -12,6 +13,7 @@ namespace RPGToolkit
         private const string QuestPath = "Assets/RPGToolkit/Prefabs/RPGToolkitQuest.prefab";
 
         private const string InventoryUIPath = "Assets/RPGToolkit/Prefabs/Inventory/InventoryUI.prefab";
+        private const string QuestSOPath = "Assets/RPGToolkit/Quest";
         
         private static GameObject uiCanvas;
         private static GameObject inventoryUI, questUI;
@@ -85,6 +87,22 @@ namespace RPGToolkit
             return questModule == null;
         }
 
+        [MenuItem("RPG Toolkit/Create New Quest", false, 14)]
+        static void CreateNewQuestSO()
+        {
+            if (questModule != null)
+            {
+                CreateNewQuest();
+            }
+            CreateNewQuest();
+        }
+
+        [MenuItem("RPG Toolkit/Create New Quest", true, 14)]
+        static bool ValidateCreateNewQuestSO()
+        {
+            return questModule == null;
+        }
+
         static GameObject CreateModule(string prefabPath, string moduleName)
         {
             GameObject modulePrefab = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
@@ -152,9 +170,7 @@ namespace RPGToolkit
                         inventoryUI = CreateModule(InventoryUIPath, "Inventory UI");
                         inventoryUI.transform.SetParent(uiCanvas.transform);
                         RectTransform rectTransform = inventoryUI.GetComponent<RectTransform>();
-                        rectTransform.localScale = new Vector3(1, 1, 1);
-                        rectTransform.offsetMin = new Vector2(0, 0);
-                        rectTransform.offsetMax = new Vector2(0, 0);
+                        SetPadding(rectTransform, 0, 0);
                         break;
                     case "Quest Module":
                         // Need to put
@@ -242,6 +258,70 @@ namespace RPGToolkit
             }
         }
 
+        static void CreateNewQuest()
+        {
+            string defaultFileName = "NewQuest.asset";
+
+            if (!Directory.Exists(QuestSOPath))
+            {
+                Debug.Log("Quest Directory could not be found. Creating Directory...");
+
+                Directory.CreateDirectory(QuestSOPath);
+
+                Debug.Log("Quest Directory created: " + QuestSOPath);
+            }
+
+            // Prompt the user to specify the file name and path
+            string fileName = EditorUtility.SaveFilePanel(
+            "Save Quest Scriptable Object",
+            QuestSOPath,
+            defaultFileName,
+            "asset"
+            );
+
+            // If the user cancels the dialog, fileName will be empty
+            if (string.IsNullOrEmpty(fileName))
+            {
+                return;
+            }
+
+            Debug.Log("Creating new Quest Scriptable Object...");
+            // Extract just the file name from the full path
+            string assetFileName = Path.GetFileName(fileName);
+
+            // Create the asset path using the predetermined directory and the user-specified file name
+            string assetPath = Path.Combine(QuestSOPath, assetFileName);
+
+            // Ensure the asset path has the correct extension
+            if (!assetPath.EndsWith(".asset"))
+            {
+                assetPath += ".asset";
+            }
+
+            // Generate a unique path for the asset (if needed)
+            assetPath = AssetDatabase.GenerateUniqueAssetPath(assetPath);
+
+            // Create the asset
+            QuestInfoSO asset = ScriptableObject.CreateInstance<QuestInfoSO>();
+
+            // Create the asset in the specified path
+            AssetDatabase.CreateAsset(asset, assetPath);
+
+            // Save the changes
+            AssetDatabase.SaveAssets();
+
+            Debug.Log("Successfully created new Quest Scriptable Object at: " + assetPath);
+
+            // Focus on the project window
+            EditorUtility.FocusProjectWindow();
+
+            assetFileName = assetFileName.Replace(".asset", "");
+            asset.questID = assetFileName;
+
+            // Select the created asset
+            Selection.activeObject = asset;
+        }
+
         static List<InventorySlot> FindChildObjectsWithName(Transform parent, string slotNameContains)
         {
             List<InventorySlot> taggedObjects = new List<InventorySlot>();
@@ -290,6 +370,20 @@ namespace RPGToolkit
                 // Recursively search through all child objects
                 FindChildObjectsWithNameRecursive(child, slotNameContains, taggedObjects);
             }
+        }
+
+        static void SetPadding(RectTransform rect, float horizontal, float vertical)
+        {
+            rect.localScale = new Vector3(1, 1, 1);
+            rect.offsetMax = new Vector2(-horizontal, -vertical);
+            rect.offsetMin = new Vector2(horizontal, vertical);
+        }
+
+        static void SetPadding(RectTransform rect, float left, float top, float right, float bottom)
+        {
+            rect.localScale = new Vector3(1, 1, 1);
+            rect.offsetMax = new Vector2(-right, -top);
+            rect.offsetMin = new Vector2(left, bottom);
         }
     }
 }

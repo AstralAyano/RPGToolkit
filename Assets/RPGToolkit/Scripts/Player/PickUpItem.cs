@@ -8,7 +8,7 @@ namespace RPGToolkit
         public InventoryManager invManager;
 
         [Header("List of Scriptable Objects")]
-        public Item[] itemsToPickup;
+        public ItemInfoSO[] itemsToPickup;
 
         private void Start()
         {

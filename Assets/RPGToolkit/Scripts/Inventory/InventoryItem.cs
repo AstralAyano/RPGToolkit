@@ -13,7 +13,7 @@ namespace RPGToolkit
         public GameObject invUI;
         public InventoryUI ui;
 
-        [HideInInspector] public Item item;
+        [HideInInspector] public ItemInfoSO item;
         [HideInInspector] public int count = 1;
         [HideInInspector] public Transform parentAfterDrag;
 
@@ -23,7 +23,7 @@ namespace RPGToolkit
             ui = invUI.GetComponent<InventoryUI>();
         }
 
-        public void InitialiseItem(Item newItem)
+        public void InitialiseItem(ItemInfoSO newItem)
         {
             item = newItem;
             image.sprite = newItem.image;

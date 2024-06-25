@@ -17,6 +17,7 @@ MonoBehaviour:
   questType: 0
   playerLevelRequirement: 0
   questPrerequisites: []
-  questSteps: []
+  questSteps:
+  - {fileID: 6929277403133531627, guid: ce322151363edea448ca1f61207f7ede, type: 3}
   currencyReward: 0
   experienceReward: 0

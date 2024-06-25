@@ -1,5 +1,4 @@
 using UnityEngine;
-using System;
 
 namespace RPGToolkit
 {
@@ -9,7 +8,7 @@ namespace RPGToolkit
         [SerializeField] private int amountToComplete = 0;
         [SerializeField] private int amountCollected = 0;
 
-        private void OnEnable()
+        private void Start()
         {
             QuestManager.instance.collectEvents.onItemCollected += ItemCollected;
         }
@@ -21,7 +20,9 @@ namespace RPGToolkit
 
         private void ItemCollected(ItemInfoSO itemCollected)
         {
-            if (itemCollected == itemToCollect)
+            Debug.Log("ItemCollected Called");
+
+            if (itemCollected.itemName == itemToCollect.itemName)
             {
                 if (amountCollected < amountToComplete)
                 {

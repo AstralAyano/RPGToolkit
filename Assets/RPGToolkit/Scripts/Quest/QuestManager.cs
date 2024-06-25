@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,10 +6,9 @@ namespace RPGToolkit
     public class QuestManager : MonoBehaviour
     {
         public static QuestManager instance;
+        public CollectEvents collectEvents;
 
         private Dictionary<string, Quest> questMap;
-
-        public CollectEvents collectEvents;
 
         private void Awake()
         {

@@ -45,7 +45,7 @@ namespace RPGToolkit
 
         private void CallCollectEvents(int itemIndex)
         {
-            QuestManager.instance.collectEvents.ItemCollected(itemsToPickup[itemIndex]);
+            EventsManager.instance.collectEvents.ItemCollected(itemsToPickup[itemIndex]);
         }
     }
 }

@@ -10,12 +10,12 @@ namespace RPGToolkit
 
         private void Start()
         {
-            QuestManager.instance.collectEvents.onItemCollected += ItemCollected;
+            EventsManager.instance.collectEvents.onItemCollected += ItemCollected;
         }
 
         private void OnDisable()
         {
-            QuestManager.instance.collectEvents.onItemCollected -= ItemCollected;
+            EventsManager.instance.collectEvents.onItemCollected -= ItemCollected;
         }
 
         private void ItemCollected(ItemInfoSO itemCollected)

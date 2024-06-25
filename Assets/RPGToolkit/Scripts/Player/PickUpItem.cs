@@ -21,6 +21,7 @@ namespace RPGToolkit
         private void OnTriggerEnter2D(Collider2D other)
         {
             //Debug.Log(col.gameObject.name + " : " + gameObject.name + " : " + Time.time);
+            int itemIndex = 0;
 
             if (!PlayerController.instance.hasInventory)
             {
@@ -30,13 +31,17 @@ namespace RPGToolkit
             if (other.gameObject.name.Contains("Health Potion") && invManager.AddItem(itemsToPickup[0]))
             {
                 //gameObject.GetComponentInParent<PlayerController>().PlaySFX("Health");
+                itemIndex = 0;
                 Destroy(other.gameObject);
             }
             else if (other.gameObject.name.Contains("Mana Potion") && invManager.AddItem(itemsToPickup[1]))
             {
                 //gameObject.GetComponentInParent<PlayerController>().PlaySFX("Mana");
+                itemIndex = 1;
                 Destroy(other.gameObject);
             }
+
+            QuestManager.instance.collectEvents.ItemCollected(itemsToPickup[itemIndex]);
         }
     }
 }

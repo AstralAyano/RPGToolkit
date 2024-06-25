@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 namespace RPGToolkit
 {
@@ -10,24 +11,27 @@ namespace RPGToolkit
 
         private void OnEnable()
         {
-            
+            QuestManager.instance.collectEvents.onItemCollected += ItemCollected;
         }
 
         private void OnDisable()
         {
-
+            QuestManager.instance.collectEvents.onItemCollected -= ItemCollected;
         }
 
-        private void ItemCollected()
+        private void ItemCollected(ItemInfoSO itemCollected)
         {
-            if (amountCollected < amountToComplete)
+            if (itemCollected == itemToCollect)
             {
-                amountCollected++;
-            }
+                if (amountCollected < amountToComplete)
+                {
+                    amountCollected++;
+                }
 
-            if (amountCollected >= amountToComplete)
-            {
-                FinishQuestStep();
+                if (amountCollected >= amountToComplete)
+                {
+                    FinishQuestStep();
+                }
             }
         }
     }

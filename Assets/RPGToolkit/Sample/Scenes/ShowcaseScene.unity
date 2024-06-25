@@ -376,6 +376,71 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 476375916}
   m_CullTransparentMesh: 1
+--- !u!1001 &1029068056
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6929277403133531624, guid: ce322151363edea448ca1f61207f7ede, type: 3}
+      propertyPath: itemToCollect
+      value: 
+      objectReference: {fileID: 11400000, guid: 6d0a91c62b4cdd6459df0fd7140085e9, type: 2}
+    - target: {fileID: 6929277403133531624, guid: ce322151363edea448ca1f61207f7ede, type: 3}
+      propertyPath: amountToComplete
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6929277403133531625, guid: ce322151363edea448ca1f61207f7ede, type: 3}
+      propertyPath: m_RootOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6929277403133531625, guid: ce322151363edea448ca1f61207f7ede, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6929277403133531625, guid: ce322151363edea448ca1f61207f7ede, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6929277403133531625, guid: ce322151363edea448ca1f61207f7ede, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6929277403133531625, guid: ce322151363edea448ca1f61207f7ede, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6929277403133531625, guid: ce322151363edea448ca1f61207f7ede, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6929277403133531625, guid: ce322151363edea448ca1f61207f7ede, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6929277403133531625, guid: ce322151363edea448ca1f61207f7ede, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6929277403133531625, guid: ce322151363edea448ca1f61207f7ede, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6929277403133531625, guid: ce322151363edea448ca1f61207f7ede, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6929277403133531625, guid: ce322151363edea448ca1f61207f7ede, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6929277403133531627, guid: ce322151363edea448ca1f61207f7ede, type: 3}
+      propertyPath: m_Name
+      value: CollectQuestStep
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ce322151363edea448ca1f61207f7ede, type: 3}
 --- !u!1 &1095917326
 GameObject:
   m_ObjectHideFlags: 0
@@ -14623,6 +14688,63 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1001 &2019435623
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8856581360618153692, guid: 2fa928fe18315ce4ab5025efcb0e86d6, type: 3}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8856581360618153692, guid: 2fa928fe18315ce4ab5025efcb0e86d6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8856581360618153692, guid: 2fa928fe18315ce4ab5025efcb0e86d6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8856581360618153692, guid: 2fa928fe18315ce4ab5025efcb0e86d6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8856581360618153692, guid: 2fa928fe18315ce4ab5025efcb0e86d6, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8856581360618153692, guid: 2fa928fe18315ce4ab5025efcb0e86d6, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8856581360618153692, guid: 2fa928fe18315ce4ab5025efcb0e86d6, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8856581360618153692, guid: 2fa928fe18315ce4ab5025efcb0e86d6, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8856581360618153692, guid: 2fa928fe18315ce4ab5025efcb0e86d6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8856581360618153692, guid: 2fa928fe18315ce4ab5025efcb0e86d6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8856581360618153692, guid: 2fa928fe18315ce4ab5025efcb0e86d6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8856581360618153693, guid: 2fa928fe18315ce4ab5025efcb0e86d6, type: 3}
+      propertyPath: m_Name
+      value: RPGToolkitQuest
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2fa928fe18315ce4ab5025efcb0e86d6, type: 3}
 --- !u!1 &2114975712
 GameObject:
   m_ObjectHideFlags: 0

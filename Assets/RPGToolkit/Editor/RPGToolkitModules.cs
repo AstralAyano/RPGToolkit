@@ -84,7 +84,7 @@ namespace RPGToolkit
         [MenuItem("RPG Toolkit/Create Quest Module", true, 13)]
         static bool ValidateCreateQuest()
         {
-            return questModule == null;
+            return questModule == null && GameObject.FindWithTag("RPGToolkitQuest") == null;
         }
 
         [MenuItem("RPG Toolkit/Create New Quest", false, 14)]
@@ -94,7 +94,6 @@ namespace RPGToolkit
             {
                 CreateNewQuest();
             }
-            CreateNewQuest();
         }
 
         [MenuItem("RPG Toolkit/Create New Quest", true, 14)]
@@ -173,7 +172,7 @@ namespace RPGToolkit
                         SetPadding(rectTransform, 0, 0);
                         break;
                     case "Quest Module":
-                        // Need to put
+                        
                         break;
                 }
             }
@@ -185,7 +184,7 @@ namespace RPGToolkit
             }
             else
             {
-                CreateModule(modulePath, "");
+                CreateModule(modulePath, moduleName);
             }
         }
 

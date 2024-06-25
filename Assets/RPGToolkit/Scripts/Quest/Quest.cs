@@ -20,7 +20,7 @@ namespace RPGToolkit
             currentQuestStepIndex++;
         }
 
-        public bool CurrenStepExists()
+        public bool CurrentStepExists()
         {
             return (currentQuestStepIndex < info.questSteps.Length);
         }
@@ -39,7 +39,7 @@ namespace RPGToolkit
         {
             GameObject questStepPrefab = null;
 
-            if (CurrenStepExists())
+            if (CurrentStepExists())
             {
                 questStepPrefab = info.questSteps[currentQuestStepIndex];
             }

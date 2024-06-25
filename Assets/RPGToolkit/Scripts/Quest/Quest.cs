@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace RPGToolkit
 {
-    public class Quest : MonoBehaviour
+    public class Quest
     {
         public QuestInfoSO info;
         public QuestState state;

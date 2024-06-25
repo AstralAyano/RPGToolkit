@@ -8,6 +8,7 @@ namespace RPGToolkit
     {
         public static EventsManager instance;
         public InputEvents inputEvents;
+        public PlayerEvents playerEvents;
         public QuestEvents questEvents;
         public CollectEvents collectEvents;
 
@@ -24,6 +25,7 @@ namespace RPGToolkit
             }
 
             inputEvents = new InputEvents();
+            playerEvents = new PlayerEvents();
             questEvents = new QuestEvents();
             collectEvents = new CollectEvents();
         }

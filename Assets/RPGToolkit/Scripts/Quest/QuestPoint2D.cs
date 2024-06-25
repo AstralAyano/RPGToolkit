@@ -17,7 +17,7 @@ namespace RPGToolkit
         private QuestState currentQuestState;
         private QuestIcon questIcon;
 
-        private void OnEnable()
+        private void Start()
         {
             EventsManager.instance.questEvents.onQuestStateChange += QuestStateChange;
             EventsManager.instance.inputEvents.onSubmitPressed += SubmitPressed;

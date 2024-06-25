@@ -1,9 +1,8 @@
 using System;
-using UnityEngine;
 
 namespace RPGToolkit
 {
-    public class InputEvents : MonoBehaviour
+    public class InputEvents
     {
         public event Action onSubmitPressed;
         public void SubmitPressed()

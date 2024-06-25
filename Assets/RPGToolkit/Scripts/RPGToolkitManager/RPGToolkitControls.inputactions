@@ -1,0 +1,34 @@
+{
+    "name": "RPGToolkitControls",
+    "maps": [
+        {
+            "name": "RPGToolkitControls",
+            "id": "a95d6ad4-1e9c-4c99-9db0-95ee8fc43e60",
+            "actions": [
+                {
+                    "name": "Interact",
+                    "type": "Button",
+                    "id": "85424538-b099-4c73-ab7b-f297ad9ebbef",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "4860b834-f061-4065-9d84-5edd8d200021",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

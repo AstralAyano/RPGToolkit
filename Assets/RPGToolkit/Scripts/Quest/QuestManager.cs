@@ -7,7 +7,9 @@ namespace RPGToolkit
     {
         private Dictionary<string, Quest> questMap;
 
-        private void OnEnable()
+        private int currentPlayerLevel;
+
+        private void Start()
         {
             EventsManager.instance.questEvents.onStartQuest += StartQuest;
             EventsManager.instance.questEvents.onAdvanceQuest += AdvanceQuest;
@@ -15,27 +17,8 @@ namespace RPGToolkit
 
             //EventsManager.instance.questEvents.onQuestStepStateChange += QuestStepStateChange;
 
-            //EventsManager.instance.playerEvents.onPlayerLevelChange += PlayerLevelChange;
-        }
+            EventsManager.instance.playerEvents.onPlayerLevelChange += PlayerLevelChange;
 
-        private void OnDisable()
-        {
-            EventsManager.instance.questEvents.onStartQuest -= StartQuest;
-            EventsManager.instance.questEvents.onAdvanceQuest -= AdvanceQuest;
-            EventsManager.instance.questEvents.onFinishQuest -= FinishQuest;
-
-            //EventsManager.instance.questEvents.onQuestStepStateChange -= QuestStepStateChange;
-
-            //EventsManager.instance.playerEvents.onPlayerLevelChange -= PlayerLevelChange;
-        }
-
-        private void Awake()
-        {
-            questMap = CreateQuestMap();
-        }
-
-        private void Start()
-        {
             foreach (Quest quest in questMap.Values)
             {
                 // Initialize any loaded quest steps
@@ -47,6 +30,78 @@ namespace RPGToolkit
                 // Broadcast the initial state of all quests on startup
                 EventsManager.instance.questEvents.QuestStateChange(quest);
             }
+        }
+
+        private void OnDisable()
+        {
+            EventsManager.instance.questEvents.onStartQuest -= StartQuest;
+            EventsManager.instance.questEvents.onAdvanceQuest -= AdvanceQuest;
+            EventsManager.instance.questEvents.onFinishQuest -= FinishQuest;
+
+            //EventsManager.instance.questEvents.onQuestStepStateChange -= QuestStepStateChange;
+
+            EventsManager.instance.playerEvents.onPlayerLevelChange -= PlayerLevelChange;
+        }
+
+        private void Awake()
+        {
+            questMap = CreateQuestMap();
+        }
+
+        // private void Start()
+        // {
+        //     foreach (Quest quest in questMap.Values)
+        //     {
+        //         // Initialize any loaded quest steps
+        //         if (quest.state == QuestState.IN_PROGRESS)
+        //         {
+        //             quest.InstantiateCurrentQuestStep(this.transform);
+        //         }
+                
+        //         // Broadcast the initial state of all quests on startup
+        //         EventsManager.instance.questEvents.QuestStateChange(quest);
+        //     }
+        // }
+
+        private void Update()
+        {
+            // Loop through ALL quests
+            foreach (Quest quest in questMap.Values)
+            {
+                // If we're now meeting the requirements, switch over to the CAN_START state
+                if (quest.state == QuestState.REQUIREMENTS_NOT_MET && CheckRequirementsMet(quest))
+                {
+                    ChangeQuestState(quest.info.questID, QuestState.CAN_START);
+                }
+            }
+        }
+
+        private void PlayerLevelChange(int level)
+        {
+            currentPlayerLevel = level;
+        }
+
+        private bool CheckRequirementsMet(Quest quest)
+        {
+            // Start true and prove to be false
+            bool meetsRequirements = true;
+
+            // Check player level requirements
+            if (currentPlayerLevel < quest.info.playerLevelRequirement)
+            {
+                meetsRequirements = false;
+            }
+
+            // Check quest prerequisites for completion
+            foreach (QuestInfoSO prerequisiteQuestInfo in quest.info.questPrerequisites)
+            {
+                if (GetQuestByID(prerequisiteQuestInfo.questID).state != QuestState.FINISHED)
+                {
+                    meetsRequirements = false;
+                }
+            }
+
+            return meetsRequirements;
         }
 
         private void ChangeQuestState(string id, QuestState state)

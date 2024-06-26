@@ -116,6 +116,8 @@ namespace RPGToolkit
             Quest quest = GetQuestByID(id);
             quest.InstantiateCurrentQuestStep(this.transform);
             ChangeQuestState(quest.info.questID, QuestState.IN_PROGRESS);
+
+            Debug.Log("Start Quest : " + quest.info.questID);
         }
 
         private void AdvanceQuest(string id)

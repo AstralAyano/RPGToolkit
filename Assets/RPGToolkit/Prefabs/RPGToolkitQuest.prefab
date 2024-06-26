@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8856581360618153692}
   - component: {fileID: 8856581360618153683}
   - component: {fileID: 7449569064813781177}
+  - component: {fileID: 2019435625}
   m_Layer: 0
   m_Name: RPGToolkitQuest
   m_TagString: RPGToolkitQuest
@@ -57,3 +58,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6231a507487cdf54cba5851cfb5b21de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2019435625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8856581360618153693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: cc0d78962ca9b464e9ffb0eb4ee02260, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 85424538-b099-4c73-ab7b-f297ad9ebbef
+    m_ActionName: RPGToolkitControls/Interact[/Keyboard/f]
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: RPGToolkitControls
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}

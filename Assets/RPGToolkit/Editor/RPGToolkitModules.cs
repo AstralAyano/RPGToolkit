@@ -23,7 +23,7 @@ namespace RPGToolkit
 
         // RPG Toolkit UI
         [MenuItem("RPG Toolkit/Create RPGToolkit UI", false, 10)]
-        static void CreateUI()
+        public static void CreateUI()
         {
             if (uiCanvas == null)
             {
@@ -32,14 +32,14 @@ namespace RPGToolkit
         }
 
         [MenuItem("RPG Toolkit/Create RPGToolkit UI", true, 10)]
-        static bool ValidateCreateUI()
+        public static bool ValidateCreateUI()
         {
             return uiCanvas == null && GameObject.FindWithTag("RPGToolkitUI") == null;
         }
 
         // Player Module
         [MenuItem("RPG Toolkit/Create Player Module", false, 11)]
-        static void CreatePlayer()
+        public static void CreatePlayer()
         {
             if (playerModule == null)
             {
@@ -49,14 +49,14 @@ namespace RPGToolkit
         }
 
         [MenuItem("RPG Toolkit/Create Player Module", true, 11)]
-        static bool ValidateCreatePlayer()
+        public static bool ValidateCreatePlayer()
         {
             return playerModule == null && GameObject.FindWithTag("RPGToolkitPlayer") == null;
         }
 
         // Inventory Module
         [MenuItem("RPG Toolkit/Create Inventory Module", false, 12)]
-        static void CreateInventory()
+        public static void CreateInventory()
         {
             if (inventoryModule == null)
             {
@@ -66,14 +66,14 @@ namespace RPGToolkit
         }
 
         [MenuItem("RPG Toolkit/Create Inventory Module", true, 12)]
-        static bool ValidateCreateInventory()
+        public static bool ValidateCreateInventory()
         {
             return inventoryModule == null && GameObject.FindWithTag("RPGToolkitInventory") == null;
         }
 
         // Quest Module
         [MenuItem("RPG Toolkit/Create Quest Module", false, 13)]
-        static void CreateQuest()
+        public static void CreateQuest()
         {
             if (questModule == null)
             {
@@ -82,27 +82,28 @@ namespace RPGToolkit
         }
 
         [MenuItem("RPG Toolkit/Create Quest Module", true, 13)]
-        static bool ValidateCreateQuest()
+        public static bool ValidateCreateQuest()
         {
             return questModule == null && GameObject.FindWithTag("RPGToolkitQuest") == null;
         }
 
+        // Create new Quest
         [MenuItem("RPG Toolkit/Create New Quest", false, 14)]
-        static void CreateNewQuestSO()
+        public static void CreateNewQuestSO()
         {
-            if (questModule != null)
+            if (questModule != null || GameObject.FindWithTag("RPGToolkitQuest") != null)
             {
                 CreateNewQuest();
             }
         }
 
         [MenuItem("RPG Toolkit/Create New Quest", true, 14)]
-        static bool ValidateCreateNewQuestSO()
+        public static bool ValidateCreateNewQuestSO()
         {
-            return questModule == null;
+            return questModule != null || GameObject.FindWithTag("RPGToolkitQuest") != null;
         }
 
-        static GameObject CreateModule(string prefabPath, string moduleName)
+        private static GameObject CreateModule(string prefabPath, string moduleName)
         {
             GameObject modulePrefab = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
             if (modulePrefab == null)
@@ -147,7 +148,7 @@ namespace RPGToolkit
             }
         }
 
-        static void CreateModuleWithUI(string prefabPath, string moduleName, bool needUIReference)
+        private static void CreateModuleWithUI(string prefabPath, string moduleName, bool needUIReference)
         {
             modulePath = prefabPath;
             RPGToolkitModules.moduleName = moduleName;
@@ -188,7 +189,7 @@ namespace RPGToolkit
             }
         }
 
-        static void WaitForUIModule()
+        private static void WaitForUIModule()
         {
             Debug.Log("Module Creation : Waiting for UI Module to fully initialize.");
 
@@ -210,7 +211,7 @@ namespace RPGToolkit
             }
         }
 
-        static void InventoryReferences(GameObject moduleInstance)
+        private static void InventoryReferences(GameObject moduleInstance)
         {
             Debug.Log("Inventory Module : Need References.");
 
@@ -257,7 +258,7 @@ namespace RPGToolkit
             }
         }
 
-        static void CreateNewQuest()
+        private static void CreateNewQuest()
         {
             string defaultFileName = "NewQuest.asset";
 
@@ -272,7 +273,7 @@ namespace RPGToolkit
 
             // Prompt the user to specify the file name and path
             string fileName = EditorUtility.SaveFilePanel(
-            "Save Quest Scriptable Object",
+            "Save Quest ScriptableObject",
             QuestSOPath,
             defaultFileName,
             "asset"
@@ -321,7 +322,7 @@ namespace RPGToolkit
             Selection.activeObject = asset;
         }
 
-        static List<InventorySlot> FindChildObjectsWithName(Transform parent, string slotNameContains)
+        private static List<InventorySlot> FindChildObjectsWithName(Transform parent, string slotNameContains)
         {
             List<InventorySlot> taggedObjects = new List<InventorySlot>();
 
@@ -342,7 +343,7 @@ namespace RPGToolkit
             return taggedObjects;
         }
 
-        static List<InventorySlot> FindChildObjectsWithNameRecursive(Transform parent, string slotNameContains)
+        private static List<InventorySlot> FindChildObjectsWithNameRecursive(Transform parent, string slotNameContains)
         {
             List<InventorySlot> taggedObjects = new List<InventorySlot>();
 
@@ -351,7 +352,7 @@ namespace RPGToolkit
             return taggedObjects;
         }
 
-        static void FindChildObjectsWithNameRecursive(Transform parent, string slotNameContains, List<InventorySlot> taggedObjects)
+        private static void FindChildObjectsWithNameRecursive(Transform parent, string slotNameContains, List<InventorySlot> taggedObjects)
         {
             foreach (Transform child in parent)
             {
@@ -371,14 +372,14 @@ namespace RPGToolkit
             }
         }
 
-        static void SetPadding(RectTransform rect, float horizontal, float vertical)
+        private static void SetPadding(RectTransform rect, float horizontal, float vertical)
         {
             rect.localScale = new Vector3(1, 1, 1);
             rect.offsetMax = new Vector2(-horizontal, -vertical);
             rect.offsetMin = new Vector2(horizontal, vertical);
         }
 
-        static void SetPadding(RectTransform rect, float left, float top, float right, float bottom)
+        private static void SetPadding(RectTransform rect, float left, float top, float right, float bottom)
         {
             rect.localScale = new Vector3(1, 1, 1);
             rect.offsetMax = new Vector2(-right, -top);

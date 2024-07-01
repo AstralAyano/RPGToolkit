@@ -87,9 +87,12 @@ namespace RPGToolkit
             bool meetsRequirements = true;
 
             // Check player level requirements
-            if (currentPlayerLevel < quest.info.playerLevelRequirement)
+            if (PlayerController.instance != null && PlayerController.instance.hasLevel)
             {
-                meetsRequirements = false;
+                if (currentPlayerLevel < quest.info.playerLevelRequirement)
+                {
+                    meetsRequirements = false;
+                }
             }
 
             // Check quest prerequisites for completion

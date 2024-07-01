@@ -59,6 +59,7 @@ namespace RPGToolkit
             // Player Module
             var hasInventory = serializedObject.FindProperty("hasInventory");
             var hasQuestBook = serializedObject.FindProperty("hasQuestBook");
+            var hasLevel = serializedObject.FindProperty("hasLevel");
 
             GUILayout.Space(foldoutTopSpace);
             GUILayout.BeginHorizontal();
@@ -71,6 +72,7 @@ namespace RPGToolkit
             {
                 RPGToolkitEditorHandler.DrawProperty(hasInventory, customSkin, "Has Inventory");
                 RPGToolkitEditorHandler.DrawProperty(hasQuestBook, customSkin, "Has Quest Book");
+                RPGToolkitEditorHandler.DrawProperty(hasQuestBook, customSkin, "Has Level");
             }
 
             GUILayout.EndVertical();

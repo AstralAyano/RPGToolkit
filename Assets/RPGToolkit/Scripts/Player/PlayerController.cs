@@ -35,10 +35,12 @@ namespace RPGToolkit
         public bool hasAttack;
         public bool hasBlock;
 
-        public bool hasInventory;
-        public bool hasQuestBook;
+        public bool hasInventory = false;
+        public bool hasQuestBook = false;
+        public bool hasLevel = false;
 
         [Header("Player Stats / Values")]
+        public int currentLevel;
         public float currentHealthPoint = 0, maxHealthPoint = 0;
         public float currentManaPoint = 0, maxManaPoint = 0;
         public float currentStaminaPoint = 0, maxStaminaPoint = 0;

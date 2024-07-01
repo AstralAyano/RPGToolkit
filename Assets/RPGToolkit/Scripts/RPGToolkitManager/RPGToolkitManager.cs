@@ -15,6 +15,7 @@ namespace RPGToolkit
         //[Header("PLAYER MODULE")]
         public bool hasInventory = false;
         public bool hasQuestBook = false;
+        public bool hasLevel = false;
 
         //[Header("UI COLORS")]
         public Color primaryColor = new Color(255, 255, 255, 255);

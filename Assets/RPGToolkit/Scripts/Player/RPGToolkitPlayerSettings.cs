@@ -16,6 +16,7 @@ namespace RPGToolkit
 
             playerController.hasInventory = RPGToolkitAsset.hasInventory;
             playerController.hasQuestBook = RPGToolkitAsset.hasQuestBook;
+            playerController.hasLevel = RPGToolkitAsset.hasLevel;
         }
     }
 }

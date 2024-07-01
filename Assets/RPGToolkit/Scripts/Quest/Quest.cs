@@ -36,7 +36,7 @@ namespace RPGToolkit
                 Debug.LogWarning("Quest Step Prefabs and Quest Step States are "
                     + "of different lengths. This indicates something changed "
                     + "with the QuestInfo and the saved data is now out of sync. "
-                    + "Reset your data - as this might cause issues. QuestId: " + this.info.questID);
+                    + "Reset your data - as this might cause issues. QuestID: " + this.info.questID);
             }
         }
 

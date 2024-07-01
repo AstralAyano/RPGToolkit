@@ -8,11 +8,6 @@ namespace RPGToolkit
         [SerializeField] private int amountToComplete = 0;
         [SerializeField] private int amountCollected = 0;
 
-        private void Start()
-        {
-            EventsManager.instance.collectEvents.onItemCollected += ItemCollected;
-        }
-
         private void OnEnable()
         {
             EventsManager.instance.collectEvents.onItemCollected += ItemCollected;
@@ -33,11 +28,13 @@ namespace RPGToolkit
                 {
                     amountCollected++;
                     UpdateState();
+                    return;
                 }
 
                 if (amountCollected >= amountToComplete)
                 {
                     FinishQuestStep();
+                    return;
                 }
             }
         }

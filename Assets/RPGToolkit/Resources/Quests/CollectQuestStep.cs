@@ -13,6 +13,11 @@ namespace RPGToolkit
             EventsManager.instance.collectEvents.onItemCollected += ItemCollected;
         }
 
+        private void OnEnable()
+        {
+            EventsManager.instance.collectEvents.onItemCollected += ItemCollected;
+        }
+
         private void OnDisable()
         {
             EventsManager.instance.collectEvents.onItemCollected -= ItemCollected;
@@ -20,13 +25,14 @@ namespace RPGToolkit
 
         private void ItemCollected(ItemInfoSO itemCollected)
         {
-            Debug.Log("ItemCollected Called");
+            Debug.Log("Item Collected : " + itemToCollect.itemName);
 
             if (itemCollected.itemName == itemToCollect.itemName)
             {
                 if (amountCollected < amountToComplete)
                 {
                     amountCollected++;
+                    UpdateState();
                 }
 
                 if (amountCollected >= amountToComplete)
@@ -34,6 +40,19 @@ namespace RPGToolkit
                     FinishQuestStep();
                 }
             }
+        }
+
+        private void UpdateState()
+        {
+            string state = amountCollected.ToString();
+            string status = "Collected " + amountCollected + " / " + amountCollected + " : " + itemToCollect.itemName + ".";
+            ChangeState(state, status);
+        }
+
+        protected override void SetQuestStepState(string state)
+        {
+            this.amountCollected = System.Int32.Parse(state);
+            UpdateState();
         }
     }
 }

@@ -5,9 +5,15 @@ namespace RPGToolkit
 {
     public class QuestManager : MonoBehaviour
     {
+        [SerializeField] private bool loadQuestState = true;
         private Dictionary<string, Quest> questMap;
 
         private int currentPlayerLevel;
+
+        private void Awake()
+        {
+            questMap = CreateQuestMap();
+        }
 
         private void Start()
         {
@@ -15,7 +21,7 @@ namespace RPGToolkit
             EventsManager.instance.questEvents.onAdvanceQuest += AdvanceQuest;
             EventsManager.instance.questEvents.onFinishQuest += FinishQuest;
 
-            //EventsManager.instance.questEvents.onQuestStepStateChange += QuestStepStateChange;
+            EventsManager.instance.questEvents.onQuestStepStateChange += QuestStepStateChange;
 
             EventsManager.instance.playerEvents.onPlayerLevelChange += PlayerLevelChange;
 
@@ -32,36 +38,27 @@ namespace RPGToolkit
             }
         }
 
+        private void OnEnable()
+        {
+            EventsManager.instance.questEvents.onStartQuest += StartQuest;
+            EventsManager.instance.questEvents.onAdvanceQuest += AdvanceQuest;
+            EventsManager.instance.questEvents.onFinishQuest += FinishQuest;
+
+            EventsManager.instance.questEvents.onQuestStepStateChange += QuestStepStateChange;
+
+            EventsManager.instance.playerEvents.onPlayerLevelChange += PlayerLevelChange;
+        }
+
         private void OnDisable()
         {
             EventsManager.instance.questEvents.onStartQuest -= StartQuest;
             EventsManager.instance.questEvents.onAdvanceQuest -= AdvanceQuest;
             EventsManager.instance.questEvents.onFinishQuest -= FinishQuest;
 
-            //EventsManager.instance.questEvents.onQuestStepStateChange -= QuestStepStateChange;
+            EventsManager.instance.questEvents.onQuestStepStateChange -= QuestStepStateChange;
 
             EventsManager.instance.playerEvents.onPlayerLevelChange -= PlayerLevelChange;
         }
-
-        private void Awake()
-        {
-            questMap = CreateQuestMap();
-        }
-
-        // private void Start()
-        // {
-        //     foreach (Quest quest in questMap.Values)
-        //     {
-        //         // Initialize any loaded quest steps
-        //         if (quest.state == QuestState.IN_PROGRESS)
-        //         {
-        //             quest.InstantiateCurrentQuestStep(this.transform);
-        //         }
-                
-        //         // Broadcast the initial state of all quests on startup
-        //         EventsManager.instance.questEvents.QuestStateChange(quest);
-        //     }
-        // }
 
         private void Update()
         {
@@ -149,6 +146,13 @@ namespace RPGToolkit
             ChangeQuestState(quest.info.questID, QuestState.FINISHED);
         }
 
+        private void QuestStepStateChange(string id, int stepIndex, QuestStepState questStepState)
+        {
+            Quest quest = GetQuestByID(id);
+            quest.StoreQuestStepState(questStepState, stepIndex);
+            ChangeQuestState(id, quest.state);
+        }
+
         private Dictionary<string, Quest> CreateQuestMap()
         {
             // Load all QuestInfoSO ScriptableObjects from Resources folder
@@ -176,6 +180,59 @@ namespace RPGToolkit
             if (quest == null)
             {
                 Debug.LogError("ID not found in Quest Map : " + id);
+            }
+
+            return quest;
+        }
+
+        private void OnApplicationQuit()
+        {
+            foreach (Quest quest in questMap.Values)
+            {
+                SaveQuest(quest);
+            }
+        }
+
+        private void SaveQuest(Quest quest)
+        {
+            try 
+            {
+                QuestData questData = quest.GetQuestData();
+                // serialize using JsonUtility, but use whatever you want here (like JSON.NET)
+                string serializedData = JsonUtility.ToJson(questData);
+                // saving to PlayerPrefs is just a quick example for this tutorial video,
+                // you probably don't want to save this info there long-term.
+                // instead, use an actual Save & Load system and write to a file, the cloud, etc..
+                PlayerPrefs.SetString(quest.info.questID, serializedData);
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError("Failed to save quest with ID " + quest.info.questID + " : " + e);
+            }
+        }
+
+        private Quest LoadQuest(QuestInfoSO questInfo)
+        {
+            Quest quest = null;
+
+            try 
+            {
+                // Load quest from saved data
+                if (PlayerPrefs.HasKey(questInfo.questID) && loadQuestState)
+                {
+                    string serializedData = PlayerPrefs.GetString(questInfo.questID);
+                    QuestData questData = JsonUtility.FromJson<QuestData>(serializedData);
+                    quest = new Quest(questInfo, questData.state, questData.questStepIndex, questData.questStepStates);
+                }
+                // Otherwise, initialize a new quest
+                else
+                {
+                    quest = new Quest(questInfo);
+                }
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError("Failed to load quest with ID " + quest.info.questID + " : " + e);
             }
 
             return quest;

@@ -5,14 +5,26 @@ namespace RPGToolkit
 {
     public class QuestManager : MonoBehaviour
     {
+        public static QuestManager instance;
+
         [SerializeField] private bool saveQuestState = true;
         [SerializeField] private bool loadQuestState = true;
-        private Dictionary<string, Quest> questMap;
+        public Dictionary<string, Quest> questMap;
 
         private int currentPlayerLevel;
 
         private void Awake()
         {
+            if (instance == null)
+            {
+                instance = this;
+                DontDestroyOnLoad(gameObject);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+
             questMap = CreateQuestMap();
         }
 
@@ -168,7 +180,7 @@ namespace RPGToolkit
             return idToQuestMap;
         }
 
-        private Quest GetQuestByID(string id)
+        public Quest GetQuestByID(string id)
         {
             Quest quest = questMap[id];
 

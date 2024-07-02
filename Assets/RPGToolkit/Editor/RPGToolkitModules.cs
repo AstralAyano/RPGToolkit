@@ -13,6 +13,7 @@ namespace RPGToolkit
         private const string QuestPath = "Assets/RPGToolkit/Prefabs/RPGToolkitQuest.prefab";
 
         private const string InventoryUIPath = "Assets/RPGToolkit/Prefabs/Inventory/InventoryUI.prefab";
+        private const string QuestUIPath = "Assets/RPGToolkit/Prefabs/Quest/QuestUI.prefab";
         private const string QuestSOPath = "Assets/RPGToolkit/Resources/Quests";
         
         private static GameObject uiCanvas;
@@ -169,11 +170,14 @@ namespace RPGToolkit
                     case "Inventory Module":
                         inventoryUI = CreateModule(InventoryUIPath, "Inventory UI");
                         inventoryUI.transform.SetParent(uiCanvas.transform);
-                        RectTransform rectTransform = inventoryUI.GetComponent<RectTransform>();
-                        SetPadding(rectTransform, 0, 0);
+                        RectTransform invRect = inventoryUI.GetComponent<RectTransform>();
+                        SetPadding(invRect, 0, 0);
                         break;
                     case "Quest Module":
-                        
+                        questUI = CreateModule(QuestUIPath, "Quest UI");
+                        questUI.transform.SetParent(uiCanvas.transform);
+                        RectTransform questRect = questUI.GetComponent<RectTransform>();
+                        SetPadding(questRect, 0, 0);
                         break;
                 }
             }

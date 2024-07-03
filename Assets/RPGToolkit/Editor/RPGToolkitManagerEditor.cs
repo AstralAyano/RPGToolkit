@@ -8,10 +8,10 @@ namespace RPGToolkit
     public class RPGToolkitManagerEditor : Editor
     {
         GUISkin customSkin;
-        protected static string buildID = "RPGTK-20240703";
-        protected static float foldoutItemSpace = 2;
-        protected static float foldoutTopSpace = 5;
-        protected static float foldoutBottomSpace = 2;
+        public static string buildID = "RPGTK-20240703";
+        public static float foldoutItemSpace = 2;
+        public static float foldoutTopSpace = 5;
+        public static float foldoutBottomSpace = 2;
 
         protected static bool showPlayerModule = false;
         protected static bool showQuestModule = false;

@@ -18,8 +18,8 @@ MonoBehaviour:
   hasInventory: 1
   hasQuestBook: 0
   hasLevel: 0
-  saveQuest: 1
-  loadQuest: 1
+  saveQuest: 0
+  loadQuest: 0
   primaryColor: {r: 255, g: 255, b: 255, a: 255}
   secondaryColor: {r: 255, g: 255, b: 255, a: 255}
   primaryReversed: {r: 255, g: 255, b: 255, a: 255}

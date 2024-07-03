@@ -37,6 +37,8 @@ namespace RPGToolkit
 
         public override void OnInspectorGUI()
         {
+            serializedObject.Update();
+
             if (customSkin == null)
             {
                 EditorGUILayout.HelpBox("Editor variables are missing. You can manually fix this by deleting " +
@@ -68,6 +70,8 @@ namespace RPGToolkit
             DrawUISettings();
 
             DrawSupport();
+
+            serializedObject.ApplyModifiedProperties();
         }
 
         private void DrawPlayerModule()

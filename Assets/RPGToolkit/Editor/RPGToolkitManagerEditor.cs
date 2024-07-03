@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEditor;
-using UnityEditor.Presets;
 
 namespace RPGToolkit
 {
@@ -9,7 +8,7 @@ namespace RPGToolkit
     public class RPGToolkitManagerEditor : Editor
     {
         GUISkin customSkin;
-        protected static string buildID = "RPGTK-20240604";
+        protected static string buildID = "RPGTK-20240703";
         protected static float foldoutItemSpace = 2;
         protected static float foldoutTopSpace = 5;
         protected static float foldoutBottomSpace = 2;

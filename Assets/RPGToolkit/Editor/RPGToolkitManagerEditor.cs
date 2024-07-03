@@ -21,6 +21,8 @@ namespace RPGToolkit
         protected static bool showParticle = false;
         protected static bool showSounds = false;
 
+        private GUIStyle foldoutStyle;
+
         private void OnEnable()
         {
             if (EditorGUIUtility.isProSkin == true)
@@ -50,12 +52,26 @@ namespace RPGToolkit
             }
 
             // Foldout style
-            GUIStyle foldoutStyle = customSkin.FindStyle("UIM Foldout");
+            foldoutStyle = customSkin.FindStyle("UIM Foldout");
 
             // UIM Header
             RPGToolkitEditorHandler.DrawHeader(customSkin, "UIM Header", 8);
             GUILayout.BeginVertical(EditorStyles.helpBox);
 
+            // Draw GUIs
+            DrawPlayerModule();
+            DrawQuestModule();
+
+            DrawUIColors();
+            DrawUIFonts();
+            DrawUISounds();
+            DrawUISettings();
+
+            DrawSupport();
+        }
+
+        private void DrawPlayerModule()
+        {
             // Player Module
             var hasInventory = serializedObject.FindProperty("hasInventory");
             var hasQuestBook = serializedObject.FindProperty("hasQuestBook");
@@ -78,7 +94,10 @@ namespace RPGToolkit
             GUILayout.EndVertical();
             GUILayout.Space(foldoutItemSpace);
             GUILayout.BeginVertical(EditorStyles.helpBox);
+        }
 
+        private void DrawQuestModule()
+        {
             // Quest Module
             var saveQuest = serializedObject.FindProperty("saveQuest");
             var loadQuest = serializedObject.FindProperty("loadQuest");
@@ -99,7 +118,10 @@ namespace RPGToolkit
             GUILayout.EndVertical();
             GUILayout.Space(foldoutItemSpace);
             GUILayout.BeginVertical(EditorStyles.helpBox);
+        }
 
+        private void DrawUIColors()
+        {
             // UI Colors       
             var primaryColor = serializedObject.FindProperty("primaryColor");
             var secondaryColor = serializedObject.FindProperty("secondaryColor");
@@ -126,7 +148,10 @@ namespace RPGToolkit
             GUILayout.EndVertical();
             GUILayout.Space(foldoutItemSpace);
             GUILayout.BeginVertical(EditorStyles.helpBox);
+        }
 
+        private void DrawUIFonts()
+        {
             // UI Fonts
             var lightFont = serializedObject.FindProperty("lightFont");
             var regularFont = serializedObject.FindProperty("regularFont");
@@ -153,7 +178,10 @@ namespace RPGToolkit
             GUILayout.EndVertical();
             GUILayout.Space(foldoutItemSpace);
             GUILayout.BeginVertical(EditorStyles.helpBox);
+        }
 
+        private void DrawUISounds()
+        {
             // UI Sounds
             var backgroundMusic = serializedObject.FindProperty("backgroundMusic");
             var hoverSound = serializedObject.FindProperty("hoverSound");
@@ -172,7 +200,10 @@ namespace RPGToolkit
                 RPGToolkitEditorHandler.DrawProperty(hoverSound, customSkin, "Hover SFX");
                 RPGToolkitEditorHandler.DrawProperty(clickSound, customSkin, "Click SFX");
             }
+        }
 
+        private void DrawUISettings()
+        {
             //UI Settings
             GUILayout.EndVertical();
             RPGToolkitEditorHandler.DrawHeader(customSkin, "Options Header", 14);
@@ -203,12 +234,15 @@ namespace RPGToolkit
 
             serializedObject.ApplyModifiedProperties();
             Repaint();
+        }
 
+        private void DrawSupport()
+        {
             // Support
             RPGToolkitEditorHandler.DrawHeader(customSkin, "Support Header", 14);
             GUILayout.BeginVertical();
             GUILayout.BeginHorizontal();
-            GUILayout.Label("Need help? Contact me via:", customSkin.FindStyle("Text"));
+            GUILayout.Label("Need help? Contact me via :", customSkin.FindStyle("Text"));
             GUILayout.EndHorizontal();
             GUILayout.BeginHorizontal();
 
@@ -219,7 +253,7 @@ namespace RPGToolkit
             GUILayout.Space(6);
             GUILayout.BeginHorizontal();
             GUILayout.FlexibleSpace();
-            GUILayout.Label("ID: " + buildID);
+            GUILayout.Label("ID : " + buildID);
             GUILayout.FlexibleSpace();
             GUILayout.EndHorizontal();
             GUILayout.Space(6);

@@ -17,6 +17,10 @@ namespace RPGToolkit
         public bool hasQuestBook = false;
         public bool hasLevel = false;
 
+        //[Header("QUEST MODULE")]
+        public bool saveQuest = true;
+        public bool loadQuest = true;
+
         //[Header("UI COLORS")]
         public Color primaryColor = new Color(255, 255, 255, 255);
         public Color secondaryColor = new Color(255, 255, 255, 255);

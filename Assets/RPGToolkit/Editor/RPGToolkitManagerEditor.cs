@@ -15,6 +15,7 @@ namespace RPGToolkit
         protected static float foldoutBottomSpace = 2;
 
         protected static bool showPlayerModule = false;
+        protected static bool showQuestModule = false;
         protected static bool showColors = false;
         protected static bool showFonts = false;
         protected static bool showLogo = false;
@@ -72,7 +73,28 @@ namespace RPGToolkit
             {
                 RPGToolkitEditorHandler.DrawProperty(hasInventory, customSkin, "Has Inventory");
                 RPGToolkitEditorHandler.DrawProperty(hasQuestBook, customSkin, "Has Quest Book");
-                RPGToolkitEditorHandler.DrawProperty(hasQuestBook, customSkin, "Has Level");
+                RPGToolkitEditorHandler.DrawProperty(hasLevel, customSkin, "Has Level");
+            }
+
+            GUILayout.EndVertical();
+            GUILayout.Space(foldoutItemSpace);
+            GUILayout.BeginVertical(EditorStyles.helpBox);
+
+            // Quest Module
+            var saveQuest = serializedObject.FindProperty("saveQuest");
+            var loadQuest = serializedObject.FindProperty("loadQuest");
+
+            GUILayout.Space(foldoutTopSpace);
+            GUILayout.BeginHorizontal();
+            showQuestModule = EditorGUILayout.Foldout(showQuestModule, "Quest Module", true, foldoutStyle);
+            showQuestModule = GUILayout.Toggle(showQuestModule, new GUIContent(""), customSkin.FindStyle("Toggle Helper"));
+            GUILayout.EndHorizontal();
+            GUILayout.Space(foldoutBottomSpace);
+
+            if (showQuestModule)
+            {
+                RPGToolkitEditorHandler.DrawProperty(saveQuest, customSkin, "Save Quests");
+                RPGToolkitEditorHandler.DrawProperty(loadQuest, customSkin, "Load Quests");
             }
 
             GUILayout.EndVertical();

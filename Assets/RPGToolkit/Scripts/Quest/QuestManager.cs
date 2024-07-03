@@ -7,8 +7,8 @@ namespace RPGToolkit
     {
         public static QuestManager instance;
 
-        [SerializeField] private bool saveQuestState = true;
-        [SerializeField] private bool loadQuestState = true;
+        public bool saveQuestState;
+        public bool loadQuestState;
         public Dictionary<string, Quest> questMap;
 
         private int currentPlayerLevel;

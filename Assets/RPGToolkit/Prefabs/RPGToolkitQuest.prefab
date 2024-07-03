@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8856581360618153692}
   - component: {fileID: 2019435625}
   - component: {fileID: 8856581360618153683}
+  - component: {fileID: 4585600815043492129}
   - component: {fileID: 7449569064813781177}
   - component: {fileID: 546084430}
   m_Layer: 0
@@ -95,6 +96,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   saveQuestState: 1
   loadQuestState: 1
+--- !u!114 &4585600815043492129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8856581360618153693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc5e4b53f7278d34fac155c31173c976, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RPGToolkitAsset: {fileID: 11400000, guid: 1a715cc2f6d2450418b7811f66dc26b7, type: 2}
 --- !u!114 &7449569064813781177
 MonoBehaviour:
   m_ObjectHideFlags: 0

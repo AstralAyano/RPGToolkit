@@ -40,6 +40,7 @@ namespace RPGToolkit
 
         [Header("Player Stats / Values")]
         public int currentLevel;
+        public float currentExperience = 0, experienceThreshold = 0;
         public float currentHealthPoint = 0, maxHealthPoint = 0;
         public float currentManaPoint = 0, maxManaPoint = 0;
         public float currentStaminaPoint = 0, maxStaminaPoint = 0;

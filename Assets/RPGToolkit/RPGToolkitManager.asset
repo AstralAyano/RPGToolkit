@@ -16,10 +16,16 @@ MonoBehaviour:
   enableExtendedColorPicker: 1
   editorHints: 1
   hasInventory: 1
-  hasLevel: 0
+  hasLevel: 1
+  startingLevel: 1
+  startingExperience: 0
+  maxExperience: 0
   hasHealth: 0
+  maxHealth: 0
   hasMana: 0
+  maxMana: 0
   hasStamina: 0
+  maxStamina: 0
   hasQuestTrackUI: 0
   hasQuestBookUI: 1
   saveQuest: 0

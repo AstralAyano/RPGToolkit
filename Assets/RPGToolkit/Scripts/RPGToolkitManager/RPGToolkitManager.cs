@@ -15,9 +15,15 @@ namespace RPGToolkit
         //[Header("PLAYER MODULE")]
         public bool hasInventory = false;
         public bool hasLevel = false;
+        public int startingLevel = 0;
+        public float startingExperience = 0;
+        public float maxExperience = 0;
         public bool hasHealth = false;
+        public float maxHealth = 0;
         public bool hasMana = false;
+        public float maxMana = 0;
         public bool hasStamina = false;
+        public float maxStamina = 0;
 
         //[Header("QUEST MODULE")]
         public bool hasQuestTrackUI = true;

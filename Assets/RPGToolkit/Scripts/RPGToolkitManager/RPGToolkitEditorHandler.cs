@@ -6,11 +6,12 @@ namespace RPGToolkit
 {
     public class RPGToolkitEditorHandler : Editor
     {
-        public static void DrawProperty(SerializedProperty property, GUISkin skin, string content)
+        public static void DrawProperty(SerializedProperty property, GUISkin skin, string content, string tooltip)
         {
             GUILayout.BeginHorizontal(EditorStyles.helpBox);
 
-            EditorGUILayout.LabelField(new GUIContent(content), skin.FindStyle("Text"), GUILayout.Width(160));
+            GUIContent labelContent = new GUIContent(content, tooltip);
+            EditorGUILayout.LabelField(labelContent, skin.FindStyle("Text"), GUILayout.Width(160));
             EditorGUILayout.PropertyField(property, new GUIContent(""));
 
             GUILayout.EndHorizontal();
@@ -26,11 +27,12 @@ namespace RPGToolkit
             GUILayout.EndHorizontal();
         }
 
-        public static void DrawPropertyCW(SerializedProperty property, GUISkin skin, string content, float width)
+        public static void DrawPropertyCW(SerializedProperty property, GUISkin skin, string content, string tooltip, float width)
         {
             GUILayout.BeginHorizontal(EditorStyles.helpBox);
 
-            EditorGUILayout.LabelField(new GUIContent(content), skin.FindStyle("Text"), GUILayout.Width(width));
+            GUIContent labelContent = new GUIContent(content, tooltip);
+            EditorGUILayout.LabelField(labelContent, skin.FindStyle("Text"), GUILayout.Width(width));
             EditorGUILayout.PropertyField(property, new GUIContent(""));
 
             GUILayout.EndHorizontal();

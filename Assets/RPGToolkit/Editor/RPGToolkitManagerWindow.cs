@@ -8,6 +8,11 @@ namespace RPGToolkit
         GUISkin customSkin;
         
         private bool showPlayerModule = false;
+        protected bool showLevelSettings = false;
+        protected bool showHealthSettings = false;
+        protected bool showManaSettings = false;
+        protected bool showStaminaSettings = false;
+
         private bool showQuestModule = false;
         private bool showColors = false;
         private bool showFonts = false;
@@ -104,15 +109,51 @@ namespace RPGToolkit
 
             if (showPlayerModule)
             {
-                RPGToolkitEditorHandler.DrawProperty(hasInventory, customSkin, "Has Inventory");
-                RPGToolkitEditorHandler.DrawProperty(hasLevel, customSkin, "Has Level");
-                RPGToolkitEditorHandler.DrawProperty(hasHealth, customSkin, "Has Health");
-                RPGToolkitEditorHandler.DrawProperty(hasMana, customSkin, "Has Mana");
-                RPGToolkitEditorHandler.DrawProperty(hasStamina, customSkin, "Has Stamina");
+                RPGToolkitEditorHandler.DrawProperty(hasInventory, customSkin, "Has Inventory", "Enable to allow Player to have Inventory.");
 
-                // Apply changes to SerializedObject
-                serializedObject.ApplyModifiedProperties();
-                EditorUtility.SetDirty(rpgToolkitManager);
+                RPGToolkitEditorHandler.DrawProperty(hasLevel, customSkin, "Has Level", "Enable to allow Player to have Level.");
+                showLevelSettings = hasLevel.boolValue;
+                if (showLevelSettings)
+                {
+                    EditorGUI.indentLevel = 1;
+                    var startingLevel = serializedObject.FindProperty("startingLevel");
+                    var startingExperience = serializedObject.FindProperty("startingExperience");
+                    var maxExperience = serializedObject.FindProperty("maxExperience");
+                    RPGToolkitEditorHandler.DrawPropertyCW(startingLevel, customSkin, "Starting Level", "The Level the Player starts at.", 145);
+                    RPGToolkitEditorHandler.DrawPropertyCW(startingExperience, customSkin, "Starting Experience", "The starting Experience int for the Player.", 145);
+                    RPGToolkitEditorHandler.DrawPropertyCW(maxExperience, customSkin, "Max Experience", "The threshold of Experience to hit for level up.", 145);
+                    EditorGUI.indentLevel = 0;
+                }
+
+                RPGToolkitEditorHandler.DrawProperty(hasHealth, customSkin, "Has Health", "Enable to allow Player to have Health.");
+                showHealthSettings = hasHealth.boolValue;
+                if (showHealthSettings)
+                {
+                    EditorGUI.indentLevel = 1;
+                    var maxHealth = serializedObject.FindProperty("maxHealth");
+                    RPGToolkitEditorHandler.DrawPropertyCW(maxHealth, customSkin, "Max Health", "Maximum Health point of the Player.", 145);
+                    EditorGUI.indentLevel = 0;
+                }
+
+                RPGToolkitEditorHandler.DrawProperty(hasMana, customSkin, "Has Mana", "Enable to allow Player to have Mana.");
+                showManaSettings = hasMana.boolValue;
+                if (showManaSettings)
+                {
+                    EditorGUI.indentLevel = 1;
+                    var maxMana = serializedObject.FindProperty("maxMana");
+                    RPGToolkitEditorHandler.DrawPropertyCW(maxMana, customSkin, "Max Mana", "Maximum Mana point of the Player.", 145);
+                    EditorGUI.indentLevel = 0;
+                }
+
+                RPGToolkitEditorHandler.DrawProperty(hasStamina, customSkin, "Has Stamina", "Enable to allow Player to have Stamina.");
+                showStaminaSettings = hasStamina.boolValue;
+                if (showStaminaSettings)
+                {
+                    EditorGUI.indentLevel = 1;
+                    var maxStamina = serializedObject.FindProperty("maxStamina");
+                    RPGToolkitEditorHandler.DrawPropertyCW(maxStamina, customSkin, "Max Stamina", "Maximum Stamina point of the Player.", 145);
+                    EditorGUI.indentLevel = 0;
+                }
             }
 
             GUILayout.EndVertical();
@@ -137,12 +178,11 @@ namespace RPGToolkit
 
             if (showQuestModule)
             {
-                RPGToolkitEditorHandler.DrawProperty(hasQuestTrackUI, customSkin, "Have Quest Track UI");
-                RPGToolkitEditorHandler.DrawProperty(hasQuestBookUI, customSkin, "Have Quest Book UI");
-                RPGToolkitEditorHandler.DrawProperty(saveQuest, customSkin, "Save Quests");
-                RPGToolkitEditorHandler.DrawProperty(loadQuest, customSkin, "Load Quests");
+                RPGToolkitEditorHandler.DrawProperty(hasQuestTrackUI, customSkin, "Have Quest Track UI", "Enable to have a Quest panel to track active quests.");
+                RPGToolkitEditorHandler.DrawProperty(hasQuestBookUI, customSkin, "Have Quest Book UI", "Enable to have a Quest book to see details of all accepted quests.");
+                RPGToolkitEditorHandler.DrawProperty(saveQuest, customSkin, "Save Quests", "Enable to allow quest states to be saved (Persistent Data).");
+                RPGToolkitEditorHandler.DrawProperty(loadQuest, customSkin, "Load Quests", "Enable to allow quest states to be loaded when running the game.");
             }
-
             GUILayout.EndVertical();
             GUILayout.Space(RPGToolkitManagerEditor.foldoutItemSpace);
             GUILayout.BeginVertical(EditorStyles.helpBox);
@@ -166,11 +206,15 @@ namespace RPGToolkit
 
             if (showColors)
             {
-                RPGToolkitEditorHandler.DrawProperty(primaryColor, customSkin, "Primary");
-                RPGToolkitEditorHandler.DrawProperty(secondaryColor, customSkin, "Secondary");
-                RPGToolkitEditorHandler.DrawProperty(primaryReversed, customSkin, "Primary Reversed");
-                RPGToolkitEditorHandler.DrawProperty(negativeColor, customSkin, "Negative");
-                RPGToolkitEditorHandler.DrawProperty(backgroundColor, customSkin, "Background");
+                // RPGToolkitEditorHandler.DrawProperty(primaryColor, customSkin, "Primary");
+                // RPGToolkitEditorHandler.DrawProperty(secondaryColor, customSkin, "Secondary");
+                // RPGToolkitEditorHandler.DrawProperty(primaryReversed, customSkin, "Primary Reversed");
+                // RPGToolkitEditorHandler.DrawProperty(negativeColor, customSkin, "Negative");
+                // RPGToolkitEditorHandler.DrawProperty(backgroundColor, customSkin, "Background");
+                
+                // Apply changes to SerializedObject
+                serializedObject.ApplyModifiedProperties();
+                EditorUtility.SetDirty(rpgToolkitManager);
             }
 
             GUILayout.EndVertical();
@@ -196,11 +240,15 @@ namespace RPGToolkit
 
             if (showFonts)
             {
-                RPGToolkitEditorHandler.DrawProperty(lightFont, customSkin, "Light");
-                RPGToolkitEditorHandler.DrawProperty(regularFont, customSkin, "Regular");
-                RPGToolkitEditorHandler.DrawProperty(mediumFont, customSkin, "Medium");
-                RPGToolkitEditorHandler.DrawProperty(semiBoldFont, customSkin, "Semibold");
-                RPGToolkitEditorHandler.DrawProperty(boldFont, customSkin, "Bold");
+                // RPGToolkitEditorHandler.DrawProperty(lightFont, customSkin, "Light");
+                // RPGToolkitEditorHandler.DrawProperty(regularFont, customSkin, "Regular");
+                // RPGToolkitEditorHandler.DrawProperty(mediumFont, customSkin, "Medium");
+                // RPGToolkitEditorHandler.DrawProperty(semiBoldFont, customSkin, "Semibold");
+                // RPGToolkitEditorHandler.DrawProperty(boldFont, customSkin, "Bold");
+
+                // Apply changes to SerializedObject
+                serializedObject.ApplyModifiedProperties();
+                EditorUtility.SetDirty(rpgToolkitManager);
             }
 
             GUILayout.EndVertical();
@@ -224,9 +272,13 @@ namespace RPGToolkit
 
             if (showSounds)
             {
-                RPGToolkitEditorHandler.DrawProperty(backgroundMusic, customSkin, "Background Music");
-                RPGToolkitEditorHandler.DrawProperty(hoverSound, customSkin, "Hover SFX");
-                RPGToolkitEditorHandler.DrawProperty(clickSound, customSkin, "Click SFX");
+                // RPGToolkitEditorHandler.DrawProperty(backgroundMusic, customSkin, "Background Music");
+                // RPGToolkitEditorHandler.DrawProperty(hoverSound, customSkin, "Hover SFX");
+                // RPGToolkitEditorHandler.DrawProperty(clickSound, customSkin, "Click SFX");
+
+                // Apply changes to SerializedObject
+                serializedObject.ApplyModifiedProperties();
+                EditorUtility.SetDirty(rpgToolkitManager);
             }
         }
 

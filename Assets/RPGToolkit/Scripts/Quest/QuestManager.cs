@@ -7,10 +7,10 @@ namespace RPGToolkit
     {
         public static QuestManager instance;
 
-        public bool hasQuestTrackUI;
-        public bool hasQuestBookUI;
-        public bool saveQuestState;
-        public bool loadQuestState;
+        [HideInInspector] public bool hasQuestTrackUI;
+        [HideInInspector] public bool hasQuestBookUI;
+        [HideInInspector] public bool saveQuestState;
+        [HideInInspector] public bool loadQuestState;
         public Dictionary<string, Quest> questMap;
 
         private int currentPlayerLevel;

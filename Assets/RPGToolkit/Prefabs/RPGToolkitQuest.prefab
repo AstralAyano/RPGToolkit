@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8856581360618153692}
   - component: {fileID: 2019435625}
-  - component: {fileID: 8856581360618153683}
   - component: {fileID: 4585600815043492129}
+  - component: {fileID: 8856581360618153683}
   - component: {fileID: 7449569064813781177}
   - component: {fileID: 546084430}
   m_Layer: 0
@@ -77,25 +77,15 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 85424538-b099-4c73-ab7b-f297ad9ebbef
     m_ActionName: RPGToolkitControls/Interact[/Keyboard/f]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a27eec46-998e-457d-a517-49f784b557ae
+    m_ActionName: RPGToolkitControls/Quest[/Keyboard/q]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: RPGToolkitControls
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &8856581360618153683
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8856581360618153693}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2900048de9caf9745adc5509ecec12d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  saveQuestState: 1
-  loadQuestState: 1
 --- !u!114 &4585600815043492129
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -109,6 +99,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RPGToolkitAsset: {fileID: 11400000, guid: 1a715cc2f6d2450418b7811f66dc26b7, type: 2}
+--- !u!114 &8856581360618153683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8856581360618153693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2900048de9caf9745adc5509ecec12d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hasQuestTrackUI: 0
+  hasQuestBookUI: 0
+  saveQuestState: 1
+  loadQuestState: 1
 --- !u!114 &7449569064813781177
 MonoBehaviour:
   m_ObjectHideFlags: 0

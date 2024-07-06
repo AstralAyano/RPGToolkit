@@ -15,8 +15,10 @@ MonoBehaviour:
   enableDynamicUpdate: 1
   enableExtendedColorPicker: 1
   editorHints: 1
+  interactKey: 102
+  questBookKey: 101
   hasInventory: 1
-  hasLevel: 1
+  hasLevel: 0
   startingLevel: 1
   startingExperience: 0
   maxExperience: 0
@@ -26,7 +28,7 @@ MonoBehaviour:
   maxMana: 0
   hasStamina: 0
   maxStamina: 0
-  hasQuestTrackUI: 0
+  hasQuestTrackUI: 1
   hasQuestBookUI: 1
   saveQuest: 0
   loadQuest: 0

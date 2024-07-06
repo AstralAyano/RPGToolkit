@@ -12,7 +12,11 @@ namespace RPGToolkit
         [HideInInspector] public bool enableExtendedColorPicker = true;
         [HideInInspector] public bool editorHints = true;
 
-        //[Header("PLAYER MODULE")]
+        // Keybinds
+        public KeyCode interactKey = KeyCode.F;
+        public KeyCode questBookKey = KeyCode.Q;
+
+        // Player Module
         public bool hasInventory = false;
         public bool hasLevel = false;
         public int startingLevel = 0;
@@ -25,27 +29,27 @@ namespace RPGToolkit
         public bool hasStamina = false;
         public float maxStamina = 0;
 
-        //[Header("QUEST MODULE")]
+        // Quest Module
         public bool hasQuestTrackUI = true;
         public bool hasQuestBookUI = true;
         public bool saveQuest = true;
         public bool loadQuest = true;
 
-        //[Header("UI COLORS")]
+        // UI Colors
         public Color primaryColor = new Color(255, 255, 255, 255);
         public Color secondaryColor = new Color(255, 255, 255, 255);
         public Color primaryReversed = new Color(255, 255, 255, 255);
         public Color negativeColor = new Color(255, 255, 255, 255);
         public Color backgroundColor = new Color(255, 255, 255, 255);
 
-        //[Header("FONTS")]
+        // UI Fonts
         public TMP_FontAsset lightFont;
         public TMP_FontAsset regularFont;
         public TMP_FontAsset mediumFont;
         public TMP_FontAsset semiBoldFont;
         public TMP_FontAsset boldFont;
 
-        //[Header("SOUNDS")]
+        // UI Sounds
         public AudioClip backgroundMusic;
         public AudioClip hoverSound;
         public AudioClip clickSound;

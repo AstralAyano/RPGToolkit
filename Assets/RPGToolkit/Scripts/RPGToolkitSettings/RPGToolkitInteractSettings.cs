@@ -34,13 +34,10 @@ namespace RPGToolkit
 
                 if (action != null)
                 {
-                    // Apply the new binding
-                    InputBinding inputBinding = action.bindings[0];
-                    Debug.Log("Before changing to " + newPath + " : " + inputBinding.path);
-                    action.ApplyBindingOverride(0, new InputBinding { overridePath = newPath });
-                    Debug.Log("After : " + inputBinding.path);
+                    // Apply the new binding override directly
+                    action.ApplyBindingOverride(newPath);
                     
-                    //Debug.Log($"Keybind for {actionName} changed to {newPath}");
+                    Debug.Log($"Keybind for {actionName} changed to {newPath}");
                 }
                 else
                 {
@@ -51,16 +48,13 @@ namespace RPGToolkit
             {
                 Debug.LogWarning($"ActionMap '{actionMapName}' not found in the InputActionAsset.");
             }
-
-            // Debug statements to verify
-            Debug.Log($"ActionMap: {actionMapName}, Action: {actionName}, New Binding: {newPath}");
         }
 
         private void SaveChanges()
         {
             // Save assets using AssetDatabase
             AssetDatabase.SaveAssets();
-            AssetDatabase.Refresh(); // Optional: Refreshes the AssetDatabase to ensure changes are visible
+            AssetDatabase.Refresh();
             Debug.Log("Changes saved to assets.");
         }
     }

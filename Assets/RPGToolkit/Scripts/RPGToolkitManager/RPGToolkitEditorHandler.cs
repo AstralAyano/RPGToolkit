@@ -10,7 +10,7 @@ namespace RPGToolkit
         {
             GUILayout.BeginHorizontal(EditorStyles.helpBox);
 
-            EditorGUILayout.LabelField(new GUIContent(content), skin.FindStyle("Text"), GUILayout.Width(120));
+            EditorGUILayout.LabelField(new GUIContent(content), skin.FindStyle("Text"), GUILayout.Width(160));
             EditorGUILayout.PropertyField(property, new GUIContent(""));
 
             GUILayout.EndHorizontal();

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace RPGToolkit
@@ -14,9 +12,11 @@ namespace RPGToolkit
         {
             playerController = GetComponent<PlayerController>();
 
-            playerController.hasInventory = RPGToolkitAsset.hasInventory;
-            playerController.hasQuestBook = RPGToolkitAsset.hasQuestBook;
-            playerController.hasLevel = RPGToolkitAsset.hasLevel;
+            if (playerController != null)
+            {
+                playerController.hasInventory = RPGToolkitAsset.hasInventory;
+                playerController.hasLevel = RPGToolkitAsset.hasLevel;
+            }
         }
     }
 }

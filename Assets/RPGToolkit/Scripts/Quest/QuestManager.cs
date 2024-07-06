@@ -7,6 +7,8 @@ namespace RPGToolkit
     {
         public static QuestManager instance;
 
+        public bool hasQuestTrackUI;
+        public bool hasQuestBookUI;
         public bool saveQuestState;
         public bool loadQuestState;
         public Dictionary<string, Quest> questMap;

@@ -90,8 +90,10 @@ namespace RPGToolkit
         {
             // Player Module
             var hasInventory = serializedObject.FindProperty("hasInventory");
-            var hasQuestBook = serializedObject.FindProperty("hasQuestBook");
             var hasLevel = serializedObject.FindProperty("hasLevel");
+            var hasHealth = serializedObject.FindProperty("hasHealth");
+            var hasMana = serializedObject.FindProperty("hasMana");
+            var hasStamina = serializedObject.FindProperty("hasStamina");
 
             GUILayout.Space(RPGToolkitManagerEditor.foldoutTopSpace);
             GUILayout.BeginHorizontal();
@@ -103,8 +105,10 @@ namespace RPGToolkit
             if (showPlayerModule)
             {
                 RPGToolkitEditorHandler.DrawProperty(hasInventory, customSkin, "Has Inventory");
-                RPGToolkitEditorHandler.DrawProperty(hasQuestBook, customSkin, "Has Quest Book");
                 RPGToolkitEditorHandler.DrawProperty(hasLevel, customSkin, "Has Level");
+                RPGToolkitEditorHandler.DrawProperty(hasHealth, customSkin, "Has Health");
+                RPGToolkitEditorHandler.DrawProperty(hasMana, customSkin, "Has Mana");
+                RPGToolkitEditorHandler.DrawProperty(hasStamina, customSkin, "Has Stamina");
 
                 // Apply changes to SerializedObject
                 serializedObject.ApplyModifiedProperties();
@@ -119,6 +123,8 @@ namespace RPGToolkit
         private void DrawQuestModule()
         {
             // Quest Module
+            var hasQuestTrackUI = serializedObject.FindProperty("hasQuestTrackUI");
+            var hasQuestBookUI = serializedObject.FindProperty("hasQuestBookUI");
             var saveQuest = serializedObject.FindProperty("saveQuest");
             var loadQuest = serializedObject.FindProperty("loadQuest");
 
@@ -131,6 +137,8 @@ namespace RPGToolkit
 
             if (showQuestModule)
             {
+                RPGToolkitEditorHandler.DrawProperty(hasQuestTrackUI, customSkin, "Have Quest Track UI");
+                RPGToolkitEditorHandler.DrawProperty(hasQuestBookUI, customSkin, "Have Quest Book UI");
                 RPGToolkitEditorHandler.DrawProperty(saveQuest, customSkin, "Save Quests");
                 RPGToolkitEditorHandler.DrawProperty(loadQuest, customSkin, "Load Quests");
             }

@@ -12,8 +12,13 @@ namespace RPGToolkit
         {
             questManager = GetComponent<QuestManager>();
 
-            questManager.saveQuestState = RPGToolkitAsset.saveQuest;
-            questManager.loadQuestState = RPGToolkitAsset.loadQuest;
+            if (questManager != null)
+            {
+                questManager.hasQuestTrackUI = RPGToolkitAsset.hasQuestTrackUI;
+                questManager.hasQuestBookUI = RPGToolkitAsset.hasQuestBookUI;
+                questManager.saveQuestState = RPGToolkitAsset.saveQuest;
+                questManager.loadQuestState = RPGToolkitAsset.loadQuest;
+            }
         }
     }
 }

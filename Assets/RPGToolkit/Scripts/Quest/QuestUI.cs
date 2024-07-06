@@ -15,6 +15,12 @@ namespace RPGToolkit
 
         private void Start()
         {
+            if (!QuestManager.instance.hasQuestTrackUI)
+            {
+                gameObject.SetActive(false);
+                return;
+            }
+
             EventsManager.instance.questEvents.onStartQuest += StartQuest;
             EventsManager.instance.questEvents.onQuestStateChange += QuestStateChange;
 
@@ -33,7 +39,7 @@ namespace RPGToolkit
             {
                 if (quest.state == QuestState.IN_PROGRESS)
                 {
-                    SpawnQuestUI(quest);
+                    SpawnQuestTrackUI(quest);
                 }
             }
         }
@@ -41,12 +47,12 @@ namespace RPGToolkit
         private void StartQuest(string id)
         {
             Quest quest = QuestManager.instance.GetQuestByID(id);
-            SpawnQuestUI(quest);    
+            SpawnQuestTrackUI(quest);    
         }
 
-        private void SpawnQuestUI(Quest quest)
+        private void SpawnQuestTrackUI(Quest quest)
         {
-            if (quest != null && quest.state == QuestState.IN_PROGRESS)
+            if (QuestManager.instance.hasQuestTrackUI && quest != null && quest.state == QuestState.IN_PROGRESS)
             {
                 // Instantiate a row in QuestUI
                 GameObject item = Instantiate(questItemPrefab, contentParent.transform);

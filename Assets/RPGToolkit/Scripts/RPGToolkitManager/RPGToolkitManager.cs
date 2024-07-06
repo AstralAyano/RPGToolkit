@@ -14,10 +14,14 @@ namespace RPGToolkit
 
         //[Header("PLAYER MODULE")]
         public bool hasInventory = false;
-        public bool hasQuestBook = false;
         public bool hasLevel = false;
+        public bool hasHealth = false;
+        public bool hasMana = false;
+        public bool hasStamina = false;
 
         //[Header("QUEST MODULE")]
+        public bool hasQuestTrackUI = true;
+        public bool hasQuestBookUI = true;
         public bool saveQuest = true;
         public bool loadQuest = true;
 

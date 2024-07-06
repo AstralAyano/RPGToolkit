@@ -36,7 +36,6 @@ namespace RPGToolkit
         public bool hasBlock;
 
         public bool hasInventory;
-        public bool hasQuestBook;
         public bool hasLevel;
 
         [Header("Player Stats / Values")]

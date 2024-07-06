@@ -4223,6 +4223,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: QuestUI
       objectReference: {fileID: 0}
+    - target: {fileID: 6505386654965791680, guid: 48da772f93c002349abfdb506f6af106, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48da772f93c002349abfdb506f6af106, type: 3}
 --- !u!224 &1435805982 stripped

@@ -3,12 +3,12 @@
     "maps": [
         {
             "name": "RPGToolkitControls",
-            "id": "a95d6ad4-1e9c-4c99-9db0-95ee8fc43e60",
+            "id": "f17d032b-ae14-4612-87c3-f475635e29d8",
             "actions": [
                 {
                     "name": "Interact",
                     "type": "Button",
-                    "id": "85424538-b099-4c73-ab7b-f297ad9ebbef",
+                    "id": "547daac2-bf70-43c8-b84d-4a6aa740d90e",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -17,7 +17,7 @@
                 {
                     "name": "Quest",
                     "type": "Button",
-                    "id": "a27eec46-998e-457d-a517-49f784b557ae",
+                    "id": "2f98ea3c-2e28-47ea-90c0-de0f212077bb",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -27,22 +27,22 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "4860b834-f061-4065-9d84-5edd8d200021",
-                    "path": "<Keyboard>/f",
+                    "id": "95d09fa7-035c-4c27-a53d-f7643799e960",
+                    "path": "",
                     "interactions": "",
                     "processors": "",
-                    "groups": "PC",
+                    "groups": "",
                     "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "f6d9726e-a9fd-4dbb-8e81-31f2dc04bb76",
-                    "path": "<Keyboard>/q",
+                    "id": "97cf091b-2946-47e0-b47e-5c2f0bbcf0cf",
+                    "path": "",
                     "interactions": "",
                     "processors": "",
-                    "groups": "PC",
+                    "groups": "",
                     "action": "Quest",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -50,11 +50,5 @@
             ]
         }
     ],
-    "controlSchemes": [
-        {
-            "name": "PC",
-            "bindingGroup": "PC",
-            "devices": []
-        }
-    ]
+    "controlSchemes": []
 }

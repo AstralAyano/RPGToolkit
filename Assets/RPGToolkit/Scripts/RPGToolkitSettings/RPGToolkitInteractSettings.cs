@@ -35,7 +35,7 @@ namespace RPGToolkit
                 if (action != null)
                 {
                     // Apply the new binding override directly
-                    action.ApplyBindingOverride(newPath);
+                    action.ApplyBindingOverride(0, newPath);
                     
                     Debug.Log($"Keybind for {actionName} changed to {newPath}");
                 }
@@ -55,7 +55,6 @@ namespace RPGToolkit
             // Save assets using AssetDatabase
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
-            Debug.Log("Changes saved to assets.");
         }
     }
 }

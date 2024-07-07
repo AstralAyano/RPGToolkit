@@ -16,7 +16,7 @@ MonoBehaviour:
   enableExtendedColorPicker: 1
   editorHints: 1
   interactKey: 102
-  questBookKey: 101
+  questBookKey: 113
   hasInventory: 1
   hasLevel: 0
   startingLevel: 1

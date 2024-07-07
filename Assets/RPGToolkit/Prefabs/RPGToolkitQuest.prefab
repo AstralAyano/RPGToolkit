@@ -75,11 +75,11 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: 85424538-b099-4c73-ab7b-f297ad9ebbef
+    m_ActionId: 547daac2-bf70-43c8-b84d-4a6aa740d90e
     m_ActionName: RPGToolkitControls/Interact[/Keyboard/f]
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: a27eec46-998e-457d-a517-49f784b557ae
+    m_ActionId: 2f98ea3c-2e28-47ea-90c0-de0f212077bb
     m_ActionName: RPGToolkitControls/Quest[/Keyboard/q]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 

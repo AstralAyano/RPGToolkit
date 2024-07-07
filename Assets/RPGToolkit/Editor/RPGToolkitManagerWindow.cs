@@ -7,6 +7,7 @@ namespace RPGToolkit
     {
         GUISkin customSkin;
         
+        private bool showKeybinds = false;
         private bool showPlayerModule = false;
         protected bool showLevelSettings = false;
         protected bool showHealthSettings = false;
@@ -78,6 +79,8 @@ namespace RPGToolkit
             GUILayout.BeginVertical(EditorStyles.helpBox);
 
             // Draw GUIs
+            DrawKeybinds();
+
             DrawPlayerModule();
             DrawQuestModule();
 
@@ -89,6 +92,30 @@ namespace RPGToolkit
             DrawSupport();
 
             serializedObject.ApplyModifiedProperties();
+        }
+
+        private void DrawKeybinds()
+        {
+            // Keybinds
+            var interactKey = serializedObject.FindProperty("interactKey");
+            var questKey = serializedObject.FindProperty("questBookKey");
+
+            GUILayout.Space(RPGToolkitManagerEditor.foldoutTopSpace);
+            GUILayout.BeginHorizontal();
+            showKeybinds = EditorGUILayout.Foldout(showKeybinds, "Keybinds", true, foldoutStyle);
+            showKeybinds = GUILayout.Toggle(showKeybinds, new GUIContent(""), customSkin.FindStyle("Toggle Helper"));
+            GUILayout.EndHorizontal();
+            GUILayout.Space(RPGToolkitManagerEditor.foldoutBottomSpace);
+
+            if (showKeybinds)
+            {
+                RPGToolkitEditorHandler.DrawProperty(interactKey, customSkin, "Interection Key", "Key to interact with NPCs or the world.");
+                RPGToolkitEditorHandler.DrawProperty(questKey, customSkin, "Quest Book Key", "Key to open the Quest Book.");
+            }
+
+            GUILayout.EndVertical();
+            GUILayout.Space(RPGToolkitManagerEditor.foldoutItemSpace);
+            GUILayout.BeginVertical(EditorStyles.helpBox);
         }
 
         private void DrawPlayerModule()

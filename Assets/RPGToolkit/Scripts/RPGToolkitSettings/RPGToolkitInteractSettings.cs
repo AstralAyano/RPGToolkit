@@ -15,7 +15,10 @@ namespace RPGToolkit
             // Change key binds for specific actions
             ChangeKeybind("RPGToolkitControls", "Interact", RPGToolkitAsset.interactKey);
             ChangeKeybind("RPGToolkitControls", "Quest", RPGToolkitAsset.questBookKey);
+        }
 
+        private void Start()
+        {
             SaveChanges();
         }
 

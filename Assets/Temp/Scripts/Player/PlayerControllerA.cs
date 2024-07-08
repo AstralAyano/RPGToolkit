@@ -278,7 +278,7 @@ public class PlayerControllerA : MonoBehaviour
         }
     }
 
-    IEnumerator Dash()
+    private IEnumerator Dash()
     {
         skillIcon[2].fillAmount = 0;
 

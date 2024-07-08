@@ -19,6 +19,8 @@ namespace RPGToolkit
         protected static bool showHealthSettings = false;
         protected static bool showManaSettings = false;
         protected static bool showStaminaSettings = false;
+        protected static bool showDashSettings = false;
+        protected static bool showWallJumpSettings = false;
 
         protected static bool showQuestModule = false;
 
@@ -115,6 +117,8 @@ namespace RPGToolkit
             var hasHealth = serializedObject.FindProperty("hasHealth");
             var hasMana = serializedObject.FindProperty("hasMana");
             var hasStamina = serializedObject.FindProperty("hasStamina");
+            var hasDash = serializedObject.FindProperty("hasDash");
+            var hasWallJump = serializedObject.FindProperty("hasWallJump");
 
             GUILayout.Space(foldoutTopSpace);
             GUILayout.BeginHorizontal();
@@ -127,6 +131,7 @@ namespace RPGToolkit
             {
                 RPGToolkitEditorHandler.DrawProperty(hasInventory, customSkin, "Has Inventory", "Enable to allow Player to have Inventory.");
 
+                // Level
                 RPGToolkitEditorHandler.DrawProperty(hasLevel, customSkin, "Has Level", "Enable to allow Player to have Level.");
                 showLevelSettings = hasLevel.boolValue;
                 if (showLevelSettings)
@@ -141,6 +146,7 @@ namespace RPGToolkit
                     EditorGUI.indentLevel = 0;
                 }
 
+                // Health
                 RPGToolkitEditorHandler.DrawProperty(hasHealth, customSkin, "Has Health", "Enable to allow Player to have Health.");
                 showHealthSettings = hasHealth.boolValue;
                 if (showHealthSettings)
@@ -151,6 +157,7 @@ namespace RPGToolkit
                     EditorGUI.indentLevel = 0;
                 }
 
+                // Mana
                 RPGToolkitEditorHandler.DrawProperty(hasMana, customSkin, "Has Mana", "Enable to allow Player to have Mana.");
                 showManaSettings = hasMana.boolValue;
                 if (showManaSettings)
@@ -161,6 +168,7 @@ namespace RPGToolkit
                     EditorGUI.indentLevel = 0;
                 }
 
+                // Stamina
                 RPGToolkitEditorHandler.DrawProperty(hasStamina, customSkin, "Has Stamina", "Enable to allow Player to have Stamina.");
                 showStaminaSettings = hasStamina.boolValue;
                 if (showStaminaSettings)
@@ -168,6 +176,40 @@ namespace RPGToolkit
                     EditorGUI.indentLevel = 1;
                     var maxStamina = serializedObject.FindProperty("maxStamina");
                     RPGToolkitEditorHandler.DrawPropertyCW(maxStamina, customSkin, "Max Stamina", "Maximum Stamina point of the Player.", 145);
+                    EditorGUI.indentLevel = 0;
+                }
+
+                // Dash
+                RPGToolkitEditorHandler.DrawProperty(hasDash, customSkin, "Has Dash", "Allows Player to have Dash ability to dodge and phase through.");
+                showDashSettings = hasDash.boolValue;
+                if (showDashSettings)
+                {
+                    EditorGUI.indentLevel = 1;
+                    var phaseThroughLayers = serializedObject.FindProperty("phaseThroughLayers");
+                    var dodgeableLayers = serializedObject.FindProperty("dodgeableLayers");
+                    var dashPower = serializedObject.FindProperty("dashPower");
+                    var dashDuration = serializedObject.FindProperty("dashDuration");
+                    var dashCooldown = serializedObject.FindProperty("dashCooldown");
+                    RPGToolkitEditorHandler.DrawPropertyCW(phaseThroughLayers, customSkin, "Phase Through Layers", "When using Dash ability, what layers can the Player phase.", 145);
+                    RPGToolkitEditorHandler.DrawPropertyCW(dodgeableLayers, customSkin, "Dodgeable Layers", "When using Dash ability, what layers won't damage the Player.", 145);
+                    RPGToolkitEditorHandler.DrawPropertyCW(dashPower, customSkin, "Dash Power", "How strong is the Dash ability.", 145);
+                    RPGToolkitEditorHandler.DrawPropertyCW(dashDuration, customSkin, "Dash Duration", "How long does the Dash ability lasts.", 145);
+                    RPGToolkitEditorHandler.DrawPropertyCW(dashCooldown, customSkin, "Dash Cooldown", "Intervals before the next allowed usage of the Dash ability.", 145);
+                    EditorGUI.indentLevel = 0;
+                }
+
+                // Wall Jump
+                RPGToolkitEditorHandler.DrawProperty(hasWallJump, customSkin, "Has Wall Jump", "Allows Player to have Wall Jump ability.");
+                showWallJumpSettings = hasWallJump.boolValue;
+                if (showWallJumpSettings)
+                {
+                    EditorGUI.indentLevel = 1;
+                    var wallLayer = serializedObject.FindProperty("wallLayer");
+                    var wallJumpForce = serializedObject.FindProperty("wallJumpForce");
+                    var wallJumpDuration = serializedObject.FindProperty("wallJumpDuration");
+                    RPGToolkitEditorHandler.DrawPropertyCW(wallLayer, customSkin, "Wall Layer", "When using Wall Jump ability, what layers can the Player jump from or to.", 145);
+                    RPGToolkitEditorHandler.DrawPropertyCW(wallJumpForce, customSkin, "Wall Jump Force", "How strong is the Wall Jump ability.", 145);
+                    RPGToolkitEditorHandler.DrawPropertyCW(wallJumpDuration, customSkin, "Wall Jump Duration", "How long does the Wall Jump ability lasts.", 145);
                     EditorGUI.indentLevel = 0;
                 }
             }

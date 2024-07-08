@@ -28,6 +28,23 @@ MonoBehaviour:
   maxMana: 0
   hasStamina: 0
   maxStamina: 0
+  hasDash: 0
+  phaseThroughLayers: []
+  dodgeableLayers: []
+  dashForce: 0
+  dashDuration: 0
+  dashCooldown: 0
+  hasWallJump: 0
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  wallJumpForce: {x: 0, y: 0}
+  wallJumpDuration: 0
+  hasAttack: 0
+  hasBlock: 0
+  baseWalkSpeed: 0
+  baseJumpHeight: 0
+  wallSlidingSpeed: 0
   hasQuestTrackUI: 1
   hasQuestBookUI: 1
   saveQuest: 0

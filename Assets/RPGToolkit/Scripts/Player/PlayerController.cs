@@ -25,22 +25,25 @@ namespace RPGToolkit
         public string PlayerState = LAND;
 
         [Header("Player Settings")]
+        public bool hasInventory;
+        public bool hasLevel;
+
         public bool hasHealthPoint;
         public bool hasManaPoint;
         public bool hasStaminaPoint;
 
         public bool hasDash;
+        public List<LayerMask> phaseThroughLayers = new List<LayerMask>();
+        public List<LayerMask> dodgeableLayers = new List<LayerMask>();
         public bool hasWallJump;
+        public LayerMask wallLayer;
 
         public bool hasAttack;
         public bool hasBlock;
 
-        public bool hasInventory;
-        public bool hasLevel;
-
         [Header("Player Stats / Values")]
         public int currentLevel;
-        public float currentExperience = 0, experienceThreshold = 0;
+        public float currentExperience = 0, maxExperience = 0;
         public float currentHealthPoint = 0, maxHealthPoint = 0;
         public float currentManaPoint = 0, maxManaPoint = 0;
         public float currentStaminaPoint = 0, maxStaminaPoint = 0;
@@ -48,6 +51,11 @@ namespace RPGToolkit
         public float baseWalkSpeed = 0;
         public float currentWalkSpeed = 0;
         public float baseJumpHeight = 0;
+
+        public float dashPower;
+        public float dashDuration;
+        public float dashCooldown;
+
         public float wallSlidingSpeed;
         public float wallJumpDuration;
         public Vector2 wallJumpForce;
@@ -56,6 +64,8 @@ namespace RPGToolkit
         [HideInInspector] public bool isManaMax = true;
 
         private float dirH = 0.0f;
+        [SerializeField] private bool dashUsable = true;
+        [SerializeField] private bool dashCooldownStart = false;
         [SerializeField] private bool isTouchingWall = false;
         [SerializeField] private bool isWallJumping = false;
         [SerializeField] private bool isWallSliding = false;
@@ -161,15 +171,15 @@ namespace RPGToolkit
                 dirH = Input.GetAxis("Horizontal");
             }
 
-            // Check if player is pressing left or right.
-            // if (Mathf.Abs(dirH) > 0.0f)
-            // {
-            //     // Checks if player is also pressing Left Shift and if it isn't already in Dash State.
-            //     if (Input.GetKeyDown(KeyCode.LeftShift) && PlayerState != DASH && canDash)
-            //     {
-            //         StartCoroutine(PlayerDash());
-            //     }
-            // }
+            //Check if player is pressing left or right.
+            if (Mathf.Abs(dirH) > 0.0f)
+            {
+                // Checks if player is also pressing Left Shift and if it isn't already in Dash State.
+                if (Input.GetKeyDown(KeyCode.LeftShift) && PlayerState != DASH && dashUsable)
+                {
+                    StartCoroutine(PlayerDash());
+                }
+            }
         }
 
         private void PlayerJump()
@@ -189,7 +199,48 @@ namespace RPGToolkit
             }
         }
 
-        void StopWallJump()
+        private IEnumerator PlayerDash()
+        {
+            //skillIcon[2].fillAmount = 0;
+
+            dashUsable = false;
+            PlayerState = DASH;
+
+            foreach (LayerMask layer in phaseThroughLayers)
+            {
+                Physics2D.IgnoreLayerCollision(gameObject.layer, layer, true);
+            }
+
+            foreach (LayerMask layer in dodgeableLayers)
+            {
+                Physics2D.IgnoreLayerCollision(gameObject.layer, layer, true);
+            }
+
+            float originalGravity = rb.gravityScale;
+            rb.gravityScale = 0f;
+            tr.emitting = true;
+            rb.velocity = new Vector2(transform.localScale.x * dashPower, 0f);
+            //playSFX(4);
+
+            yield return new WaitForSeconds(dashDuration);
+
+            foreach (LayerMask layer in dodgeableLayers)
+            {
+                Physics2D.IgnoreLayerCollision(gameObject.layer, layer, false);
+            }
+
+            rb.gravityScale = originalGravity;
+            PlayerState = LAND;
+            tr.emitting = false;
+            dashCooldownStart = true;
+
+            yield return new WaitForSeconds(dashCooldown);
+
+            dashUsable = true;
+            dashCooldownStart = false;
+        }
+
+        private void StopWallJump()
         {
             isWallJumping = false;
         }
@@ -330,7 +381,7 @@ namespace RPGToolkit
 
         public void WallStay(Collider2D other)
         {
-            if (other.gameObject.layer == LayerMask.NameToLayer("Wall"))
+            if (other.gameObject.layer == wallLayer)
             {
                 isTouchingWall = true;
             }
@@ -338,7 +389,7 @@ namespace RPGToolkit
 
         public void WallExit(Collider2D other)
         {
-            if (other.gameObject.layer == LayerMask.NameToLayer("Wall"))
+            if (other.gameObject.layer == wallLayer)
             {
                 isTouchingWall = false;
             }

@@ -29,6 +29,25 @@ namespace RPGToolkit
         public bool hasStamina = false;
         public float maxStamina = 0;
 
+        public bool hasDash = false;
+        public List<LayerMask> phaseThroughLayers = new List<LayerMask>();
+        public List<LayerMask> dodgeableLayers = new List<LayerMask>();
+        public float dashPower = 0;
+        public float dashDuration = 0;
+        public float dashCooldown = 0;
+        public bool hasWallJump = false;
+        public LayerMask wallLayer;
+        public Vector2 wallJumpForce = new Vector2(0, 0);
+        public float wallJumpDuration = 0;
+
+        public bool hasAttack;
+        public bool hasBlock;
+
+        public float baseWalkSpeed = 0;
+        public float baseJumpHeight = 0;
+        public float wallSlidingSpeed;
+        
+
         // Quest Module
         public bool hasQuestTrackUI = true;
         public bool hasQuestBookUI = true;

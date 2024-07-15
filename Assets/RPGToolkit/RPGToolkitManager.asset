@@ -31,7 +31,7 @@ MonoBehaviour:
   hasDash: 0
   phaseThroughLayers: []
   dodgeableLayers: []
-  dashForce: 0
+  dashPower: 0
   dashDuration: 0
   dashCooldown: 0
   hasWallJump: 0
@@ -47,8 +47,8 @@ MonoBehaviour:
   wallSlidingSpeed: 0
   hasQuestTrackUI: 1
   hasQuestBookUI: 1
-  saveQuest: 0
-  loadQuest: 0
+  saveQuest: 1
+  loadQuest: 1
   primaryColor: {r: 255, g: 255, b: 255, a: 255}
   secondaryColor: {r: 255, g: 255, b: 255, a: 255}
   primaryReversed: {r: 255, g: 255, b: 255, a: 255}

@@ -31,6 +31,7 @@ namespace RPGToolkit
         protected static bool showSounds = false;
 
         private GUIStyle foldoutStyle;
+        private Vector2 scrollPos;
 
         private void OnEnable()
         {
@@ -67,6 +68,8 @@ namespace RPGToolkit
 
             // UIM Header
             RPGToolkitEditorHandler.DrawHeader(customSkin, "UIM Header", 8);
+
+            scrollPos = GUILayout.BeginScrollView(scrollPos, false, true, GUILayout.ExpandHeight(true));
             GUILayout.BeginVertical(EditorStyles.helpBox);
 
             // Draw GUIs
@@ -82,6 +85,7 @@ namespace RPGToolkit
 
             DrawSupport();
 
+            GUILayout.EndScrollView();
             serializedObject.ApplyModifiedProperties();
         }
 
@@ -369,11 +373,14 @@ namespace RPGToolkit
             RPGToolkitEditorHandler.DrawHeader(customSkin, "Support Header", 14);
             GUILayout.BeginVertical();
             GUILayout.BeginHorizontal();
-            GUILayout.Label("Need help? Contact me via :", customSkin.FindStyle("Text"));
+            GUILayout.Label("Need help? Contact me via : ", customSkin.FindStyle("Text"));
             GUILayout.EndHorizontal();
             GUILayout.BeginHorizontal();
 
-            if (GUILayout.Button("E-mail", customSkin.button)) { Email(); }
+            if (GUILayout.Button("E-mail", customSkin.button))
+            {
+                Email();
+            }
 
             GUILayout.EndHorizontal();
             GUILayout.EndVertical();

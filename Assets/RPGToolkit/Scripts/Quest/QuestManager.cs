@@ -165,7 +165,7 @@ namespace RPGToolkit
         private Dictionary<string, Quest> CreateQuestMap()
         {
             // Load all QuestInfoSO ScriptableObjects from Resources folder
-            QuestInfoSO[] allQuests = Resources.LoadAll<QuestInfoSO>("Quests");
+            QuestInfoSO[] allQuests = Resources.LoadAll<QuestInfoSO>("RPGToolkit/Quests");
 
             Dictionary<string, Quest> idToQuestMap = new Dictionary<string, Quest>();
 

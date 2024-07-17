@@ -20,6 +20,9 @@ TagManager:
   - RPGToolkitInventoryBag
   - InventoryModule
   - RPGToolkitQuest
+  - RPGToolkitInventoryUI
+  - RPGToolkitQuestUI
+  - RPGToolkitDialogueUI
   layers:
   - Default
   - TransparentFX

@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using System.IO;
+using Unity.VisualScripting;
+using UnityEditor.VersionControl;
 
 namespace RPGToolkit
 {
@@ -139,12 +141,14 @@ namespace RPGToolkit
                         break;
                     case "Player Module":
                         playerModule = moduleInstance;
+                        playerModule.GetComponent<RPGToolkitPlayerSettings>().RPGToolkitAsset = AssetDatabase.LoadAssetAtPath<RPGToolkitManager>("Assets/RPGToolkit/RPGToolkitManager.asset");
                         break;
                     case "Inventory Module":
                         inventoryModule = moduleInstance;
                         break;
                     case "Quest Module":
                         questModule = moduleInstance;
+                        questModule.GetComponent<RPGToolkitQuestSettings>().RPGToolkitAsset = AssetDatabase.LoadAssetAtPath<RPGToolkitManager>("Assets/RPGToolkit/RPGToolkitManager.asset");
                         break;
                 }
 
@@ -177,6 +181,10 @@ namespace RPGToolkit
                 switch (moduleName)
                 {
                     case "Inventory Module":
+                        if (inventoryUI != null)
+                        {
+                            break;
+                        }
                         inventoryUI = CreateModule(InventoryUIPath, "Inventory UI");
                         inventoryUI.transform.SetParent(uiCanvas.transform);
                         RectTransform invRect = inventoryUI.GetComponent<RectTransform>();
@@ -184,6 +192,10 @@ namespace RPGToolkit
                         currModule = inventoryUI;
                         break;
                     case "Quest Module":
+                        if (questUI != null)
+                        {
+                            break;
+                        }
                         questUI = CreateModule(QuestUIPath, "Quest UI");
                         questUI.transform.SetParent(uiCanvas.transform);
                         RectTransform questRect = questUI.GetComponent<RectTransform>();

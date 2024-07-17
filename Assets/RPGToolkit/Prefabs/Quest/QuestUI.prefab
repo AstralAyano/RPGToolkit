@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6505386654734144205}
   m_Layer: 5
   m_Name: QuestUI
-  m_TagString: Untagged
+  m_TagString: RPGToolkitQuestUI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

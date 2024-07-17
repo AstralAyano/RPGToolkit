@@ -1,13 +1,19 @@
 using UnityEngine;
 using UnityEditor;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 
 namespace RPGToolkit
 {
     public class RPGToolkitManagerWindow : EditorWindow
     {
-        GUISkin customSkin;
+        public GUISkin customSkin;
+
+        public GameObject uiCanvas;
+        public GameObject inventoryUI, questUI;
+        public GameObject playerModule, inventoryModule, questModule;
+
+        private bool allowUI;
+        private bool allowPlayerModule, allowInventoryModule, allowQuestModule;
         
         private bool showKeybinds = false;
         private bool showPlayerModule = false;
@@ -76,6 +82,16 @@ namespace RPGToolkit
                 return;
             }
 
+            uiCanvas = GameObject.FindWithTag("RPGToolkitUI");
+            playerModule = GameObject.FindWithTag("RPGToolkitPlayer");
+            inventoryModule = GameObject.FindWithTag("RPGToolkitInventory");
+            questModule = GameObject.FindWithTag("RPGToolkitQuest");
+
+            allowUI = uiCanvas == null ? true : false;
+            allowPlayerModule = playerModule == null ? true : false;
+            allowInventoryModule = inventoryModule == null ? true : false;
+            allowQuestModule = questModule == null ? true : false;
+
             // Foldout style
             foldoutStyle = customSkin.FindStyle("UIM Foldout");
 
@@ -85,7 +101,10 @@ namespace RPGToolkit
             scrollPos = GUILayout.BeginScrollView(scrollPos, false, true, GUILayout.ExpandHeight(true));
             GUILayout.BeginVertical(EditorStyles.helpBox);
 
-            // Draw GUIs
+            // Draw Modules and Creations
+            DrawModules();
+
+            // Draw Settings
             DrawKeybinds();
 
             DrawPlayerModule();
@@ -102,9 +121,78 @@ namespace RPGToolkit
             serializedObject.ApplyModifiedProperties();
         }
 
+        private void DrawModules()
+        {
+            // RPG Toolkit UI Canvas
+            if (allowUI)
+            {
+                GUI.enabled = true;
+                if (GUILayout.Button("Create RPG Toolkit UI Canvas", customSkin.button))
+                {
+                    uiCanvas = RPGToolkitModules.CreateUI();
+                }
+            }
+            else
+            {
+                GUI.enabled = false;
+                GUILayout.Button("Create RPG Toolkit UI Canvas", customSkin.button);
+            }
+
+            // Player Module
+            if (allowPlayerModule)
+            {
+                GUI.enabled = true;
+                if (GUILayout.Button("Create Player Module", customSkin.button))
+                {
+                    playerModule = RPGToolkitModules.CreatePlayer();
+                }
+            }
+            else
+            {
+                GUI.enabled = false;
+                GUILayout.Button("Create Player Module", customSkin.button);
+            }
+
+            // Inventory Module
+            if (allowInventoryModule)
+            {
+                GUI.enabled = true;
+                if (GUILayout.Button("Create Inventory Module", customSkin.button))
+                {
+                    inventoryModule = RPGToolkitModules.CreateInventory();
+                }
+            }
+            else
+            {
+                GUI.enabled = false;
+                GUILayout.Button("Create Inventory Module", customSkin.button);
+            }
+
+            // Quest Module
+            if (allowQuestModule)
+            {
+                GUI.enabled = true;
+                if (GUILayout.Button("Create Quest Module", customSkin.button))
+                {
+                    questModule = RPGToolkitModules.CreateQuest();
+                }
+            }
+            else
+            {
+                GUI.enabled = false;
+                GUILayout.Button("Create Quest Module", customSkin.button);
+            }
+
+            GUILayout.EndVertical();
+            GUILayout.Space(RPGToolkitManagerEditor.foldoutItemSpace);
+            GUILayout.BeginVertical(EditorStyles.helpBox);
+        }
+
         private void DrawKeybinds()
         {
             // Keybinds
+            GUI.enabled = true;
+
             var interactKey = serializedObject.FindProperty("interactKey");
             var questKey = serializedObject.FindProperty("questBookKey");
 
@@ -129,6 +217,8 @@ namespace RPGToolkit
         private void DrawPlayerModule()
         {
             // Player Module
+            GUI.enabled = allowPlayerModule ? false : true;
+
             var hasInventory = serializedObject.FindProperty("hasInventory");
             var hasLevel = serializedObject.FindProperty("hasLevel");
             var hasHealth = serializedObject.FindProperty("hasHealth");
@@ -239,6 +329,8 @@ namespace RPGToolkit
         private void DrawQuestModule()
         {
             // Quest Module
+            GUI.enabled = allowQuestModule ? false : true;
+
             var hasQuestTrackUI = serializedObject.FindProperty("hasQuestTrackUI");
             var hasQuestBookUI = serializedObject.FindProperty("hasQuestBookUI");
             var saveQuest = serializedObject.FindProperty("saveQuest");
@@ -253,6 +345,21 @@ namespace RPGToolkit
 
             if (showQuestModule)
             {
+                if (questModule != null)
+                {
+                    GUI.enabled = true;
+                    if (GUILayout.Button("Create new Quest", customSkin.button))
+                    {
+                        RPGToolkitModules.CreateNewQuestSO();
+                    }
+                }
+                else
+                {
+                    GUI.enabled = false;
+                    GUILayout.Button("Create new Quest", customSkin.button);
+                }
+
+                GUI.enabled = true;
                 RPGToolkitEditorHandler.DrawProperty(hasQuestTrackUI, customSkin, "Have Quest Track UI", "Enable to have a Quest panel to track active quests.");
                 RPGToolkitEditorHandler.DrawProperty(hasQuestBookUI, customSkin, "Have Quest Book UI", "Enable to have a Quest book to see details of all accepted quests.");
                 RPGToolkitEditorHandler.DrawProperty(saveQuest, customSkin, "Save Quests", "Enable to allow quest states to be saved (Persistent Data).");
@@ -417,6 +524,9 @@ namespace RPGToolkit
             GUILayout.Space(6);
         }
 
-        void Email() { Application.OpenURL("https://astralayano.wixsite.com/portfolio/contact"); }
+        void Email()
+        {
+            Application.OpenURL("https://astralayano.wixsite.com/portfolio/contact");
+        }
     }
 }

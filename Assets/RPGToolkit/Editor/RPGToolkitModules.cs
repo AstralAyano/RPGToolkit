@@ -14,22 +14,24 @@ namespace RPGToolkit
 
         private const string InventoryUIPath = "Assets/RPGToolkit/Prefabs/Inventory/InventoryUI.prefab";
         private const string QuestUIPath = "Assets/RPGToolkit/Prefabs/Quest/QuestUI.prefab";
-        private const string QuestSOPath = "Assets/RPGToolkit/Resources/Quests";
+        private const string QuestSOPath = "Assets/Resources/RPGToolkit/Quests";
         
-        private static GameObject uiCanvas;
-        private static GameObject inventoryUI, questUI;
-        private static GameObject playerModule, inventoryModule, questModule;
+        public static GameObject uiCanvas;
+        public static GameObject inventoryUI, questUI;
+        public static GameObject playerModule, inventoryModule, questModule;
         private static string modulePath;
         private static string moduleName;
 
         // RPG Toolkit UI
         [MenuItem("RPG Toolkit/Create RPGToolkit UI", false, 10)]
-        public static void CreateUI()
+        public static GameObject CreateUI()
         {
             if (uiCanvas == null)
             {
-                CreateModule(UIPath, "UI Module");
+                return CreateModule(UIPath, "UI Module");
             }
+
+            return null;
         }
 
         [MenuItem("RPG Toolkit/Create RPGToolkit UI", true, 10)]
@@ -40,13 +42,15 @@ namespace RPGToolkit
 
         // Player Module
         [MenuItem("RPG Toolkit/Create Player Module", false, 11)]
-        public static void CreatePlayer()
+        public static GameObject CreatePlayer()
         {
             if (playerModule == null)
             {
-                CreateModule(PlayerPath, "Player Module");
                 Physics.IgnoreLayerCollision(LayerMask.NameToLayer("PlayerTrigger"), LayerMask.NameToLayer("Item"), true);
+                return CreateModule(PlayerPath, "Player Module");
             }
+
+            return null;
         }
 
         [MenuItem("RPG Toolkit/Create Player Module", true, 11)]
@@ -57,13 +61,15 @@ namespace RPGToolkit
 
         // Inventory Module
         [MenuItem("RPG Toolkit/Create Inventory Module", false, 12)]
-        public static void CreateInventory()
+        public static GameObject CreateInventory()
         {
             if (inventoryModule == null)
             {
-                CreateModuleWithUI(InventoryPath, "Inventory Module", true);
                 Physics.IgnoreLayerCollision(LayerMask.NameToLayer("PlayerTrigger"), LayerMask.NameToLayer("Item"), true);
+                return CreateModuleWithUI(InventoryPath, "Inventory Module", true);
             }
+
+            return null;
         }
 
         [MenuItem("RPG Toolkit/Create Inventory Module", true, 12)]
@@ -74,12 +80,14 @@ namespace RPGToolkit
 
         // Quest Module
         [MenuItem("RPG Toolkit/Create Quest Module", false, 13)]
-        public static void CreateQuest()
+        public static GameObject CreateQuest()
         {
             if (questModule == null)
             {
-                CreateModuleWithUI(QuestPath, "Quest Module", false);
+                return CreateModuleWithUI(QuestPath, "Quest Module", false);
             }
+
+            return null;
         }
 
         [MenuItem("RPG Toolkit/Create Quest Module", true, 13)]
@@ -149,8 +157,9 @@ namespace RPGToolkit
             }
         }
 
-        private static void CreateModuleWithUI(string prefabPath, string moduleName, bool needUIReference)
+        private static GameObject CreateModuleWithUI(string prefabPath, string moduleName, bool needUIReference)
         {
+            GameObject currModule = new GameObject();
             modulePath = prefabPath;
             RPGToolkitModules.moduleName = moduleName;
 
@@ -172,12 +181,14 @@ namespace RPGToolkit
                         inventoryUI.transform.SetParent(uiCanvas.transform);
                         RectTransform invRect = inventoryUI.GetComponent<RectTransform>();
                         SetPadding(invRect, 0, 0);
+                        currModule = inventoryUI;
                         break;
                     case "Quest Module":
                         questUI = CreateModule(QuestUIPath, "Quest UI");
                         questUI.transform.SetParent(uiCanvas.transform);
                         RectTransform questRect = questUI.GetComponent<RectTransform>();
                         SetPadding(questRect, 0, 0);
+                        currModule = questUI;
                         break;
                 }
             }
@@ -191,6 +202,8 @@ namespace RPGToolkit
             {
                 CreateModule(modulePath, moduleName);
             }
+
+            return currModule;
         }
 
         private static void WaitForUIModule()

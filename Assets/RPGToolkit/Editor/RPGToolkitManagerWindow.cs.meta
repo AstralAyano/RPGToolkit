@@ -3,7 +3,15 @@ guid: ba00018ad0727494d80ce307e6f3c4f0
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - m_ViewDataDictionary: {instanceID: 0}
+  - customSkin: {instanceID: 0}
+  - uiCanvas: {instanceID: 0}
+  - inventoryUI: {instanceID: 0}
+  - questUI: {instanceID: 0}
+  - playerModule: {instanceID: 0}
+  - inventoryModule: {instanceID: 0}
+  - questModule: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

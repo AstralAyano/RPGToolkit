@@ -15,18 +15,11 @@ MonoBehaviour:
   enableDynamicUpdate: 1
   enableExtendedColorPicker: 1
   editorHints: 1
-  UIPath: Assets/RPGToolkit/Prefabs/RPGToolkitUI.prefab
-  PlayerPath: Assets/RPGToolkit/Prefabs/RPGToolkitPlayer.prefab
-  InventoryPath: Assets/RPGToolkit/Prefabs/RPGToolkitInventory.prefab
-  QuestPath: Assets/RPGToolkit/Prefabs/RPGToolkitQuest.prefab
-  InventoryUIPath: Assets/RPGToolkit/Prefabs/Inventory/InventoryUI.prefab
-  QuestUIPath: Assets/RPGToolkit/Prefabs/Quest/QuestUI.prefab
-  QuestSOPath: Assets/Resources/RPGToolkit/Quests
   interactKey: 102
   questBookKey: 113
   hasInventory: 1
   hasLevel: 0
-  startingLevel: 1
+  startingLevel: 0
   startingExperience: 0
   maxExperience: 0
   hasHealth: 0

@@ -1,12 +1,16 @@
 using UnityEngine;
 using UnityEditor;
-using System.Collections.Generic;
+using UnityEditor.PackageManager.UI;
 
 namespace RPGToolkit
 {
     public class RPGToolkitManagerWindow : EditorWindow
     {
         public GUISkin customSkin;
+        public static string buildID = "RPGTK-20240703";
+        public static float foldoutItemSpace = 2;
+        public static float foldoutTopSpace = 5;
+        public static float foldoutBottomSpace = 2;
 
         public GameObject uiCanvas;
         public GameObject inventoryUI, questUI;
@@ -37,7 +41,10 @@ namespace RPGToolkit
         [MenuItem("Window/RPG Toolkit Manager")]
         public static void ShowWindow()
         {
-            GetWindow<RPGToolkitManagerWindow>("RPG Toolkit Manager");
+            var window = GetWindow<RPGToolkitManagerWindow>("RPG Toolkit Manager");
+            var iconPath = "Assets/RPGToolkit/Resources/Images/RPGToolkit.png";
+            var icon = AssetDatabase.LoadAssetAtPath(iconPath, typeof(Texture)) as Texture;
+            window.titleContent = new GUIContent("RPG Toolkit Manager", icon);
         }
 
         private void OnEnable()
@@ -72,7 +79,7 @@ namespace RPGToolkit
             {
                 EditorGUILayout.HelpBox("Editor variables are missing. You can manually fix this by deleting " +
                     "RPGToolkit > Resources folder and then re-import the package. \n\nIf you're still seeing this " +
-                    "dialog even after the re-import, contact me with this ID: " + RPGToolkitManagerEditor.buildID, MessageType.Error);
+                    "dialog even after the re-import, contact me with this ID: " + buildID, MessageType.Error);
 
                 if (GUILayout.Button("Contact"))
                 {
@@ -123,10 +130,12 @@ namespace RPGToolkit
 
         private void DrawModules()
         {
+            // All Modules and creations
+            GUI.enabled = true;
+
             // RPG Toolkit UI Canvas
             if (allowUI)
             {
-                GUI.enabled = true;
                 if (GUILayout.Button("Create RPG Toolkit UI Canvas", customSkin.button))
                 {
                     uiCanvas = RPGToolkitModules.CreateUI();
@@ -134,14 +143,16 @@ namespace RPGToolkit
             }
             else
             {
-                GUI.enabled = false;
-                GUILayout.Button("Create RPG Toolkit UI Canvas", customSkin.button);
+                if (GUILayout.Button("Find RPG Toolkit UI Canvas", customSkin.button))
+                {
+                    Selection.activeObject = uiCanvas;
+                    EditorGUIUtility.PingObject(uiCanvas);
+                }
             }
 
             // Player Module
             if (allowPlayerModule)
             {
-                GUI.enabled = true;
                 if (GUILayout.Button("Create Player Module", customSkin.button))
                 {
                     playerModule = RPGToolkitModules.CreatePlayer();
@@ -149,14 +160,16 @@ namespace RPGToolkit
             }
             else
             {
-                GUI.enabled = false;
-                GUILayout.Button("Create Player Module", customSkin.button);
+                if (GUILayout.Button("Find Player Module", customSkin.button))
+                {
+                    Selection.activeObject = playerModule;
+                    EditorGUIUtility.PingObject(playerModule);
+                }
             }
 
             // Inventory Module
             if (allowInventoryModule)
             {
-                GUI.enabled = true;
                 if (GUILayout.Button("Create Inventory Module", customSkin.button))
                 {
                     inventoryModule = RPGToolkitModules.CreateInventory();
@@ -164,14 +177,16 @@ namespace RPGToolkit
             }
             else
             {
-                GUI.enabled = false;
-                GUILayout.Button("Create Inventory Module", customSkin.button);
+                if (GUILayout.Button("Find Inventory Module", customSkin.button))
+                {
+                    Selection.activeObject = inventoryModule;
+                    EditorGUIUtility.PingObject(inventoryModule);
+                }
             }
 
             // Quest Module
             if (allowQuestModule)
             {
-                GUI.enabled = true;
                 if (GUILayout.Button("Create Quest Module", customSkin.button))
                 {
                     questModule = RPGToolkitModules.CreateQuest();
@@ -179,12 +194,15 @@ namespace RPGToolkit
             }
             else
             {
-                GUI.enabled = false;
-                GUILayout.Button("Create Quest Module", customSkin.button);
+                if (GUILayout.Button("Find Quest Module", customSkin.button))
+                {
+                    Selection.activeObject = questModule;
+                    EditorGUIUtility.PingObject(questModule);
+                }
             }
 
             GUILayout.EndVertical();
-            GUILayout.Space(RPGToolkitManagerEditor.foldoutItemSpace);
+            GUILayout.Space(foldoutItemSpace);
             GUILayout.BeginVertical(EditorStyles.helpBox);
         }
 
@@ -196,12 +214,12 @@ namespace RPGToolkit
             var interactKey = serializedObject.FindProperty("interactKey");
             var questKey = serializedObject.FindProperty("questBookKey");
 
-            GUILayout.Space(RPGToolkitManagerEditor.foldoutTopSpace);
+            GUILayout.Space(foldoutTopSpace);
             GUILayout.BeginHorizontal();
             showKeybinds = EditorGUILayout.Foldout(showKeybinds, "Keybinds", true, foldoutStyle);
             showKeybinds = GUILayout.Toggle(showKeybinds, new GUIContent(""), customSkin.FindStyle("Toggle Helper"));
             GUILayout.EndHorizontal();
-            GUILayout.Space(RPGToolkitManagerEditor.foldoutBottomSpace);
+            GUILayout.Space(foldoutBottomSpace);
 
             if (showKeybinds)
             {
@@ -210,7 +228,7 @@ namespace RPGToolkit
             }
 
             GUILayout.EndVertical();
-            GUILayout.Space(RPGToolkitManagerEditor.foldoutItemSpace);
+            GUILayout.Space(foldoutItemSpace);
             GUILayout.BeginVertical(EditorStyles.helpBox);
         }
 
@@ -227,12 +245,12 @@ namespace RPGToolkit
             var hasDash = serializedObject.FindProperty("hasDash");
             var hasWallJump = serializedObject.FindProperty("hasWallJump");
 
-            GUILayout.Space(RPGToolkitManagerEditor.foldoutTopSpace);
+            GUILayout.Space(foldoutTopSpace);
             GUILayout.BeginHorizontal();
             showPlayerModule = EditorGUILayout.Foldout(showPlayerModule, "Player Module", true, foldoutStyle);
             showPlayerModule = GUILayout.Toggle(showPlayerModule, new GUIContent(""), customSkin.FindStyle("Toggle Helper"));
             GUILayout.EndHorizontal();
-            GUILayout.Space(RPGToolkitManagerEditor.foldoutBottomSpace);
+            GUILayout.Space(foldoutBottomSpace);
 
             if (showPlayerModule)
             {
@@ -322,7 +340,7 @@ namespace RPGToolkit
             }
 
             GUILayout.EndVertical();
-            GUILayout.Space(RPGToolkitManagerEditor.foldoutItemSpace);
+            GUILayout.Space(foldoutItemSpace);
             GUILayout.BeginVertical(EditorStyles.helpBox);
         }
 
@@ -336,12 +354,12 @@ namespace RPGToolkit
             var saveQuest = serializedObject.FindProperty("saveQuest");
             var loadQuest = serializedObject.FindProperty("loadQuest");
 
-            GUILayout.Space(RPGToolkitManagerEditor.foldoutTopSpace);
+            GUILayout.Space(foldoutTopSpace);
             GUILayout.BeginHorizontal();
             showQuestModule = EditorGUILayout.Foldout(showQuestModule, "Quest Module", true, foldoutStyle);
             showQuestModule = GUILayout.Toggle(showQuestModule, new GUIContent(""), customSkin.FindStyle("Toggle Helper"));
             GUILayout.EndHorizontal();
-            GUILayout.Space(RPGToolkitManagerEditor.foldoutBottomSpace);
+            GUILayout.Space(foldoutBottomSpace);
 
             if (showQuestModule)
             {
@@ -366,7 +384,7 @@ namespace RPGToolkit
                 RPGToolkitEditorHandler.DrawProperty(loadQuest, customSkin, "Load Quests", "Enable to allow quest states to be loaded when running the game.");
             }
             GUILayout.EndVertical();
-            GUILayout.Space(RPGToolkitManagerEditor.foldoutItemSpace);
+            GUILayout.Space(foldoutItemSpace);
             GUILayout.BeginVertical(EditorStyles.helpBox);
         }
 
@@ -379,12 +397,12 @@ namespace RPGToolkit
             var negativeColor = serializedObject.FindProperty("negativeColor");
             var backgroundColor = serializedObject.FindProperty("backgroundColor");
 
-            GUILayout.Space(RPGToolkitManagerEditor.foldoutTopSpace);
+            GUILayout.Space(foldoutTopSpace);
             GUILayout.BeginHorizontal();
             showColors = EditorGUILayout.Foldout(showColors, "UI Colors", true, foldoutStyle);
             showColors = GUILayout.Toggle(showColors, new GUIContent(""), customSkin.FindStyle("Toggle Helper"));
             GUILayout.EndHorizontal();
-            GUILayout.Space(RPGToolkitManagerEditor.foldoutBottomSpace);
+            GUILayout.Space(foldoutBottomSpace);
 
             if (showColors)
             {
@@ -400,7 +418,7 @@ namespace RPGToolkit
             }
 
             GUILayout.EndVertical();
-            GUILayout.Space(RPGToolkitManagerEditor.foldoutItemSpace);
+            GUILayout.Space(foldoutItemSpace);
             GUILayout.BeginVertical(EditorStyles.helpBox);
         }
 
@@ -413,12 +431,12 @@ namespace RPGToolkit
             var semiBoldFont = serializedObject.FindProperty("semiBoldFont");
             var boldFont = serializedObject.FindProperty("boldFont");
 
-            GUILayout.Space(RPGToolkitManagerEditor.foldoutTopSpace);
+            GUILayout.Space(foldoutTopSpace);
             GUILayout.BeginHorizontal();
             showFonts = EditorGUILayout.Foldout(showFonts, "UI Fonts", true, foldoutStyle);
             showFonts = GUILayout.Toggle(showFonts, new GUIContent(""), customSkin.FindStyle("Toggle Helper"));
             GUILayout.EndHorizontal();
-            GUILayout.Space(RPGToolkitManagerEditor.foldoutBottomSpace);
+            GUILayout.Space(foldoutBottomSpace);
 
             if (showFonts)
             {
@@ -434,7 +452,7 @@ namespace RPGToolkit
             }
 
             GUILayout.EndVertical();
-            GUILayout.Space(RPGToolkitManagerEditor.foldoutItemSpace);
+            GUILayout.Space(foldoutItemSpace);
             GUILayout.BeginVertical(EditorStyles.helpBox);
         }
 
@@ -445,12 +463,12 @@ namespace RPGToolkit
             var hoverSound = serializedObject.FindProperty("hoverSound");
             var clickSound = serializedObject.FindProperty("clickSound");
 
-            GUILayout.Space(RPGToolkitManagerEditor.foldoutTopSpace);
+            GUILayout.Space(foldoutTopSpace);
             GUILayout.BeginHorizontal();
             showSounds = EditorGUILayout.Foldout(showSounds, "UI Sounds", true, foldoutStyle);
             showSounds = GUILayout.Toggle(showSounds, new GUIContent(""), customSkin.FindStyle("Toggle Helper"));
             GUILayout.EndHorizontal();
-            GUILayout.Space(RPGToolkitManagerEditor.foldoutBottomSpace);
+            GUILayout.Space(foldoutBottomSpace);
 
             if (showSounds)
             {
@@ -518,7 +536,7 @@ namespace RPGToolkit
             GUILayout.Space(6);
             GUILayout.BeginHorizontal();
             GUILayout.FlexibleSpace();
-            GUILayout.Label("ID : " + RPGToolkitManagerEditor.buildID);
+            GUILayout.Label("ID : " + buildID);
             GUILayout.FlexibleSpace();
             GUILayout.EndHorizontal();
             GUILayout.Space(6);

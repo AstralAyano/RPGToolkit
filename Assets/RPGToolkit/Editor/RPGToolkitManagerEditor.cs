@@ -108,10 +108,12 @@ namespace RPGToolkit
 
         private void DrawModules()
         {
+            // All Modules and creations
+            GUI.enabled = true;
+
             // RPG Toolkit UI Canvas
             if (allowUI)
             {
-                GUI.enabled = true;
                 if (GUILayout.Button("Create RPG Toolkit UI Canvas", customSkin.button))
                 {
                     uiCanvas = RPGToolkitModules.CreateUI();
@@ -119,14 +121,16 @@ namespace RPGToolkit
             }
             else
             {
-                GUI.enabled = false;
-                GUILayout.Button("Create RPG Toolkit UI Canvas", customSkin.button);
+                if (GUILayout.Button("Find RPG Toolkit UI Canvas", customSkin.button))
+                {
+                    Selection.activeObject = uiCanvas;
+                    EditorGUIUtility.PingObject(uiCanvas);
+                }
             }
 
             // Player Module
             if (allowPlayerModule)
             {
-                GUI.enabled = true;
                 if (GUILayout.Button("Create Player Module", customSkin.button))
                 {
                     playerModule = RPGToolkitModules.CreatePlayer();
@@ -134,14 +138,16 @@ namespace RPGToolkit
             }
             else
             {
-                GUI.enabled = false;
-                GUILayout.Button("Create Player Module", customSkin.button);
+                if (GUILayout.Button("Find Player Module", customSkin.button))
+                {
+                    Selection.activeObject = playerModule;
+                    EditorGUIUtility.PingObject(playerModule);
+                }
             }
 
             // Inventory Module
             if (allowInventoryModule)
             {
-                GUI.enabled = true;
                 if (GUILayout.Button("Create Inventory Module", customSkin.button))
                 {
                     inventoryModule = RPGToolkitModules.CreateInventory();
@@ -149,14 +155,16 @@ namespace RPGToolkit
             }
             else
             {
-                GUI.enabled = false;
-                GUILayout.Button("Create Inventory Module", customSkin.button);
+                if (GUILayout.Button("Find Inventory Module", customSkin.button))
+                {
+                    Selection.activeObject = inventoryModule;
+                    EditorGUIUtility.PingObject(inventoryModule);
+                }
             }
 
             // Quest Module
             if (allowQuestModule)
             {
-                GUI.enabled = true;
                 if (GUILayout.Button("Create Quest Module", customSkin.button))
                 {
                     questModule = RPGToolkitModules.CreateQuest();
@@ -164,8 +172,11 @@ namespace RPGToolkit
             }
             else
             {
-                GUI.enabled = false;
-                GUILayout.Button("Create Quest Module", customSkin.button);
+                if (GUILayout.Button("Find Quest Module", customSkin.button))
+                {
+                    Selection.activeObject = questModule;
+                    EditorGUIUtility.PingObject(questModule);
+                }
             }
 
             GUILayout.EndVertical();

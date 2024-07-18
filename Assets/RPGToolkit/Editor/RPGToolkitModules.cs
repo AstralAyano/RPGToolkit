@@ -2,8 +2,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using System.IO;
-using Unity.VisualScripting;
-using UnityEditor.VersionControl;
 
 namespace RPGToolkit
 {
@@ -181,7 +179,7 @@ namespace RPGToolkit
                 switch (moduleName)
                 {
                     case "Inventory Module":
-                        if (inventoryUI != null)
+                        if (inventoryUI != null && GameObject.FindWithTag("RPGToolkitInventoryUI") != null)
                         {
                             break;
                         }
@@ -192,7 +190,7 @@ namespace RPGToolkit
                         currModule = inventoryUI;
                         break;
                     case "Quest Module":
-                        if (questUI != null)
+                        if (questUI != null && GameObject.FindWithTag("RPGToolkitQuestUI") != null)
                         {
                             break;
                         }

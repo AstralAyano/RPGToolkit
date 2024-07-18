@@ -138,11 +138,20 @@ namespace RPGToolkit
             }
             else
             {
+                GUILayout.BeginHorizontal();
                 if (GUILayout.Button("Find Player Module", customSkin.button))
                 {
                     Selection.activeObject = playerModule;
                     EditorGUIUtility.PingObject(playerModule);
                 }
+                if (GUILayout.Button("Delete Player Module", customSkin.button))
+                {
+                    if (EditorUtility.DisplayDialog("Delete Player Module?", "This will delete the Player GameObject. Are you sure?", "Delete", "Cancel"))
+                    {
+                        DestroyImmediate(GameObject.FindWithTag("RPGToolkitPlayer"));
+                    }
+                }
+                GUILayout.EndHorizontal();
             }
 
             // Inventory Module
@@ -155,11 +164,21 @@ namespace RPGToolkit
             }
             else
             {
+                GUILayout.BeginHorizontal();
                 if (GUILayout.Button("Find Inventory Module", customSkin.button))
                 {
                     Selection.activeObject = inventoryModule;
                     EditorGUIUtility.PingObject(inventoryModule);
                 }
+                if (GUILayout.Button("Delete Inventory Module", customSkin.button))
+                {
+                    if (EditorUtility.DisplayDialog("Delete Inventory Module?", "This will delete the Inventory GameObject as well as the UI for it. Are you sure?", "Delete", "Cancel"))
+                    {
+                        DestroyImmediate(GameObject.FindWithTag("RPGToolkitInventory"));
+                        DestroyImmediate(GameObject.FindWithTag("RPGToolkitInventoryUI"));
+                    }
+                }
+                GUILayout.EndHorizontal();
             }
 
             // Quest Module
@@ -172,11 +191,21 @@ namespace RPGToolkit
             }
             else
             {
+                GUILayout.BeginHorizontal();
                 if (GUILayout.Button("Find Quest Module", customSkin.button))
                 {
                     Selection.activeObject = questModule;
                     EditorGUIUtility.PingObject(questModule);
                 }
+                if (GUILayout.Button("Delete Quest Module", customSkin.button))
+                {
+                    if (EditorUtility.DisplayDialog("Delete Quest Module?", "This will delete the Quest GameObject as well as the UI for it. Are you sure?", "Delete", "Cancel"))
+                    {
+                        DestroyImmediate(GameObject.FindWithTag("RPGToolkitQuest"));
+                        DestroyImmediate(GameObject.FindWithTag("RPGToolkitQuestUI"));
+                    }
+                }
+                GUILayout.EndHorizontal();
             }
 
             GUILayout.EndVertical();

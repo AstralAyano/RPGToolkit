@@ -49,11 +49,11 @@ MonoBehaviour:
   hasQuestBookUI: 1
   saveQuest: 0
   loadQuest: 0
-  primaryColor: {r: 255, g: 255, b: 255, a: 255}
+  primaryColor: {r: 1, g: 1, b: 1, a: 1}
   secondaryColor: {r: 255, g: 255, b: 255, a: 255}
   primaryReversed: {r: 255, g: 255, b: 255, a: 255}
   negativeColor: {r: 255, g: 255, b: 255, a: 255}
-  backgroundColor: {r: 255, g: 255, b: 255, a: 255}
+  backgroundColor: {r: 0.09433961, g: 0.09433961, b: 0.09433961, a: 1}
   lightFont: {fileID: 0}
   regularFont: {fileID: 0}
   mediumFont: {fileID: 0}

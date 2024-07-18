@@ -413,11 +413,11 @@ namespace RPGToolkit
 
             if (showColors)
             {
-                // RPGToolkitEditorHandler.DrawProperty(primaryColor, customSkin, "Primary");
-                // RPGToolkitEditorHandler.DrawProperty(secondaryColor, customSkin, "Secondary");
-                // RPGToolkitEditorHandler.DrawProperty(primaryReversed, customSkin, "Primary Reversed");
-                // RPGToolkitEditorHandler.DrawProperty(negativeColor, customSkin, "Negative");
-                // RPGToolkitEditorHandler.DrawProperty(backgroundColor, customSkin, "Background");
+                RPGToolkitEditorHandler.DrawProperty(primaryColor, customSkin, "Primary", "This is the Primary color for all UI with RPGToolkitUISettings component.");
+                RPGToolkitEditorHandler.DrawProperty(secondaryColor, customSkin, "Secondary", "This is the Secondary color for all UI with RPGToolkitUISettings component.");
+                RPGToolkitEditorHandler.DrawProperty(primaryReversed, customSkin, "Primary Reversed", "This is the reversed Primary color for all UI with RPGToolkitUISettings component.");
+                RPGToolkitEditorHandler.DrawProperty(negativeColor, customSkin, "Negative", "This is the Negative color for all UI with RPGToolkitUISettings component.");
+                RPGToolkitEditorHandler.DrawProperty(backgroundColor, customSkin, "Background", "This is the Background color for all UI with RPGToolkitUISettings component.");
             }
 
             GUILayout.EndVertical();

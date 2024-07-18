@@ -161,7 +161,7 @@ namespace RPGToolkit
 
         private static GameObject CreateModuleWithUI(string prefabPath, string moduleName, bool needUIReference)
         {
-            GameObject currModule = new GameObject();
+            GameObject currModule = null;
             modulePath = prefabPath;
             RPGToolkitModules.moduleName = moduleName;
 

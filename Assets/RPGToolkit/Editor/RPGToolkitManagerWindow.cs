@@ -124,7 +124,9 @@ namespace RPGToolkit
             DrawSupport();
 
             GUILayout.EndScrollView();
+
             serializedObject.ApplyModifiedProperties();
+            EditorUtility.SetDirty(rpgToolkitManager);
         }
 
         private void DrawModules()
@@ -411,6 +413,7 @@ namespace RPGToolkit
                 RPGToolkitEditorHandler.DrawProperty(saveQuest, customSkin, "Save Quests", "Enable to allow quest states to be saved (Persistent Data).");
                 RPGToolkitEditorHandler.DrawProperty(loadQuest, customSkin, "Load Quests", "Enable to allow quest states to be loaded when running the game.");
             }
+
             GUILayout.EndVertical();
             GUILayout.Space(foldoutItemSpace);
             GUILayout.BeginVertical(EditorStyles.helpBox);
@@ -434,15 +437,11 @@ namespace RPGToolkit
 
             if (showColors)
             {
-                // RPGToolkitEditorHandler.DrawProperty(primaryColor, customSkin, "Primary");
-                // RPGToolkitEditorHandler.DrawProperty(secondaryColor, customSkin, "Secondary");
-                // RPGToolkitEditorHandler.DrawProperty(primaryReversed, customSkin, "Primary Reversed");
-                // RPGToolkitEditorHandler.DrawProperty(negativeColor, customSkin, "Negative");
-                // RPGToolkitEditorHandler.DrawProperty(backgroundColor, customSkin, "Background");
-                
-                // Apply changes to SerializedObject
-                serializedObject.ApplyModifiedProperties();
-                EditorUtility.SetDirty(rpgToolkitManager);
+                RPGToolkitEditorHandler.DrawProperty(primaryColor, customSkin, "Primary", "This is the Primary color for all UI with RPGToolkitUISettings component.");
+                RPGToolkitEditorHandler.DrawProperty(secondaryColor, customSkin, "Secondary", "This is the Secondary color for all UI with RPGToolkitUISettings component.");
+                RPGToolkitEditorHandler.DrawProperty(primaryReversed, customSkin, "Primary Reversed", "This is the reversed Primary color for all UI with RPGToolkitUISettings component.");
+                RPGToolkitEditorHandler.DrawProperty(negativeColor, customSkin, "Negative", "This is the Negative color for all UI with RPGToolkitUISettings component.");
+                RPGToolkitEditorHandler.DrawProperty(backgroundColor, customSkin, "Background", "This is the Background color for all UI with RPGToolkitUISettings component.");
             }
 
             GUILayout.EndVertical();
@@ -473,10 +472,6 @@ namespace RPGToolkit
                 // RPGToolkitEditorHandler.DrawProperty(mediumFont, customSkin, "Medium");
                 // RPGToolkitEditorHandler.DrawProperty(semiBoldFont, customSkin, "Semibold");
                 // RPGToolkitEditorHandler.DrawProperty(boldFont, customSkin, "Bold");
-
-                // Apply changes to SerializedObject
-                serializedObject.ApplyModifiedProperties();
-                EditorUtility.SetDirty(rpgToolkitManager);
             }
 
             GUILayout.EndVertical();
@@ -503,10 +498,6 @@ namespace RPGToolkit
                 // RPGToolkitEditorHandler.DrawProperty(backgroundMusic, customSkin, "Background Music");
                 // RPGToolkitEditorHandler.DrawProperty(hoverSound, customSkin, "Hover SFX");
                 // RPGToolkitEditorHandler.DrawProperty(clickSound, customSkin, "Click SFX");
-
-                // Apply changes to SerializedObject
-                serializedObject.ApplyModifiedProperties();
-                EditorUtility.SetDirty(rpgToolkitManager);
             }
         }
 

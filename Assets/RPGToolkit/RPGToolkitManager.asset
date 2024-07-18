@@ -53,7 +53,7 @@ MonoBehaviour:
   secondaryColor: {r: 255, g: 255, b: 255, a: 255}
   primaryReversed: {r: 255, g: 255, b: 255, a: 255}
   negativeColor: {r: 255, g: 255, b: 255, a: 255}
-  backgroundColor: {r: 0.09433961, g: 0.09433961, b: 0.09433961, a: 1}
+  backgroundColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
   lightFont: {fileID: 0}
   regularFont: {fileID: 0}
   mediumFont: {fileID: 0}

@@ -539,8 +539,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RPGToolkitAsset: {fileID: 11400000, guid: 1a715cc2f6d2450418b7811f66dc26b7, type: 2}
   colorType: 4
-  imageObject: {fileID: 0}
-  textObject: {fileID: 0}
   keepAlphaValue: 1
   useCustomColor: 0
 --- !u!1001 &496992967
@@ -1303,8 +1301,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RPGToolkitAsset: {fileID: 11400000, guid: 1a715cc2f6d2450418b7811f66dc26b7, type: 2}
   colorType: 4
-  imageObject: {fileID: 0}
-  textObject: {fileID: 0}
   keepAlphaValue: 0
   useCustomColor: 0
 --- !u!1 &865678413

@@ -2,10 +2,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEditor;
 using TMPro;
-using UnityEditor.SceneManagement;
 
 namespace RPGToolkit
 {
+    [ExecuteInEditMode]
     public class RPGToolkitUISettings : MonoBehaviour
     {
         public enum ColorType
@@ -43,38 +43,6 @@ namespace RPGToolkit
                     this.enabled = false;
                 }
             }
-
-            EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
-        }
-
-        private void OnDisable()
-        {
-            EditorApplication.playModeStateChanged -= OnPlayModeStateChanged;
-        }
-
-        private void OnPlayModeStateChanged(PlayModeStateChange state)
-        {
-            if (state == PlayModeStateChange.ExitingPlayMode)
-            {
-                SaveChanges();
-            }
-        }
-
-        private void SaveChanges()
-        {
-            if (imageObject != null)
-            {
-                EditorUtility.SetDirty(imageObject);
-                PrefabUtility.RecordPrefabInstancePropertyModifications(imageObject);
-            }
-
-            if (textObject != null)
-            {
-                EditorUtility.SetDirty(textObject);
-                PrefabUtility.RecordPrefabInstancePropertyModifications(textObject);
-            }
-
-            EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
         }
 
         private void Awake()

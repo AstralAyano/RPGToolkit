@@ -421,6 +421,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5423327533550673732}
     m_Modifications:
+    - target: {fileID: 472068249, guid: 48da772f93c002349abfdb506f6af106, type: 3}
+      propertyPath: fontType
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 472068249, guid: 48da772f93c002349abfdb506f6af106, type: 3}
+      propertyPath: fontColorType
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6505386654734144205, guid: 48da772f93c002349abfdb506f6af106, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -509,10 +517,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: QuestUI
       objectReference: {fileID: 0}
-    - target: {fileID: 6505386654773201252, guid: 48da772f93c002349abfdb506f6af106, type: 3}
-      propertyPath: m_Color.a
-      value: 0.78431374
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48da772f93c002349abfdb506f6af106, type: 3}
 --- !u!224 &472068245 stripped
@@ -520,27 +524,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6505386654734144205, guid: 48da772f93c002349abfdb506f6af106, type: 3}
   m_PrefabInstance: {fileID: 472068244}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &472068246 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6505386654773201254, guid: 48da772f93c002349abfdb506f6af106, type: 3}
-  m_PrefabInstance: {fileID: 472068244}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &472068247
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 472068246}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9fc4874697d4fab4581a512cbbb19926, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RPGToolkitAsset: {fileID: 11400000, guid: 1a715cc2f6d2450418b7811f66dc26b7, type: 2}
-  colorType: 4
-  keepAlphaValue: 1
-  useCustomColor: 0
 --- !u!1001 &496992967
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -683,6 +666,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5423327533550673732}
     m_Modifications:
+    - target: {fileID: 841929672613960240, guid: a1bc4c3cd5876d447a666483294e416a, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 841929673587732128, guid: a1bc4c3cd5876d447a666483294e416a, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 841929674083183753, guid: a1bc4c3cd5876d447a666483294e416a, type: 3}
       propertyPath: m_Name
       value: InventoryUI
@@ -1262,7 +1253,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 255}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1300,7 +1291,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RPGToolkitAsset: {fileID: 11400000, guid: 1a715cc2f6d2450418b7811f66dc26b7, type: 2}
-  colorType: 4
+  uiColorType: 4
+  fontType: 0
+  fontColorType: 0
   keepAlphaValue: 0
   useCustomColor: 0
 --- !u!1 &865678413
@@ -1314,6 +1307,7 @@ GameObject:
   - component: {fileID: 865678414}
   - component: {fileID: 865678416}
   - component: {fileID: 865678415}
+  - component: {fileID: 865678417}
   m_Layer: 5
   m_Name: Dialogue
   m_TagString: Untagged
@@ -1363,15 +1357,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: Hello my name is NPC 1...
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: b2558cd4379f19644852c129a54d86c1, type: 2}
+  m_sharedMaterial: {fileID: 4669109266070095005, guid: b2558cd4379f19644852c129a54d86c1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4291624957
+  m_fontColor: {r: 0.9937107, g: 1, b: 0.7987421, a: 255}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1438,6 +1432,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 865678413}
   m_CullTransparentMesh: 1
+--- !u!114 &865678417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 865678413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fc4874697d4fab4581a512cbbb19926, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RPGToolkitAsset: {fileID: 11400000, guid: 1a715cc2f6d2450418b7811f66dc26b7, type: 2}
+  uiColorType: 0
+  fontType: 1
+  fontColorType: 2
+  keepAlphaValue: 0
+  useCustomColor: 0
 --- !u!1001 &968166760
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3298,6 +3310,7 @@ GameObject:
   - component: {fileID: 1131022053}
   - component: {fileID: 1131022055}
   - component: {fileID: 1131022054}
+  - component: {fileID: 1131022056}
   m_Layer: 5
   m_Name: Name
   m_TagString: Untagged
@@ -3347,15 +3360,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: NPC 1
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: e9fde3f05fc203c4ea8cd9bf4eba4763, type: 2}
+  m_sharedMaterial: {fileID: -8566587463701694841, guid: e9fde3f05fc203c4ea8cd9bf4eba4763, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4287487999
+  m_fontColor: {r: 1, g: 0.8735091, b: 0.55345905, a: 255}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -3422,6 +3435,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1131022052}
   m_CullTransparentMesh: 1
+--- !u!114 &1131022056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1131022052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fc4874697d4fab4581a512cbbb19926, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RPGToolkitAsset: {fileID: 11400000, guid: 1a715cc2f6d2450418b7811f66dc26b7, type: 2}
+  uiColorType: 0
+  fontType: 4
+  fontColorType: 0
+  keepAlphaValue: 0
+  useCustomColor: 0
 --- !u!1001 &1132670641
 PrefabInstance:
   m_ObjectHideFlags: 0

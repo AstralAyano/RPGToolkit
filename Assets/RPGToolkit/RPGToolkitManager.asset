@@ -55,15 +55,15 @@ MonoBehaviour:
   uiAccentColor: {r: 255, g: 255, b: 255, a: 255}
   uiBackgroundColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 255}
   uiAltBackgroundColor: {r: 0.5, g: 0.5, b: 0.5, a: 255}
-  lightFont: {fileID: 0}
-  regularFont: {fileID: 0}
-  mediumFont: {fileID: 0}
-  semiBoldFont: {fileID: 0}
-  boldFont: {fileID: 0}
-  fontPrimaryColor: {r: 255, g: 255, b: 255, a: 255}
-  fontSecondaryColor: {r: 255, g: 255, b: 255, a: 255}
-  fontTertiaryColor: {r: 255, g: 255, b: 255, a: 255}
-  fontAccentColor: {r: 255, g: 255, b: 255, a: 255}
+  lightFont: {fileID: 11400000, guid: d4d9a9383331daa44874146444a0f68d, type: 2}
+  regularFont: {fileID: 11400000, guid: b2558cd4379f19644852c129a54d86c1, type: 2}
+  mediumFont: {fileID: 11400000, guid: 179e8be5c4593d34c83146b426a715f4, type: 2}
+  semiBoldFont: {fileID: 11400000, guid: ac04923bb51ce74419b29405e9801608, type: 2}
+  boldFont: {fileID: 11400000, guid: e9fde3f05fc203c4ea8cd9bf4eba4763, type: 2}
+  fontPrimaryColor: {r: 1, g: 0.8735091, b: 0.55345905, a: 255}
+  fontSecondaryColor: {r: 0.9912764, g: 1, b: 0.55345905, a: 255}
+  fontTertiaryColor: {r: 0.9937107, g: 1, b: 0.7987421, a: 255}
+  fontAccentColor: {r: 1, g: 0.8146851, b: 0.7232704, a: 255}
   backgroundMusic: {fileID: 0}
   hoverSound: {fileID: 0}
   clickSound: {fileID: 0}

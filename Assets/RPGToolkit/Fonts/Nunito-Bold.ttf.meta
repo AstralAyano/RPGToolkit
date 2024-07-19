@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c0fe7b5064ba57640bcbb4a57fd36390
+guid: dad1b138071557442ab4ebae62faa76e
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,10 +9,12 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Karma Future
-  fallbackFontReferences: []
+  - Nunito
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: d766ff64426d7d14f83d38c3408b062a, type: 3}
+  - {fileID: 12800000, guid: 3212943a4e10f364e9ebacc2d7e13e37, type: 3}
   customCharacters: 
-  fontRenderingMode: 3
+  fontRenderingMode: 0
   ascentCalculationMode: 1
   useLegacyBoundsCalculation: 0
   shouldRoundAdvanceValue: 1

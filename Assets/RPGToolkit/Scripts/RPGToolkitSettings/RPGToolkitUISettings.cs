@@ -12,9 +12,10 @@ namespace RPGToolkit
         {
             PRIMARY,
             SECONDARY,
-            PRIMARY_REVERSED,
-            NEGATIVE,
-            BACKGROUND
+            TERTIARY,
+            ACCENT,
+            BACKGROUND,
+            ALT_BACKGROUND
         }
 
         [Header("Resources")]
@@ -106,46 +107,54 @@ namespace RPGToolkit
                     {
                         if (colorType == ColorType.PRIMARY)
                         {
-                            uiColor = RPGToolkitAsset.primaryColor;
+                            uiColor = RPGToolkitAsset.uiPrimaryColor;
                         }
                         else if (colorType == ColorType.SECONDARY)
                         {
-                            uiColor = RPGToolkitAsset.secondaryColor;
+                            uiColor = RPGToolkitAsset.uiSecondaryColor;
                         }
-                        else if (colorType == ColorType.PRIMARY_REVERSED)
+                        else if (colorType == ColorType.TERTIARY)
                         {
-                            uiColor = RPGToolkitAsset.primaryReversed;
+                            uiColor = RPGToolkitAsset.uiTertiaryColor;
                         }
-                        else if (colorType == ColorType.NEGATIVE)
+                        else if (colorType == ColorType.ACCENT)
                         {
-                            uiColor = RPGToolkitAsset.negativeColor;
+                            uiColor = RPGToolkitAsset.uiAccentColor;
                         }
                         else if (colorType == ColorType.BACKGROUND)
                         {
-                            uiColor = RPGToolkitAsset.backgroundColor;
+                            uiColor = RPGToolkitAsset.uiBackgroundColor;
+                        }
+                        else if (colorType == ColorType.ALT_BACKGROUND)
+                        {
+                            uiColor = RPGToolkitAsset.uiAltBackgroundColor;
                         }
                     }
                     else
                     {
                         if (colorType == ColorType.PRIMARY)
                         {
-                            uiColor = new Color(RPGToolkitAsset.primaryColor.r, RPGToolkitAsset.primaryColor.g, RPGToolkitAsset.primaryColor.b, uiColor.a);
+                            uiColor = new Color(RPGToolkitAsset.uiPrimaryColor.r, RPGToolkitAsset.uiPrimaryColor.g, RPGToolkitAsset.uiPrimaryColor.b, uiColor.a);
                         }
                         else if (colorType == ColorType.SECONDARY)
                         {
-                            uiColor = new Color(RPGToolkitAsset.secondaryColor.r, RPGToolkitAsset.secondaryColor.g, RPGToolkitAsset.secondaryColor.b, uiColor.a);
+                            uiColor = new Color(RPGToolkitAsset.uiSecondaryColor.r, RPGToolkitAsset.uiSecondaryColor.g, RPGToolkitAsset.uiSecondaryColor.b, uiColor.a);
                         }
-                        else if (colorType == ColorType.PRIMARY_REVERSED)
+                        else if (colorType == ColorType.TERTIARY)
                         {
-                            uiColor = new Color(RPGToolkitAsset.primaryReversed.r, RPGToolkitAsset.primaryReversed.g, RPGToolkitAsset.primaryReversed.b, uiColor.a);
+                            uiColor = new Color(RPGToolkitAsset.uiTertiaryColor.r, RPGToolkitAsset.uiTertiaryColor.g, RPGToolkitAsset.uiTertiaryColor.b, uiColor.a);
                         }
-                        else if (colorType == ColorType.NEGATIVE)
+                        else if (colorType == ColorType.ACCENT)
                         {
-                            uiColor = new Color(RPGToolkitAsset.negativeColor.r, RPGToolkitAsset.negativeColor.g, RPGToolkitAsset.negativeColor.b, uiColor.a);
+                            uiColor = new Color(RPGToolkitAsset.uiAccentColor.r, RPGToolkitAsset.uiAccentColor.g, RPGToolkitAsset.uiAccentColor.b, uiColor.a);
                         }
                         else if (colorType == ColorType.BACKGROUND)
                         {
-                            uiColor = new Color(RPGToolkitAsset.backgroundColor.r, RPGToolkitAsset.backgroundColor.g, RPGToolkitAsset.backgroundColor.b, uiColor.a);
+                            uiColor = new Color(RPGToolkitAsset.uiBackgroundColor.r, RPGToolkitAsset.uiBackgroundColor.g, RPGToolkitAsset.uiBackgroundColor.b, uiColor.a);
+                        }
+                        else if (colorType == ColorType.ALT_BACKGROUND)
+                        {
+                            uiColor = new Color(RPGToolkitAsset.uiAltBackgroundColor.r, RPGToolkitAsset.uiAltBackgroundColor.g, RPGToolkitAsset.uiAltBackgroundColor.b, uiColor.a);
                         }
                     }
                 }

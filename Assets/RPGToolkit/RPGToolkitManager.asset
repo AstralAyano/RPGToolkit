@@ -49,16 +49,21 @@ MonoBehaviour:
   hasQuestBookUI: 1
   saveQuest: 0
   loadQuest: 0
-  primaryColor: {r: 1, g: 1, b: 1, a: 1}
-  secondaryColor: {r: 255, g: 255, b: 255, a: 255}
-  primaryReversed: {r: 255, g: 255, b: 255, a: 255}
-  negativeColor: {r: 255, g: 255, b: 255, a: 255}
-  backgroundColor: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+  uiPrimaryColor: {r: 255, g: 255, b: 255, a: 255}
+  uiSecondaryColor: {r: 255, g: 255, b: 255, a: 255}
+  uiTertiaryColor: {r: 255, g: 255, b: 255, a: 255}
+  uiAccentColor: {r: 255, g: 255, b: 255, a: 255}
+  uiBackgroundColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 255}
+  uiAltBackgroundColor: {r: 0.5, g: 0.5, b: 0.5, a: 255}
   lightFont: {fileID: 0}
   regularFont: {fileID: 0}
   mediumFont: {fileID: 0}
   semiBoldFont: {fileID: 0}
   boldFont: {fileID: 0}
+  fontPrimaryColor: {r: 255, g: 255, b: 255, a: 255}
+  fontSecondaryColor: {r: 255, g: 255, b: 255, a: 255}
+  fontTertiaryColor: {r: 255, g: 255, b: 255, a: 255}
+  fontAccentColor: {r: 255, g: 255, b: 255, a: 255}
   backgroundMusic: {fileID: 0}
   hoverSound: {fileID: 0}
   clickSound: {fileID: 0}

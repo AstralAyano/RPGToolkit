@@ -398,11 +398,12 @@ namespace RPGToolkit
         private void DrawUIColors()
         {
             // UI Colors       
-            var primaryColor = serializedObject.FindProperty("primaryColor");
-            var secondaryColor = serializedObject.FindProperty("secondaryColor");
-            var primaryReversed = serializedObject.FindProperty("primaryReversed");
-            var negativeColor = serializedObject.FindProperty("negativeColor");
-            var backgroundColor = serializedObject.FindProperty("backgroundColor");
+            var primaryColor = serializedObject.FindProperty("uiPrimaryColor");
+            var secondaryColor = serializedObject.FindProperty("uiSecondaryColor");
+            var tertiaryColor = serializedObject.FindProperty("uiTertiaryColor");
+            var accentColor = serializedObject.FindProperty("uiAccentColor");
+            var backgroundColor = serializedObject.FindProperty("uiBackgroundColor");
+            var altBackgroundColor = serializedObject.FindProperty("uiAltBackgroundColor");
 
             GUILayout.Space(foldoutTopSpace);
             GUILayout.BeginHorizontal();
@@ -415,9 +416,10 @@ namespace RPGToolkit
             {
                 RPGToolkitEditorHandler.DrawProperty(primaryColor, customSkin, "Primary", "This is the Primary color for all UI with RPGToolkitUISettings component.");
                 RPGToolkitEditorHandler.DrawProperty(secondaryColor, customSkin, "Secondary", "This is the Secondary color for all UI with RPGToolkitUISettings component.");
-                RPGToolkitEditorHandler.DrawProperty(primaryReversed, customSkin, "Primary Reversed", "This is the reversed Primary color for all UI with RPGToolkitUISettings component.");
-                RPGToolkitEditorHandler.DrawProperty(negativeColor, customSkin, "Negative", "This is the Negative color for all UI with RPGToolkitUISettings component.");
+                RPGToolkitEditorHandler.DrawProperty(tertiaryColor, customSkin, "Tertiary", "This is the Tertiary color for all UI with RPGToolkitUISettings component.");
+                RPGToolkitEditorHandler.DrawProperty(accentColor, customSkin, "Accents", "This is the Accent color for all UI with RPGToolkitUISettings component.");
                 RPGToolkitEditorHandler.DrawProperty(backgroundColor, customSkin, "Background", "This is the Background color for all UI with RPGToolkitUISettings component.");
+                RPGToolkitEditorHandler.DrawProperty(altBackgroundColor, customSkin, "Alternate Background", "This is the alternate Background color for all UI with RPGToolkitUISettings component.");
             }
 
             GUILayout.EndVertical();
@@ -434,6 +436,12 @@ namespace RPGToolkit
             var semiBoldFont = serializedObject.FindProperty("semiBoldFont");
             var boldFont = serializedObject.FindProperty("boldFont");
 
+            // UI Font Colors
+            var primaryColor = serializedObject.FindProperty("fontPrimaryColor");
+            var secondaryColor = serializedObject.FindProperty("fontSecondaryColor");
+            var tertiaryColor = serializedObject.FindProperty("fontTertiaryColor");
+            var accentColor = serializedObject.FindProperty("fontAccentColor");
+
             GUILayout.Space(foldoutTopSpace);
             GUILayout.BeginHorizontal();
             showFonts = EditorGUILayout.Foldout(showFonts, "UI Fonts", true, foldoutStyle);
@@ -443,11 +451,19 @@ namespace RPGToolkit
 
             if (showFonts)
             {
-                // RPGToolkitEditorHandler.DrawProperty(lightFont, customSkin, "Light");
-                // RPGToolkitEditorHandler.DrawProperty(regularFont, customSkin, "Regular");
-                // RPGToolkitEditorHandler.DrawProperty(mediumFont, customSkin, "Medium");
-                // RPGToolkitEditorHandler.DrawProperty(semiBoldFont, customSkin, "Semibold");
-                // RPGToolkitEditorHandler.DrawProperty(boldFont, customSkin, "Bold");
+                RPGToolkitEditorHandler.DrawProperty(lightFont, customSkin, "Light", "The light weight (300) of the font family.");
+                RPGToolkitEditorHandler.DrawProperty(regularFont, customSkin, "Regular", "The default weight or normal weight (400) of the font family.");
+                RPGToolkitEditorHandler.DrawProperty(mediumFont, customSkin, "Medium", "The medium weight (500) of the font family.");
+                RPGToolkitEditorHandler.DrawProperty(semiBoldFont, customSkin, "Semibold", "The semi bold weight (600) of the font family.");
+                RPGToolkitEditorHandler.DrawProperty(boldFont, customSkin, "Bold", "The bold weight (700) of the font family.");
+
+                GUILayout.Space(foldoutTopSpace);
+                GUILayout.Space(foldoutBottomSpace);
+
+                RPGToolkitEditorHandler.DrawProperty(primaryColor, customSkin, "Primary", "The primary color for all UI Font with RPGToolkitUISettings component.");
+                RPGToolkitEditorHandler.DrawProperty(secondaryColor, customSkin, "Secondary", "The secondary color for all UI Font with RPGToolkitUISettings component.");
+                RPGToolkitEditorHandler.DrawProperty(tertiaryColor, customSkin, "Tertiary", "The tertiary color for all UI Font with RPGToolkitUISettings component.");
+                RPGToolkitEditorHandler.DrawProperty(accentColor, customSkin, "Accents", "The accent color for all UI Font with RPGToolkitUISettings component.");
             }
 
             GUILayout.EndVertical();

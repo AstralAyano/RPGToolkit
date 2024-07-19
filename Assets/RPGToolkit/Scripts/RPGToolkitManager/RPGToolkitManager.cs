@@ -55,18 +55,25 @@ namespace RPGToolkit
         public bool loadQuest = true;
 
         // UI Colors
-        public Color primaryColor = new Color(255, 255, 255, 255);
-        public Color secondaryColor = new Color(255, 255, 255, 255);
-        public Color primaryReversed = new Color(255, 255, 255, 255);
-        public Color negativeColor = new Color(255, 255, 255, 255);
-        public Color backgroundColor = new Color(255, 255, 255, 255);
+        public Color uiPrimaryColor = new Color(255, 255, 255, 255);
+        public Color uiSecondaryColor = new Color(255, 255, 255, 255);
+        public Color uiTertiaryColor = new Color(255, 255, 255, 255);
+        public Color uiAccentColor = new Color(255, 255, 255, 255);
+        public Color uiBackgroundColor = new Color(255, 255, 255, 255);
+        public Color uiAltBackgroundColor = new Color(255, 255, 255, 255);
 
-        // UI Fonts
+        // Fonts
         public TMP_FontAsset lightFont;
         public TMP_FontAsset regularFont;
         public TMP_FontAsset mediumFont;
         public TMP_FontAsset semiBoldFont;
         public TMP_FontAsset boldFont;
+
+        // Font Colors
+        public Color fontPrimaryColor = new Color(255, 255, 255, 255);
+        public Color fontSecondaryColor = new Color(255, 255, 255, 255);
+        public Color fontTertiaryColor = new Color(255, 255, 255, 255);
+        public Color fontAccentColor = new Color(255, 255, 255, 255);
 
         // UI Sounds
         public AudioClip backgroundMusic;

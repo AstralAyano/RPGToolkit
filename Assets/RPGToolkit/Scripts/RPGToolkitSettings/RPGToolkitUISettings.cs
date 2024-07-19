@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEditor;
 using TMPro;
+using Unity.VisualScripting;
 
 namespace RPGToolkit
 {
@@ -125,115 +126,68 @@ namespace RPGToolkit
                 {
                     if (!keepAlphaValue)
                     {
-                        switch (uiColorType)
+                        uiColor = uiColorType switch
                         {
-                            case UIColorType.PRIMARY:
-                                uiColor = RPGToolkitAsset.uiPrimaryColor;
-                                break;
-                            case UIColorType.SECONDARY:
-                                uiColor = RPGToolkitAsset.uiSecondaryColor;
-                                break;
-                            case UIColorType.TERTIARY:
-                                uiColor = RPGToolkitAsset.uiTertiaryColor;
-                                break;
-                            case UIColorType.ACCENT:
-                                uiColor = RPGToolkitAsset.uiAccentColor;
-                                break;
-                            case UIColorType.BACKGROUND:
-                                uiColor = RPGToolkitAsset.uiBackgroundColor;
-                                break;
-                            case UIColorType.ALT_BACKGROUND:
-                                uiColor = RPGToolkitAsset.uiAltBackgroundColor;
-                                break;
-                        }
+                            UIColorType.PRIMARY => RPGToolkitAsset.uiPrimaryColor,
+                            UIColorType.SECONDARY => RPGToolkitAsset.uiSecondaryColor,
+                            UIColorType.TERTIARY => RPGToolkitAsset.uiTertiaryColor,
+                            UIColorType.ACCENT => RPGToolkitAsset.uiAccentColor,
+                            UIColorType.BACKGROUND => RPGToolkitAsset.uiBackgroundColor,
+                            UIColorType.ALT_BACKGROUND => RPGToolkitAsset.uiAltBackgroundColor,
+                            _ => uiColor
+                        };
                     }
                     else
                     {
-                        switch (uiColorType)
+                        uiColor = uiColorType switch
                         {
-                            case UIColorType.PRIMARY:
-                                uiColor = new Color(RPGToolkitAsset.uiPrimaryColor.r, RPGToolkitAsset.uiPrimaryColor.g, RPGToolkitAsset.uiPrimaryColor.b, uiColor.a);
-                                break;
-                            case UIColorType.SECONDARY:
-                                uiColor = new Color(RPGToolkitAsset.uiSecondaryColor.r, RPGToolkitAsset.uiSecondaryColor.g, RPGToolkitAsset.uiSecondaryColor.b, uiColor.a);
-                                break;
-                            case UIColorType.TERTIARY:
-                                uiColor = new Color(RPGToolkitAsset.uiTertiaryColor.r, RPGToolkitAsset.uiTertiaryColor.g, RPGToolkitAsset.uiTertiaryColor.b, uiColor.a);
-                                break;
-                            case UIColorType.ACCENT:
-                                uiColor = new Color(RPGToolkitAsset.uiAccentColor.r, RPGToolkitAsset.uiAccentColor.g, RPGToolkitAsset.uiAccentColor.b, uiColor.a);
-                                break;
-                            case UIColorType.BACKGROUND:
-                                uiColor = new Color(RPGToolkitAsset.uiBackgroundColor.r, RPGToolkitAsset.uiBackgroundColor.g, RPGToolkitAsset.uiBackgroundColor.b, uiColor.a);
-                                break;
-                            case UIColorType.ALT_BACKGROUND:
-                                uiColor = new Color(RPGToolkitAsset.uiAltBackgroundColor.r, RPGToolkitAsset.uiAltBackgroundColor.g, RPGToolkitAsset.uiAltBackgroundColor.b, uiColor.a);
-                                break;
-                        }
+                            UIColorType.PRIMARY => new Color(RPGToolkitAsset.uiPrimaryColor.r, RPGToolkitAsset.uiPrimaryColor.g, RPGToolkitAsset.uiPrimaryColor.b, uiColor.a),
+                            UIColorType.SECONDARY => new Color(RPGToolkitAsset.uiSecondaryColor.r, RPGToolkitAsset.uiSecondaryColor.g, RPGToolkitAsset.uiSecondaryColor.b, uiColor.a),
+                            UIColorType.TERTIARY => new Color(RPGToolkitAsset.uiTertiaryColor.r, RPGToolkitAsset.uiTertiaryColor.g, RPGToolkitAsset.uiTertiaryColor.b, uiColor.a),
+                            UIColorType.ACCENT => new Color(RPGToolkitAsset.uiAccentColor.r, RPGToolkitAsset.uiAccentColor.g, RPGToolkitAsset.uiAccentColor.b, uiColor.a),
+                            UIColorType.BACKGROUND => new Color(RPGToolkitAsset.uiBackgroundColor.r, RPGToolkitAsset.uiBackgroundColor.g, RPGToolkitAsset.uiBackgroundColor.b, uiColor.a),
+                            UIColorType.ALT_BACKGROUND => new Color(RPGToolkitAsset.uiAltBackgroundColor.r, RPGToolkitAsset.uiAltBackgroundColor.g, RPGToolkitAsset.uiAltBackgroundColor.b, uiColor.a),
+                            _ => uiColor
+                        };
                     }
                 }
                 
                 if (textObject != null)
                 {
                     // Fonts
-                    if (fontType == FontType.LIGHT)
+                    textObject.font = fontType switch
                     {
-                        textObject.font = RPGToolkitAsset.lightFont;
-                    }
-                    else if (fontType == FontType.REGULAR)
-                    {
-                        textObject.font = RPGToolkitAsset.regularFont;
-                    }
-                    else if (fontType == FontType.MEDIUM)
-                    {
-                        textObject.font = RPGToolkitAsset.mediumFont;
-                    }
-                    else if (fontType == FontType.SEMIBOLD)
-                    {
-                        textObject.font = RPGToolkitAsset.semiBoldFont;
-                    }
-                    else if (fontType == FontType.BOLD)
-                    {
-                        textObject.font = RPGToolkitAsset.boldFont;
-                    }
+                        FontType.LIGHT => RPGToolkitAsset.lightFont,
+                        FontType.REGULAR => RPGToolkitAsset.regularFont,
+                        FontType.MEDIUM => RPGToolkitAsset.mediumFont,
+                        FontType.SEMIBOLD => RPGToolkitAsset.semiBoldFont,
+                        FontType.BOLD => RPGToolkitAsset.boldFont,
+                        _ => textObject.font
+                    };
 
                     if (!useCustomColor)
                     {
                         if (!keepAlphaValue)
                         {
-                            switch (fontColorType)
+                            uiColor = fontColorType switch
                             {
-                                case FontColorType.PRIMARY:
-                                    uiColor = RPGToolkitAsset.fontPrimaryColor;
-                                    break;
-                                case FontColorType.SECONDARY:
-                                    uiColor = RPGToolkitAsset.fontSecondaryColor;
-                                    break;
-                                case FontColorType.TERTIARY:
-                                    uiColor = RPGToolkitAsset.fontTertiaryColor;
-                                    break;
-                                case FontColorType.ACCENT:
-                                    uiColor = RPGToolkitAsset.fontAccentColor;
-                                    break;
-                            }
+                                FontColorType.PRIMARY => RPGToolkitAsset.fontPrimaryColor,
+                                FontColorType.SECONDARY => RPGToolkitAsset.fontSecondaryColor,
+                                FontColorType.TERTIARY => RPGToolkitAsset.fontTertiaryColor,
+                                FontColorType.ACCENT => RPGToolkitAsset.fontAccentColor,
+                                _ => uiColor
+                            };
                         }
                         else
                         {
-                            switch (fontColorType)
+                            uiColor = fontColorType switch
                             {
-                                case FontColorType.PRIMARY:
-                                    uiColor = new Color(RPGToolkitAsset.fontPrimaryColor.r, RPGToolkitAsset.fontPrimaryColor.g, RPGToolkitAsset.fontPrimaryColor.b, uiColor.a);
-                                    break;
-                                case FontColorType.SECONDARY:
-                                    uiColor = new Color(RPGToolkitAsset.fontSecondaryColor.r, RPGToolkitAsset.fontSecondaryColor.g, RPGToolkitAsset.fontSecondaryColor.b, uiColor.a);
-                                    break;
-                                case FontColorType.TERTIARY:
-                                    uiColor = new Color(RPGToolkitAsset.fontTertiaryColor.r, RPGToolkitAsset.fontTertiaryColor.g, RPGToolkitAsset.fontTertiaryColor.b, uiColor.a);
-                                    break;
-                                case FontColorType.ACCENT:
-                                    uiColor = new Color(RPGToolkitAsset.fontAccentColor.r, RPGToolkitAsset.fontAccentColor.g, RPGToolkitAsset.fontAccentColor.b, uiColor.a);
-                                    break;
-                            }
+                                FontColorType.PRIMARY => new Color(RPGToolkitAsset.fontPrimaryColor.r, RPGToolkitAsset.fontPrimaryColor.g, RPGToolkitAsset.fontPrimaryColor.b, uiColor.a),
+                                FontColorType.SECONDARY => new Color(RPGToolkitAsset.fontSecondaryColor.r, RPGToolkitAsset.fontSecondaryColor.g, RPGToolkitAsset.fontSecondaryColor.b, uiColor.a),
+                                FontColorType.TERTIARY => new Color(RPGToolkitAsset.fontTertiaryColor.r, RPGToolkitAsset.fontTertiaryColor.g, RPGToolkitAsset.fontTertiaryColor.b, uiColor.a),
+                                FontColorType.ACCENT => new Color(RPGToolkitAsset.fontAccentColor.r, RPGToolkitAsset.fontAccentColor.g, RPGToolkitAsset.fontAccentColor.b, uiColor.a),
+                                _ => uiColor
+                            };
                         }
                     }
                 }

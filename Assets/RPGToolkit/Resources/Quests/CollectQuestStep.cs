@@ -28,7 +28,6 @@ namespace RPGToolkit
                 {
                     amountCollected++;
                     UpdateState();
-                    return;
                 }
 
                 if (amountCollected >= amountToComplete)

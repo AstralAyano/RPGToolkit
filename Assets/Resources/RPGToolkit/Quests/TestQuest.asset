@@ -19,4 +19,5 @@ MonoBehaviour:
   experienceReward: 0
   playerLevelRequirement: 0
   questPrerequisites: []
-  questSteps: []
+  questSteps:
+  - {fileID: 112752129231889311, guid: cbd145bdb54cffa47b92e86d4dda47c9, type: 3}

@@ -15,13 +15,16 @@ namespace RPGToolkit
 
         public override void OnInspectorGUI()
         {
+            // Update the serialized object to reflect the latest changes
+            serializedObject.Update();
+
             // Draw the default inspector properties excluding questSteps
             DrawPropertiesExcluding(serializedObject, "questSteps");
 
             // Draw the questSteps property
             EditorGUILayout.PropertyField(questStepsProp, true);
 
-            // Draw the button below the Steps property
+            // Draw the button directly below the Steps property
             if (GUILayout.Button("Add new Collection Quest Step"))
             {
                 QuestInfoSO questInfo = (QuestInfoSO)target;
@@ -41,6 +44,7 @@ namespace RPGToolkit
                 }
             }
 
+            // Apply the modified properties to update the serialized object
             serializedObject.ApplyModifiedProperties();
         }
 
@@ -85,13 +89,21 @@ namespace RPGToolkit
 
             if (prefab != null)
             {
-                // Add the new prefab to the questSteps array
+                // Update the questSteps array
                 int newLength = questInfo.questSteps.Length + 1;
                 GameObject[] newQuestSteps = new GameObject[newLength];
                 questInfo.questSteps.CopyTo(newQuestSteps, 0);
                 newQuestSteps[newLength - 1] = prefab;
                 questInfo.questSteps = newQuestSteps;
+                
+                // Apply changes to the serialized object
+                serializedObject.Update();
+                serializedObject.ApplyModifiedProperties();
+
+                // Mark the asset as dirty
                 EditorUtility.SetDirty(questInfo);
+
+                EditorGUIUtility.PingObject(prefab);
             }
             else
             {

@@ -398,6 +398,7 @@ namespace RPGToolkit
 
             // Select the created asset
             Selection.activeObject = asset;
+            EditorGUIUtility.PingObject(asset);
         }
 
         private static void CreateBaseNPC()

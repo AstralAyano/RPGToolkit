@@ -501,6 +501,7 @@ namespace RPGToolkit
             if (GUILayout.Button("Create NPC"))
             {
                 CreateNPCWithQuest();
+                Close();
             }
         }
 
@@ -508,8 +509,7 @@ namespace RPGToolkit
         {
             if (selectedQuest == null)
             {
-                EditorUtility.DisplayDialog("Error", "Please select a QuestInfoSO.", "OK");
-                return;
+                EditorUtility.DisplayDialog("Warning", "You have Quest Module enabled but did not select a QuestInfoSO for this NPC.", "Ok");
             }
 
             GameObject npcPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(RPGToolkitModules.NPCPrefabPath);
@@ -527,14 +527,19 @@ namespace RPGToolkit
             {
                 // Set the questInfoForPoint reference
                 var questPointComponent = npcInstance.GetComponent<QuestPoint2D>();
-                if (questPointComponent != null)
+
+                if (questPointComponent != null && selectedQuest != null)
                 {
                     questPointComponent.questInfoForPoint = selectedQuest;
-                    Debug.Log("Quest assigned to NPC: " + selectedQuest.name);
+                    Debug.Log("Quest assigned to NPC : " + selectedQuest.name);
                 }
-                else
+                else if (questPointComponent == null)
                 {
                     Debug.LogError("QuestPoint2D component not found in NPC prefab.");
+                }
+                else if (selectedQuest == null)
+                {
+                    Debug.LogWarning("No QuestInfoSO was selected when creating NPC.");
                 }
 
                 // Select the instantiated NPC object in the hierarchy
@@ -552,11 +557,11 @@ namespace RPGToolkit
                 // Focus on the NPC instance to let the user rename it
                 EditorGUIUtility.PingObject(npcInstance);
 
-                Debug.Log("NPC Creation Successful: New NPC with Quest is created.");
+                Debug.Log("NPC Creation Successful : New NPC created.");
             }
             else
             {
-                Debug.LogError("NPC Creation Error: Failed to instantiate prefab.");
+                Debug.LogError("NPC Creation Error : Failed to instantiate prefab.");
             }
         }
     }

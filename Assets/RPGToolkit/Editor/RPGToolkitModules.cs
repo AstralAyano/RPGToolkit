@@ -7,6 +7,7 @@ namespace RPGToolkit
 {
     public class RPGToolkitModules
     {
+        public const string EventsPath = "Assets/RPGToolkit/Prefabs/RPGToolkitEventSystem.prefab";
         public const string UIPath = "Assets/RPGToolkit/Prefabs/RPGToolkitUI.prefab";
         public const string PlayerPath = "Assets/RPGToolkit/Prefabs/RPGToolkitPlayer.prefab";
         public const string InventoryPath = "Assets/RPGToolkit/Prefabs/RPGToolkitInventory.prefab";
@@ -17,7 +18,7 @@ namespace RPGToolkit
         public const string QuestSOPath = "Assets/Resources/RPGToolkit/Quests";
         public const string NPCPrefabPath = "Assets/RPGToolkit/Prefabs/Quest/QuestPoint2D.prefab";
         
-        public static GameObject uiCanvas;
+        public static GameObject uiEvents, uiCanvas;
         public static GameObject inventoryUI, questUI;
         public static GameObject playerModule, inventoryModule, questModule;
         private static string modulePath;
@@ -41,8 +42,25 @@ namespace RPGToolkit
             return uiCanvas == null && GameObject.FindWithTag("RPGToolkitUI") == null;
         }
 
+        [MenuItem("RPG Toolkit/Create RPGToolkit UI Event System", false, 11)]
+        public static GameObject CreateUIEventSystem()
+        {
+            if (uiEvents == null)
+            {
+                return CreateModule(EventsPath, "UI Events");
+            }
+
+            return null;
+        }
+
+        [MenuItem("RPG Toolkit/Create RPGToolkit UI Event System", true, 11)]
+        public static bool ValidateCreateUIEventSystem()
+        {
+            return uiEvents == null && GameObject.FindWithTag("RPGToolkitUIEventSystem") == null;
+        }
+
         // Player Module
-        [MenuItem("RPG Toolkit/Create Player Module", false, 11)]
+        [MenuItem("RPG Toolkit/Create Player Module", false, 12)]
         public static GameObject CreatePlayer()
         {
             if (playerModule == null)
@@ -54,14 +72,14 @@ namespace RPGToolkit
             return null;
         }
 
-        [MenuItem("RPG Toolkit/Create Player Module", true, 11)]
+        [MenuItem("RPG Toolkit/Create Player Module", true, 12)]
         public static bool ValidateCreatePlayer()
         {
             return playerModule == null && GameObject.FindWithTag("RPGToolkitPlayer") == null;
         }
 
         // Inventory Module
-        [MenuItem("RPG Toolkit/Create Inventory Module", false, 12)]
+        [MenuItem("RPG Toolkit/Create Inventory Module", false, 13)]
         public static GameObject CreateInventory()
         {
             if (inventoryModule == null)
@@ -73,14 +91,14 @@ namespace RPGToolkit
             return null;
         }
 
-        [MenuItem("RPG Toolkit/Create Inventory Module", true, 12)]
+        [MenuItem("RPG Toolkit/Create Inventory Module", true, 13)]
         public static bool ValidateCreateInventory()
         {
             return inventoryModule == null && GameObject.FindWithTag("RPGToolkitInventory") == null;
         }
 
         // Quest Module
-        [MenuItem("RPG Toolkit/Create Quest Module", false, 13)]
+        [MenuItem("RPG Toolkit/Create Quest Module", false, 14)]
         public static GameObject CreateQuest()
         {
             if (questModule == null)
@@ -91,14 +109,14 @@ namespace RPGToolkit
             return null;
         }
 
-        [MenuItem("RPG Toolkit/Create Quest Module", true, 13)]
+        [MenuItem("RPG Toolkit/Create Quest Module", true, 14)]
         public static bool ValidateCreateQuest()
         {
             return questModule == null && GameObject.FindWithTag("RPGToolkitQuest") == null;
         }
 
         // Create new Quest
-        [MenuItem("RPG Toolkit/Create New Quest", false, 14)]
+        [MenuItem("RPG Toolkit/Create New Quest", false, 15)]
         public static void CreateNewQuestSO()
         {
             if (questModule != null || GameObject.FindWithTag("RPGToolkitQuest") != null)
@@ -107,14 +125,14 @@ namespace RPGToolkit
             }
         }
 
-        [MenuItem("RPG Toolkit/Create New Quest", true, 14)]
+        [MenuItem("RPG Toolkit/Create New Quest", true, 15)]
         public static bool ValidateCreateNewQuestSO()
         {
             return questModule != null || GameObject.FindWithTag("RPGToolkitQuest") != null;
         }
 
         // Create new NPC
-        [MenuItem("RPG Toolkit/Create New NPC", false, 15)]
+        [MenuItem("RPG Toolkit/Create New NPC", false, 16)]
         public static void CreateNewNPC()
         {
             if (questModule != null || GameObject.FindWithTag("RPGToolkitQuest") != null)
@@ -127,7 +145,7 @@ namespace RPGToolkit
             }
         }
 
-        [MenuItem("RPG Toolkit/Create New NPC", true, 15)]
+        [MenuItem("RPG Toolkit/Create New NPC", true, 16)]
         public static bool ValidateCreateNewNPC()
         {
             return true;
@@ -153,6 +171,18 @@ namespace RPGToolkit
                     case "UI Module":
                         uiCanvas = moduleInstance;
                         uiCanvas.GetComponent<Canvas>().worldCamera = Camera.main;
+
+                        if (uiEvents == null)
+                        {
+                            GameObject eventsPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(EventsPath);
+                            GameObject eventsInstance = PrefabUtility.InstantiatePrefab(eventsPrefab) as GameObject;
+
+                            if (eventsInstance != null)
+                            {
+                                uiEvents = eventsInstance;
+                            }
+                        }
+
                         if (inventoryModule != null)
                         {
                             InventoryReferences(inventoryModule);

@@ -1,0 +1,20 @@
+{
+  "name": "com.astralightstudio.rpgtoolkit",
+  "version": "1.2.0",
+  "displayName": "RPG Toolkit",
+  "description": "A simple starter toolkit to build a RPG game.",
+  "unity": "2021.3",
+  "keywords": [
+    "editor", "tools", "assets"
+  ],
+  "dependencies": {
+    "com.unity.textmeshpro": "3.0.6",
+    "com.unity.cinemachine": "2.8.9",
+    "com.unity.ugui": "1.0.0",
+    "com.unity.inputsystem": "1.5.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AstralAyano/RPGToolkit.git"
+  }
+}

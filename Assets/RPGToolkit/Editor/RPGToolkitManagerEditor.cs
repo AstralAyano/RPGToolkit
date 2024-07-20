@@ -37,7 +37,6 @@ namespace RPGToolkit
         protected static bool showSounds = false;
 
         private GUIStyle foldoutStyle;
-        private Vector2 scrollPos;
 
         private void OnEnable()
         {
@@ -49,10 +48,17 @@ namespace RPGToolkit
             {
                 customSkin = (GUISkin)Resources.Load("Editor\\Manager Skin Light");
             }
+
+            Selection.activeObject = target;
         }
 
         public override void OnInspectorGUI()
         {
+            if (serializedObject == null)
+            {
+                return;
+            }
+            
             serializedObject.Update();
 
             if (customSkin == null)

@@ -60,18 +60,23 @@ namespace RPGToolkit
 
             serializedObject = new SerializedObject(rpgToolkitManager);
 
-            if (EditorGUIUtility.isProSkin)
+            if (EditorGUIUtility.isProSkin == true)
             {
-                customSkin = (GUISkin)Resources.Load("Editor/Manager Skin Dark");
+                customSkin = (GUISkin)Resources.Load("Editor\\Manager Skin Dark");
             }
             else
             {
-                customSkin = (GUISkin)Resources.Load("Editor/Manager Skin Light");
+                customSkin = (GUISkin)Resources.Load("Editor\\Manager Skin Light");
             }
         }
 
         private void OnGUI()
         {
+            if (serializedObject == null)
+            {
+                return;
+            }
+
             serializedObject.Update();
 
             if (customSkin == null)

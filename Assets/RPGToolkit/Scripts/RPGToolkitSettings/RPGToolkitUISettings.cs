@@ -7,6 +7,7 @@ using Unity.VisualScripting;
 namespace RPGToolkit
 {
     [ExecuteInEditMode]
+    [AddComponentMenu("RPG Toolkit/RPG Toolkit UI Element")]
     public class RPGToolkitUISettings : MonoBehaviour
     {
         public enum UIColorType

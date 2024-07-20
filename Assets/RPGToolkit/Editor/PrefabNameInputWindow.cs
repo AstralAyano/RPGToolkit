@@ -12,6 +12,9 @@ namespace RPGToolkit
         public static void ShowWindow()
         {
             var window = GetWindow<PrefabNameInputWindow>("Enter Quest Step Name");
+            Vector2 windowSize = new Vector2(300, 150);
+            window.minSize = windowSize;
+            window.maxSize = windowSize;
             window.ShowUtility();
         }
 

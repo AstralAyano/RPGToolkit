@@ -15,8 +15,8 @@ MonoBehaviour:
   <questID>k__BackingField: TestQuest
   questName: 
   questType: 0
+  currencyReward: 0
+  experienceReward: 0
   playerLevelRequirement: 0
   questPrerequisites: []
   questSteps: []
-  currencyReward: 0
-  experienceReward: 0

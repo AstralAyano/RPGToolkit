@@ -15,9 +15,9 @@ MonoBehaviour:
   <questID>k__BackingField: CollectPotionQuest
   questName: Collect Potion
   questType: 0
+  currencyReward: 0
+  experienceReward: 0
   playerLevelRequirement: 0
   questPrerequisites: []
   questSteps:
   - {fileID: 6929277403133531627, guid: 4a42eb1cfe56dd143921eb87f46a29cf, type: 3}
-  currencyReward: 0
-  experienceReward: 0

@@ -6,7 +6,7 @@ namespace RPGToolkit
     public class QuestPoint2D : MonoBehaviour
     {
         [Header("Quest")]
-        [SerializeField] private QuestInfoSO questInfoForPoint;
+        public QuestInfoSO questInfoForPoint;
 
         [Header("Settings")]
         [SerializeField] private bool startPoint = true;

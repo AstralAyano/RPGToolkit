@@ -28,9 +28,8 @@ namespace RPGToolkit
         protected static bool showStaminaSettings = false;
         protected static bool showDashSettings = false;
         protected static bool showWallJumpSettings = false;
-
         protected static bool showQuestModule = false;
-
+        protected static bool showNPCModule = false;
         protected static bool showColors = false;
         protected static bool showFonts = false;
         protected static bool showLogo = false;
@@ -95,6 +94,7 @@ namespace RPGToolkit
 
             DrawPlayerModule();
             DrawQuestModule();
+            DrawNPCModule();
 
             DrawUIColors();
             DrawUIFonts();
@@ -388,6 +388,31 @@ namespace RPGToolkit
                 RPGToolkitEditorHandler.DrawProperty(hasQuestBookUI, customSkin, "Have Quest Book UI", "Enable to have a Quest book to see details of all accepted quests.");
                 RPGToolkitEditorHandler.DrawProperty(saveQuest, customSkin, "Save Quests", "Enable to allow quest states to be saved (Persistent Data).");
                 RPGToolkitEditorHandler.DrawProperty(loadQuest, customSkin, "Load Quests", "Enable to allow quest states to be loaded when running the game.");
+            }
+
+            GUILayout.EndVertical();
+            GUILayout.Space(foldoutItemSpace);
+            GUILayout.BeginVertical(EditorStyles.helpBox);
+        }
+
+        private void DrawNPCModule()
+        {
+            // NPC Module
+            GUI.enabled = true;
+            
+            GUILayout.Space(foldoutTopSpace);
+            GUILayout.BeginHorizontal();
+            showNPCModule = EditorGUILayout.Foldout(showNPCModule, "NPC Module", true, foldoutStyle);
+            showNPCModule = GUILayout.Toggle(showNPCModule, new GUIContent(""), customSkin.FindStyle("Toggle Helper"));
+            GUILayout.EndHorizontal();
+            GUILayout.Space(foldoutBottomSpace);
+
+            if (showNPCModule)
+            {
+                if (GUILayout.Button("Create new NPC", customSkin.button))
+                {
+                    RPGToolkitModules.CreateNewNPC();
+                }
             }
 
             GUILayout.EndVertical();

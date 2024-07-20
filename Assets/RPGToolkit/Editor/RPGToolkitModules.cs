@@ -7,14 +7,15 @@ namespace RPGToolkit
 {
     public class RPGToolkitModules
     {
-        private const string UIPath = "Assets/RPGToolkit/Prefabs/RPGToolkitUI.prefab";
-        private const string PlayerPath = "Assets/RPGToolkit/Prefabs/RPGToolkitPlayer.prefab";
-        private const string InventoryPath = "Assets/RPGToolkit/Prefabs/RPGToolkitInventory.prefab";
-        private const string QuestPath = "Assets/RPGToolkit/Prefabs/RPGToolkitQuest.prefab";
+        public const string UIPath = "Assets/RPGToolkit/Prefabs/RPGToolkitUI.prefab";
+        public const string PlayerPath = "Assets/RPGToolkit/Prefabs/RPGToolkitPlayer.prefab";
+        public const string InventoryPath = "Assets/RPGToolkit/Prefabs/RPGToolkitInventory.prefab";
+        public const string QuestPath = "Assets/RPGToolkit/Prefabs/RPGToolkitQuest.prefab";
 
-        private const string InventoryUIPath = "Assets/RPGToolkit/Prefabs/Inventory/InventoryUI.prefab";
-        private const string QuestUIPath = "Assets/RPGToolkit/Prefabs/Quest/QuestUI.prefab";
-        private const string QuestSOPath = "Assets/Resources/RPGToolkit/Quests";
+        public const string InventoryUIPath = "Assets/RPGToolkit/Prefabs/Inventory/InventoryUI.prefab";
+        public const string QuestUIPath = "Assets/RPGToolkit/Prefabs/Quest/QuestUI.prefab";
+        public const string QuestSOPath = "Assets/Resources/RPGToolkit/Quests";
+        public const string NPCPrefabPath = "Assets/RPGToolkit/Prefabs/Quest/QuestPoint2D.prefab";
         
         public static GameObject uiCanvas;
         public static GameObject inventoryUI, questUI;
@@ -110,6 +111,26 @@ namespace RPGToolkit
         public static bool ValidateCreateNewQuestSO()
         {
             return questModule != null || GameObject.FindWithTag("RPGToolkitQuest") != null;
+        }
+
+        // Create new NPC
+        [MenuItem("RPG Toolkit/Create New NPC", false, 15)]
+        public static void CreateNewNPC()
+        {
+            if (questModule != null || GameObject.FindWithTag("RPGToolkitQuest") != null)
+            {
+                RPGToolkitNPCWindow.ShowCreateNPCWindow();
+            }
+            else
+            {
+                CreateBaseNPC();
+            }
+        }
+
+        [MenuItem("RPG Toolkit/Create New NPC", true, 15)]
+        public static bool ValidateCreateNewNPC()
+        {
+            return true;
         }
 
         private static GameObject CreateModule(string prefabPath, string moduleName)
@@ -349,6 +370,51 @@ namespace RPGToolkit
             Selection.activeObject = asset;
         }
 
+        private static void CreateBaseNPC()
+        {
+            // Load the NPC prefab
+            GameObject npcPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(NPCPrefabPath);
+            if (npcPrefab == null)
+            {
+                Debug.LogError("NPC Creation Error: Prefab cannot be found at " + NPCPrefabPath);
+                return;
+            }
+
+            // Instantiate the NPC prefab in the scene
+            GameObject npcInstance = PrefabUtility.InstantiatePrefab(npcPrefab) as GameObject;
+            if (npcInstance != null)
+            {
+                // Remove QuestPoint2D component
+                QuestPoint2D questPointComponent = npcInstance.GetComponent<QuestPoint2D>();
+                if (questPointComponent != null)
+                {
+                    Object.DestroyImmediate(questPointComponent);
+                    Debug.Log("Removed QuestPoint2D component from the NPC instance.");
+                }
+
+                // Select the instantiated NPC object in the hierarchy
+                Selection.activeObject = npcInstance;
+
+                // Focus on the hierarchy window
+                EditorApplication.ExecuteMenuItem("Window/General/Hierarchy");
+
+                // Rename the NPC instance
+                npcInstance.name = "NewNPC";
+
+                // Register the creation undo
+                Undo.RegisterCreatedObjectUndo(npcInstance, "Create " + npcInstance.name);
+
+                // Focus on the NPC instance to let the user rename it
+                EditorGUIUtility.PingObject(npcInstance);
+
+                Debug.Log("NPC Creation Successful: New NPC is created.");
+            }
+            else
+            {
+                Debug.LogError("NPC Creation Error: Failed to instantiate prefab.");
+            }
+        }
+
         private static List<InventorySlot> FindChildObjectsWithName(Transform parent, string slotNameContains)
         {
             List<InventorySlot> taggedObjects = new List<InventorySlot>();
@@ -411,6 +477,87 @@ namespace RPGToolkit
             rect.localScale = new Vector3(1, 1, 1);
             rect.offsetMax = new Vector2(-right, -top);
             rect.offsetMin = new Vector2(left, bottom);
+        }
+    }
+
+    public class RPGToolkitNPCWindow : EditorWindow
+    {
+        private QuestInfoSO selectedQuest;
+
+        public static void ShowCreateNPCWindow()
+        {
+            var window = GetWindow<RPGToolkitNPCWindow>("Create NPC with Quest");
+            Vector2 windowSize = new Vector2(300, 150);
+            window.minSize = windowSize;
+            window.maxSize = windowSize;
+            window.Show();
+        }
+
+        private void OnGUI()
+        {
+            EditorGUILayout.LabelField("Select Quest for NPC", EditorStyles.boldLabel);
+            selectedQuest = (QuestInfoSO)EditorGUILayout.ObjectField("Quest Info", selectedQuest, typeof(QuestInfoSO), false);
+
+            if (GUILayout.Button("Create NPC"))
+            {
+                CreateNPCWithQuest();
+            }
+        }
+
+        private void CreateNPCWithQuest()
+        {
+            if (selectedQuest == null)
+            {
+                EditorUtility.DisplayDialog("Error", "Please select a QuestInfoSO.", "OK");
+                return;
+            }
+
+            GameObject npcPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(RPGToolkitModules.NPCPrefabPath);
+
+            if (npcPrefab == null)
+            {
+                Debug.LogError("NPC Creation Error : Prefab cannot be found at " + RPGToolkitModules.NPCPrefabPath);
+                return;
+            }
+
+            // Instantiate the NPC prefab in the scene
+            GameObject npcInstance = PrefabUtility.InstantiatePrefab(npcPrefab) as GameObject;
+
+            if (npcInstance != null)
+            {
+                // Set the questInfoForPoint reference
+                var questPointComponent = npcInstance.GetComponent<QuestPoint2D>();
+                if (questPointComponent != null)
+                {
+                    questPointComponent.questInfoForPoint = selectedQuest;
+                    Debug.Log("Quest assigned to NPC: " + selectedQuest.name);
+                }
+                else
+                {
+                    Debug.LogError("QuestPoint2D component not found in NPC prefab.");
+                }
+
+                // Select the instantiated NPC object in the hierarchy
+                Selection.activeObject = npcInstance;
+
+                // Focus on the hierarchy window
+                EditorApplication.ExecuteMenuItem("Window/General/Hierarchy");
+
+                // Rename the NPC instance
+                npcInstance.name = "NewNPCWithQuest";
+
+                // Register the creation undo
+                Undo.RegisterCreatedObjectUndo(npcInstance, "Create " + npcInstance.name);
+
+                // Focus on the NPC instance to let the user rename it
+                EditorGUIUtility.PingObject(npcInstance);
+
+                Debug.Log("NPC Creation Successful: New NPC with Quest is created.");
+            }
+            else
+            {
+                Debug.LogError("NPC Creation Error: Failed to instantiate prefab.");
+            }
         }
     }
 }

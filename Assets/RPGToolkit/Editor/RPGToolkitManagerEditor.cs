@@ -517,8 +517,8 @@ namespace RPGToolkit
 
             if (editorHints.boolValue == true)
             {
-                EditorGUILayout.HelpBox("These values are universal and affect all objects containing 'UI Manager' component.", MessageType.Info);
-                EditorGUILayout.HelpBox("If want to assign unique values, remove 'UI Manager' component from the object ", MessageType.Info);
+                EditorGUILayout.HelpBox("These values are universal and affect all objects containing 'RPG Toolkit' component.", MessageType.Info);
+                EditorGUILayout.HelpBox("If want to assign unique values, remove 'RPG Toolkit' component from the object ", MessageType.Info);
             }
 
             GUILayout.EndVertical();

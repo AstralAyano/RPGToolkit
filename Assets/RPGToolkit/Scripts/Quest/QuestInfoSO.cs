@@ -18,20 +18,20 @@ namespace RPGToolkit
         public string questName;
         public QuestType questType;
 
-        [Header("Requirements")]
-        [Tooltip("Input '0' or leave it blank if not applicable.")]
-        public int playerLevelRequirement;
-        public QuestInfoSO[] questPrerequisites;
-
-        [Header("Steps")]
-        public GameObject[] questSteps;
-
         [Header("Rewards")]
         [Tooltip("Input '0' or leave it blank if not applicable.")]
         public float currencyReward;
 
         [Tooltip("Input '0' or leave it blank if not applicable.")]
         public float experienceReward;
+
+        [Header("Requirements")]
+        [Tooltip("Input '0' or leave it blank if not applicable.")]
+        public int playerLevelRequirement;
+        public QuestInfoSO[] questPrerequisites;
+
+        [Header("Steps")]
+        public GameObject[] questSteps = new GameObject[0];
 
         private void OnValidate()
         {

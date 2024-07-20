@@ -10,14 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 29cf33d2daf9dd049a41a784a9c8c747, type: 3}
-  m_Name: CollectPotionQuest
+  m_Name: TestQuest
   m_EditorClassIdentifier: 
-  <questID>k__BackingField: CollectPotionQuest
-  questName: Collect Potion
+  <questID>k__BackingField: TestQuest
+  questName: 
   questType: 0
   playerLevelRequirement: 0
   questPrerequisites: []
-  questSteps:
-  - {fileID: 6929277403133531627, guid: 4a42eb1cfe56dd143921eb87f46a29cf, type: 3}
+  questSteps: []
   currencyReward: 0
   experienceReward: 0

@@ -31,15 +31,15 @@ MonoBehaviour:
   hasDash: 0
   phaseThroughLayers: []
   dodgeableLayers: []
-  dashPower: 0
-  dashDuration: 0
-  dashCooldown: 0
+  dashPower: 5
+  dashDuration: 0.1
+  dashCooldown: 0.5
   hasWallJump: 0
   wallLayer:
     serializedVersion: 2
-    m_Bits: 0
-  wallJumpForce: {x: 0, y: 0}
-  wallJumpDuration: 0
+    m_Bits: 128
+  wallJumpForce: {x: 0.5, y: 0.5}
+  wallJumpDuration: 0.1
   hasAttack: 0
   hasBlock: 0
   baseWalkSpeed: 0

@@ -206,14 +206,32 @@ namespace RPGToolkit
             dashUsable = false;
             PlayerState = DASH;
 
-            foreach (LayerMask layer in phaseThroughLayers)
+            // Ignore collisions for phase through layers
+            foreach (LayerMask layerMask in phaseThroughLayers)
             {
-                Physics2D.IgnoreLayerCollision(gameObject.layer, layer, true);
+                int layer = Mathf.RoundToInt(Mathf.Log(layerMask.value, 2));
+                if (layer >= 0 && layer <= 31)
+                {
+                    Physics2D.IgnoreLayerCollision(gameObject.layer, layer, true);
+                }
+                else
+                {
+                    Debug.LogWarning($"Layer {layer} is out of range. Skipping this layer.");
+                }
             }
 
-            foreach (LayerMask layer in dodgeableLayers)
+            // Ignore collisions for dodgeable layers
+            foreach (LayerMask layerMask in dodgeableLayers)
             {
-                Physics2D.IgnoreLayerCollision(gameObject.layer, layer, true);
+                int layer = Mathf.RoundToInt(Mathf.Log(layerMask.value, 2));
+                if (layer >= 0 && layer <= 31)
+                {
+                    Physics2D.IgnoreLayerCollision(gameObject.layer, layer, true);
+                }
+                else
+                {
+                    Debug.LogWarning($"Layer {layer} is out of range. Skipping this layer.");
+                }
             }
 
             float originalGravity = rb.gravityScale;
@@ -224,9 +242,18 @@ namespace RPGToolkit
 
             yield return new WaitForSeconds(dashDuration);
 
-            foreach (LayerMask layer in dodgeableLayers)
+            // Re-enable collisions for dodgeable layers
+            foreach (LayerMask layerMask in dodgeableLayers)
             {
-                Physics2D.IgnoreLayerCollision(gameObject.layer, layer, false);
+                int layer = Mathf.RoundToInt(Mathf.Log(layerMask.value, 2));
+                if (layer >= 0 && layer <= 31)
+                {
+                    Physics2D.IgnoreLayerCollision(gameObject.layer, layer, false);
+                }
+                else
+                {
+                    Debug.LogWarning($"Layer {layer} is out of range. Skipping this layer.");
+                }
             }
 
             rb.gravityScale = originalGravity;

@@ -493,6 +493,23 @@ namespace RPGToolkit
                     Debug.Log("Removed QuestPoint2D component from the NPC instance.");
                 }
 
+                // Prompt the user to select a sprite
+                Sprite sprite = EditorGUILayout.ObjectField("Select Sprite", null, typeof(Sprite), false) as Sprite;
+                if (sprite != null)
+                {
+                    // Set the SpriteRenderer's image
+                    SpriteRenderer spriteRenderer = npcInstance.GetComponent<SpriteRenderer>();
+                    if (spriteRenderer != null)
+                    {
+                        spriteRenderer.sprite = sprite;
+                        Debug.Log("Sprite updated for the NPC instance.");
+                    }
+                    else
+                    {
+                        Debug.LogWarning("SpriteRenderer component not found in the NPC prefab.");
+                    }
+                }
+
                 // Select the instantiated NPC object in the hierarchy
                 Selection.activeObject = npcInstance;
 
@@ -584,11 +601,12 @@ namespace RPGToolkit
     public class RPGToolkitNPCWindow : EditorWindow
     {
         private QuestInfoSO selectedQuest;
+        private Sprite selectedSprite;
 
         public static void ShowCreateNPCWindow()
         {
             var window = GetWindow<RPGToolkitNPCWindow>("Create NPC with Quest");
-            Vector2 windowSize = new Vector2(300, 150);
+            Vector2 windowSize = new Vector2(300, 200); // Increased height for the additional field
             window.minSize = windowSize;
             window.maxSize = windowSize;
             window.Show();
@@ -596,8 +614,13 @@ namespace RPGToolkit
 
         private void OnGUI()
         {
-            EditorGUILayout.LabelField("Select Quest for NPC", EditorStyles.boldLabel);
+            EditorGUILayout.LabelField("Select Quest and Sprite for NPC", EditorStyles.boldLabel);
+            
+            // Field for selecting QuestInfoSO
             selectedQuest = (QuestInfoSO)EditorGUILayout.ObjectField("Quest Info", selectedQuest, typeof(QuestInfoSO), false);
+            
+            // Field for selecting Sprite
+            selectedSprite = (Sprite)EditorGUILayout.ObjectField("Select Sprite", selectedSprite, typeof(Sprite), false);
 
             if (GUILayout.Button("Create NPC"))
             {
@@ -611,13 +634,14 @@ namespace RPGToolkit
             if (selectedQuest == null)
             {
                 EditorUtility.DisplayDialog("Warning", "You have Quest Module enabled but did not select a QuestInfoSO for this NPC.", "Ok");
+                return;
             }
 
             GameObject npcPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(RPGToolkitModules.NPCPrefabPath);
 
             if (npcPrefab == null)
             {
-                Debug.LogError("NPC Creation Error : Prefab cannot be found at " + RPGToolkitModules.NPCPrefabPath);
+                Debug.LogError("NPC Creation Error: Prefab cannot be found at " + RPGToolkitModules.NPCPrefabPath);
                 return;
             }
 
@@ -643,6 +667,23 @@ namespace RPGToolkit
                     Debug.LogWarning("No QuestInfoSO was selected when creating NPC.");
                 }
 
+                // Find the SpriteRenderer component in child objects
+                SpriteRenderer spriteRenderer = npcInstance.GetComponentInChildren<SpriteRenderer>();
+
+                if (spriteRenderer != null && selectedSprite != null)
+                {
+                    spriteRenderer.sprite = selectedSprite;
+                    Debug.Log("Sprite updated for the NPC instance.");
+                }
+                else if (spriteRenderer == null)
+                {
+                    Debug.LogWarning("SpriteRenderer component not found in the NPC prefab's children.");
+                }
+                else if (selectedSprite == null)
+                {
+                    Debug.LogWarning("No sprite selected for the NPC.");
+                }
+
                 // Select the instantiated NPC object in the hierarchy
                 Selection.activeObject = npcInstance;
 
@@ -658,7 +699,7 @@ namespace RPGToolkit
                 // Focus on the NPC instance to let the user rename it
                 EditorGUIUtility.PingObject(npcInstance);
 
-                Debug.Log("NPC Creation Successful : New NPC created.");
+                Debug.Log("NPC Creation Successful : New NPC created (Please remember to set NPCSprite's Scale size).");
             }
             else
             {

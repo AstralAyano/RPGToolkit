@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace RPGToolkit
@@ -40,8 +41,31 @@ namespace RPGToolkit
 
                 // Dash
                 playerController.hasDash = RPGToolkitAsset.hasDash;
-                playerController.phaseThroughLayers = RPGToolkitAsset.phaseThroughLayers;
-                playerController.dodgeableLayers = RPGToolkitAsset.dodgeableLayers;
+
+                // Ensure phaseThroughLayers has the correct size before assigning values
+                if (playerController.phaseThroughLayers.Count != RPGToolkitAsset.phaseThroughLayers.Count)
+                {
+                    playerController.phaseThroughLayers = new List<LayerMask>(new LayerMask[RPGToolkitAsset.phaseThroughLayers.Count]);
+                }
+                // Clear the list and add new elements to avoid resizing issues
+                playerController.phaseThroughLayers.Clear();
+                foreach (var layer in RPGToolkitAsset.phaseThroughLayers)
+                {
+                    playerController.phaseThroughLayers.Add((LayerMask)layer);
+                }
+                
+                // Ensure dodgeableLayers has the correct size before assigning values
+                if (playerController.dodgeableLayers.Count != RPGToolkitAsset.dodgeableLayers.Count)
+                {
+                    playerController.dodgeableLayers = new List<LayerMask>(new LayerMask[RPGToolkitAsset.dodgeableLayers.Count]);
+                }
+                // Clear the list and add new elements to avoid resizing issues
+                playerController.dodgeableLayers.Clear();
+                foreach (var layer in RPGToolkitAsset.dodgeableLayers)
+                {
+                    playerController.dodgeableLayers.Add((LayerMask)layer);
+                }
+
                 playerController.dashPower = RPGToolkitAsset.dashPower;
                 playerController.dashDuration = RPGToolkitAsset.dashDuration;
                 playerController.dashCooldown = RPGToolkitAsset.dashCooldown;

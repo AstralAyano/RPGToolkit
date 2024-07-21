@@ -34,7 +34,8 @@ public static class ExportPackage
             "ProjectSettings/EditorBuildSettings.asset", // Include Editor Build Settings
             "ProjectSettings/DynamicsManager.asset", // Include Physics settings
             "ProjectSettings/GraphicsSettings.asset", // Include Graphics settings
-            "ProjectSettings/QualitySettings.asset" // Include Quality settings
+            "ProjectSettings/QualitySettings.asset", // Include Quality settings
+            "ProjectSettings/Physics2DSettings.asset" // Include 2D Physics settings
         };
 
         // Combine asset folders and project settings into a single array

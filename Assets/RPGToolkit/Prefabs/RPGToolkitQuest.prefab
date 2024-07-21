@@ -81,6 +81,26 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 2f98ea3c-2e28-47ea-90c0-de0f212077bb
     m_ActionName: RPGToolkitControls/Quest[/Keyboard/q]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 97c06c53-33f7-439f-8f83-61d1f2ef3048
+    m_ActionName: UI/Navigate[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 68a76e19-5c42-41c8-8932-165edfc8d48f
+    m_ActionName: UI/Point[/Mouse/position]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f5e696c1-3387-4490-ab3c-9f7b80bec09a
+    m_ActionName: UI/LeftClick[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6c8cde6c-44a0-4e86-bf85-62f3aae2c47d
+    m_ActionName: UI/RightClick[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 74c75116-7c05-46b5-b22c-4b5ad87ab12d
+    m_ActionName: UI/MiddleClick[/Mouse/middleButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: RPGToolkitControls

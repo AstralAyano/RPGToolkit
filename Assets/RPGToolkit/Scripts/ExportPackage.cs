@@ -12,7 +12,6 @@ public static class ExportPackage
             "Assets/RPGToolkit/Animations",
             "Assets/RPGToolkit/Editor",
             "Assets/RPGToolkit/Fonts",
-            "Assets/RPGToolkit/Items",
             "Assets/RPGToolkit/Materials",
             "Assets/RPGToolkit/PostProcessing",
             "Assets/RPGToolkit/Prefabs",

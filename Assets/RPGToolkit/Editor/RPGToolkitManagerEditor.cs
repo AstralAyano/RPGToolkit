@@ -29,6 +29,7 @@ namespace RPGToolkit
         protected static bool showStaminaSettings = false;
         protected static bool showDashSettings = false;
         protected static bool showWallJumpSettings = false;
+        protected static bool showInventoryModule = false;
         protected static bool showQuestModule = false;
         protected static bool showNPCModule = false;
         protected static bool showColors = false;
@@ -100,6 +101,7 @@ namespace RPGToolkit
             DrawKeybinds();
 
             DrawPlayerModule();
+            DrawInventoryModule();
             DrawQuestModule();
             DrawNPCModule();
 
@@ -420,6 +422,31 @@ namespace RPGToolkit
                     RPGToolkitEditorHandler.DrawPropertyCW(wallJumpForce, customSkin, "Wall Jump Force", "How strong is the Wall Jump ability.", 145);
                     RPGToolkitEditorHandler.DrawPropertyCW(wallJumpDuration, customSkin, "Wall Jump Duration", "How long does the Wall Jump ability lasts.", 145);
                     EditorGUI.indentLevel = 0;
+                }
+            }
+
+            GUILayout.EndVertical();
+            GUILayout.Space(foldoutItemSpace);
+            GUILayout.BeginVertical(EditorStyles.helpBox);
+        }
+
+        private void DrawInventoryModule()
+        {
+            // Inventory Module
+            GUI.enabled = true;
+            
+            GUILayout.Space(foldoutTopSpace);
+            GUILayout.BeginHorizontal();
+            showInventoryModule = EditorGUILayout.Foldout(showInventoryModule, "Inventory Module", true, foldoutStyle);
+            showInventoryModule = GUILayout.Toggle(showInventoryModule, new GUIContent(""), customSkin.FindStyle("Toggle Helper"));
+            GUILayout.EndHorizontal();
+            GUILayout.Space(foldoutBottomSpace);
+
+            if (showInventoryModule)
+            {
+                if (GUILayout.Button("Create new Item", customSkin.button))
+                {
+                    RPGToolkitModules.CreateNewItemSO();
                 }
             }
 

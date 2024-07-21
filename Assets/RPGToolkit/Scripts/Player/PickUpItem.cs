@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace RPGToolkit
@@ -8,44 +9,56 @@ namespace RPGToolkit
         public InventoryManager invManager;
 
         [Header("List of Scriptable Objects")]
-        public ItemInfoSO[] itemsToPickup;
+        private Dictionary<string, ItemInfoSO> itemDictionary;
 
         private void Start()
         {
             if (PlayerController.instance.hasInventory)
             {
                 invManager = GameObject.FindWithTag("RPGToolkitInventory").GetComponent<InventoryManager>();
+
+                // Load all ItemInfoSO from Resources and create a dictionary
+                LoadItemInfo();
+            }
+        }
+
+        private void LoadItemInfo()
+        {
+            // Load all ItemInfoSO from the specified path
+            ItemInfoSO[] allItems = Resources.LoadAll<ItemInfoSO>("RPGToolkit/Items");
+            itemDictionary = new Dictionary<string, ItemInfoSO>();
+
+            foreach (ItemInfoSO item in allItems)
+            {
+                if (!itemDictionary.ContainsKey(item.itemName.ToLower()))
+                {
+                    itemDictionary.Add(item.itemName.ToLower(), item);
+                }
             }
         }
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            //Debug.Log(col.gameObject.name + " : " + gameObject.name + " : " + Time.time);
-
             if (!PlayerController.instance.hasInventory)
             {
                 return;
             }
-            
-            if (other.gameObject.name.Contains("Health Potion") && invManager.AddItem(itemsToPickup[0]))
-            {
-                //gameObject.GetComponentInParent<PlayerController>().PlaySFX("Health");
-                Destroy(other.gameObject);
-                CallCollectEvents(0);
-            }
-            else if (other.gameObject.name.Contains("Mana Potion") && invManager.AddItem(itemsToPickup[1]))
-            {
-                //gameObject.GetComponentInParent<PlayerController>().PlaySFX("Mana");
-                Destroy(other.gameObject);
-                CallCollectEvents(1);
-            }
 
-            
+            string itemName = other.gameObject.name.ToLower();
+
+            if (itemDictionary.TryGetValue(itemName, out ItemInfoSO itemInfo))
+            {
+                if (invManager.AddItem(itemInfo))
+                {
+                    Destroy(other.gameObject);
+                    CallCollectEvents(itemInfo);
+                }
+            }
         }
 
-        private void CallCollectEvents(int itemIndex)
+        private void CallCollectEvents(ItemInfoSO itemInfo)
         {
-            EventsManager.instance.collectEvents.ItemCollected(itemsToPickup[itemIndex]);
+            EventsManager.instance.collectEvents.ItemCollected(itemInfo);
         }
     }
 }

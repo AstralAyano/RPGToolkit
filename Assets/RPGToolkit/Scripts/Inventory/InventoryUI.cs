@@ -50,50 +50,59 @@ namespace RPGToolkit
 
         void Update()
         {
-            if (Input.GetKeyDown("1"))
+            if (Input.GetKeyDown(KeyCode.Alpha1))
             {
                 slot = 0;
                 ResetColor();
             }
-            else if (Input.GetKeyDown("2"))
+            else if (Input.GetKeyDown(KeyCode.Alpha2))
             {
                 slot = 1;
                 ResetColor();
             }
-            else if (Input.GetKeyDown("3"))
+            else if (Input.GetKeyDown(KeyCode.Alpha3))
             {
                 slot = 2;
                 ResetColor();
             }
-            else if (Input.GetKeyDown("4"))
+            else if (Input.GetKeyDown(KeyCode.Alpha4))
             {
                 slot = 3;
                 ResetColor();
             }
-            else if (Input.GetKeyDown("5"))
+            else if (Input.GetKeyDown(KeyCode.Alpha5))
             {
                 slot = 4;
                 ResetColor();
             }
-            else if (Input.GetKeyDown("6"))
+            else if (Input.GetKeyDown(KeyCode.Alpha6))
             {
                 slot = 5;
                 ResetColor();
             }
-            else if (Input.GetKeyDown("7"))
+            else if (Input.GetKeyDown(KeyCode.Alpha7))
             {
                 slot = 6;
                 ResetColor();
             }
-            else if (Input.GetKeyDown("8"))
+            else if (Input.GetKeyDown(KeyCode.Alpha8))
             {
                 slot = 7;
                 ResetColor();
             }
-            else if (Input.GetKeyDown("9"))
+            else if (Input.GetKeyDown(KeyCode.Alpha9))
             {
                 slot = 8;
                 ResetColor();
+            }
+
+            if (Input.GetKeyDown(KeyCode.I))
+            {
+                OpenInventory();
+            }
+            else if (Input.GetKeyDown(KeyCode.O))
+            {
+                CloseInventory();
             }
 
             if (invBarFadeOut)
@@ -219,6 +228,11 @@ namespace RPGToolkit
             invBarParent.SetActive(false);
             invMain.alpha = 0.0f;
 
+        }
+
+        public void DebugMsg()
+        {
+            Debug.Log("Button");
         }
     }
 }

@@ -16,6 +16,7 @@ namespace RPGToolkit
         public const string ManaUIPath = "Assets/RPGToolkit/Prefabs/Player/ManaUI.prefab";
 
         public const string InventoryUIPath = "Assets/RPGToolkit/Prefabs/Inventory/InventoryUI.prefab";
+        public const string ItemSOPath = "Assets/Resources/RPGToolkit/Items";
         public const string QuestUIPath = "Assets/RPGToolkit/Prefabs/Quest/QuestUI.prefab";
         public const string QuestSOPath = "Assets/Resources/RPGToolkit/Quests";
         public const string NPCPrefabPath = "Assets/RPGToolkit/Prefabs/Quest/QuestPoint2D.prefab";
@@ -135,8 +136,21 @@ namespace RPGToolkit
             return inventoryModule == null && GameObject.FindWithTag("RPGToolkitInventory") == null;
         }
 
+        // Create new Item
+        [MenuItem("RPG Toolkit/Create New Item", false, 16)]
+        public static void CreateNewItemSO()
+        {
+            CreateNewItem();
+        }
+
+        [MenuItem("RPG Toolkit/Create New Item", true, 16)]
+        public static bool ValidateCreateNewItemSO()
+        {
+            return true;
+        }
+
         // Quest Module
-        [MenuItem("RPG Toolkit/Create Quest Module", false, 16)]
+        [MenuItem("RPG Toolkit/Create Quest Module", false, 17)]
         public static GameObject CreateQuest()
         {
             if (questModule == null)
@@ -147,14 +161,14 @@ namespace RPGToolkit
             return null;
         }
 
-        [MenuItem("RPG Toolkit/Create Quest Module", true, 16)]
+        [MenuItem("RPG Toolkit/Create Quest Module", true, 17)]
         public static bool ValidateCreateQuest()
         {
             return questModule == null && GameObject.FindWithTag("RPGToolkitQuest") == null;
         }
 
         // Create new Quest
-        [MenuItem("RPG Toolkit/Create New Quest", false, 17)]
+        [MenuItem("RPG Toolkit/Create New Quest", false, 18)]
         public static void CreateNewQuestSO()
         {
             if (questModule != null || GameObject.FindWithTag("RPGToolkitQuest") != null)
@@ -163,14 +177,14 @@ namespace RPGToolkit
             }
         }
 
-        [MenuItem("RPG Toolkit/Create New Quest", true, 17)]
+        [MenuItem("RPG Toolkit/Create New Quest", true, 18)]
         public static bool ValidateCreateNewQuestSO()
         {
             return questModule != null || GameObject.FindWithTag("RPGToolkitQuest") != null;
         }
 
         // Create new NPC
-        [MenuItem("RPG Toolkit/Create New NPC", false, 18)]
+        [MenuItem("RPG Toolkit/Create New NPC", false, 19)]
         public static void CreateNewNPC()
         {
             if (questModule != null || GameObject.FindWithTag("RPGToolkitQuest") != null)
@@ -183,7 +197,7 @@ namespace RPGToolkit
             }
         }
 
-        [MenuItem("RPG Toolkit/Create New NPC", true, 18)]
+        [MenuItem("RPG Toolkit/Create New NPC", true, 19)]
         public static bool ValidateCreateNewNPC()
         {
             return true;
@@ -416,7 +430,7 @@ namespace RPGToolkit
 
                 Directory.CreateDirectory(QuestSOPath);
 
-                Debug.Log("Quest Directory created: " + QuestSOPath);
+                Debug.Log("Quest Directory created : " + QuestSOPath);
             }
 
             // Prompt the user to specify the file name and path
@@ -458,13 +472,75 @@ namespace RPGToolkit
             // Save the changes
             AssetDatabase.SaveAssets();
 
-            Debug.Log("Successfully created new Quest Scriptable Object at: " + assetPath);
+            Debug.Log("Successfully created new Quest Scriptable Object at : " + assetPath);
 
             // Focus on the project window
             EditorUtility.FocusProjectWindow();
 
             assetFileName = assetFileName.Replace(".asset", "");
             asset.questID = assetFileName;
+
+            // Select the created asset
+            Selection.activeObject = asset;
+            EditorGUIUtility.PingObject(asset);
+        }
+
+        private static void CreateNewItem()
+        {
+            string defaultFileName = "NewItem.asset";
+
+            if (!Directory.Exists(ItemSOPath))
+            {
+                Debug.Log("Item Directory could not be found. Creating Directory...");
+
+                Directory.CreateDirectory(ItemSOPath);
+
+                Debug.Log("Item Directory created : " + ItemSOPath);
+            }
+
+            // Prompt the user to specify the file name and path
+            string fileName = EditorUtility.SaveFilePanel(
+            "Save Item ScriptableObject",
+            ItemSOPath,
+            defaultFileName,
+            "asset"
+            );
+
+            // If the user cancels the dialog, fileName will be empty
+            if (string.IsNullOrEmpty(fileName))
+            {
+                return;
+            }
+
+            Debug.Log("Creating new Item Scriptable Object...");
+            // Extract just the file name from the full path
+            string assetFileName = Path.GetFileName(fileName);
+
+            // Create the asset path using the predetermined directory and the user-specified file name
+            string assetPath = Path.Combine(ItemSOPath, assetFileName);
+
+            // Ensure the asset path has the correct extension
+            if (!assetPath.EndsWith(".asset"))
+            {
+                assetPath += ".asset";
+            }
+
+            // Generate a unique path for the asset (if needed)
+            assetPath = AssetDatabase.GenerateUniqueAssetPath(assetPath);
+
+            // Create the asset
+            ItemInfoSO asset = ScriptableObject.CreateInstance<ItemInfoSO>();
+
+            // Create the asset in the specified path
+            AssetDatabase.CreateAsset(asset, assetPath);
+
+            // Save the changes
+            AssetDatabase.SaveAssets();
+
+            Debug.Log("Successfully created new Item Scriptable Object at : " + assetPath);
+
+            // Focus on the project window
+            EditorUtility.FocusProjectWindow();
 
             // Select the created asset
             Selection.activeObject = asset;

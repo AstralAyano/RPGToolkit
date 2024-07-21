@@ -9,4 +9,4 @@ EditorBuildSettings:
     path: Assets/RPGToolkit/Sample/Scenes/ShowcaseScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   m_configObjects:
-    com.unity.input.settings: {fileID: 11400000, guid: 633788a5e7c727243b3e7b2a1726df8a, type: 2}
+    com.unity.input.settings: {fileID: 11400000, guid: 90a312f4266599d43916999d2230e384, type: 2}

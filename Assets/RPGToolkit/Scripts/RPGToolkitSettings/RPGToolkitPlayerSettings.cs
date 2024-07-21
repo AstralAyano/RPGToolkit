@@ -71,6 +71,7 @@ namespace RPGToolkit
                 playerController.dashCooldown = RPGToolkitAsset.dashCooldown;
 
                 // Wall Jump
+                playerController.wallLayer = RPGToolkitAsset.wallLayer;
                 playerController.hasWallJump = RPGToolkitAsset.hasWallJump;
                 playerController.wallJumpForce = RPGToolkitAsset.wallJumpForce;
                 playerController.wallJumpDuration = RPGToolkitAsset.wallJumpDuration;

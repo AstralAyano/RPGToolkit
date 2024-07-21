@@ -23,10 +23,13 @@ MonoBehaviour:
   startingExperience: 0
   maxExperience: 0
   hasHealth: 0
-  maxHealth: 0
+  hasHealthUI: 0
+  maxHealth: 100
   hasMana: 0
-  maxMana: 0
+  hasManaUI: 0
+  maxMana: 50
   hasStamina: 0
+  hasStaminaUI: 0
   maxStamina: 0
   hasDash: 0
   phaseThroughLayers: []

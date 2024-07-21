@@ -24,6 +24,8 @@ TagManager:
   - RPGToolkitQuestUI
   - RPGToolkitDialogueUI
   - RPGToolkitUIEventSystem
+  - RPGToolkitHealthUI
+  - RPGToolkitManaUI
   layers:
   - Default
   - TransparentFX

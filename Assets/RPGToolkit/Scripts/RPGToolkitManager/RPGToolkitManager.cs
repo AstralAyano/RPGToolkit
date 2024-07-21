@@ -23,10 +23,13 @@ namespace RPGToolkit
         public float startingExperience = 0;
         public float maxExperience = 0;
         public bool hasHealth = false;
+        public bool hasHealthUI = false;
         public float maxHealth = 0;
         public bool hasMana = false;
+        public bool hasManaUI = false;
         public float maxMana = 0;
         public bool hasStamina = false;
+        public bool hasStaminaUI = false;
         public float maxStamina = 0;
 
         public bool hasDash = false;

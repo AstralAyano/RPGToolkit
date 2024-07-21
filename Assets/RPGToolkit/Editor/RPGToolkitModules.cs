@@ -12,6 +12,8 @@ namespace RPGToolkit
         public const string PlayerPath = "Assets/RPGToolkit/Prefabs/RPGToolkitPlayer.prefab";
         public const string InventoryPath = "Assets/RPGToolkit/Prefabs/RPGToolkitInventory.prefab";
         public const string QuestPath = "Assets/RPGToolkit/Prefabs/RPGToolkitQuest.prefab";
+        public const string HealthUIPath = "Assets/RPGToolkit/Prefabs/Player/HealthUI.prefab";
+        public const string ManaUIPath = "Assets/RPGToolkit/Prefabs/Player/ManaUI.prefab";
 
         public const string InventoryUIPath = "Assets/RPGToolkit/Prefabs/Inventory/InventoryUI.prefab";
         public const string QuestUIPath = "Assets/RPGToolkit/Prefabs/Quest/QuestUI.prefab";
@@ -19,7 +21,7 @@ namespace RPGToolkit
         public const string NPCPrefabPath = "Assets/RPGToolkit/Prefabs/Quest/QuestPoint2D.prefab";
         
         public static GameObject uiEvents, uiCanvas;
-        public static GameObject inventoryUI, questUI;
+        public static GameObject inventoryUI, questUI, healthUI, manaUI;
         public static GameObject playerModule, inventoryModule, questModule;
         private static string modulePath;
         private static string moduleName;
@@ -78,8 +80,44 @@ namespace RPGToolkit
             return playerModule == null && GameObject.FindWithTag("RPGToolkitPlayer") == null;
         }
 
+        // Health UI
+        [MenuItem("RPG Toolkit/Create Health UI", false, 13)]
+        public static GameObject CreateHealthUI()
+        {
+            if (healthUI == null || !GameObject.FindWithTag("RPGToolkitHealthUI"))
+            {
+                return CreateUI(HealthUIPath);
+            }
+
+            return null;
+        }
+
+        [MenuItem("RPG Toolkit/Create Health UI", true, 13)]
+        public static bool ValidateCreateHealthUI()
+        {
+            return GameObject.FindWithTag("RPGToolkitPlayer") != null && GameObject.FindWithTag("RPGToolkitHealthUI") == null;
+        }
+
+        // Mana UI
+        [MenuItem("RPG Toolkit/Create Mana UI", false, 14)]
+        public static GameObject CreateManaUI()
+        {
+            if (manaUI == null || !GameObject.FindWithTag("RPGToolkitManaUI"))
+            {
+                return CreateUI(ManaUIPath);
+            }
+
+            return null;
+        }
+
+        [MenuItem("RPG Toolkit/Create Mana UI", true, 14)]
+        public static bool ValidateCreateManaUI()
+        {
+            return GameObject.FindWithTag("RPGToolkitPlayer") != null && GameObject.FindWithTag("RPGToolkitManaUI") == null;
+        }
+
         // Inventory Module
-        [MenuItem("RPG Toolkit/Create Inventory Module", false, 13)]
+        [MenuItem("RPG Toolkit/Create Inventory Module", false, 15)]
         public static GameObject CreateInventory()
         {
             if (inventoryModule == null)
@@ -91,14 +129,14 @@ namespace RPGToolkit
             return null;
         }
 
-        [MenuItem("RPG Toolkit/Create Inventory Module", true, 13)]
+        [MenuItem("RPG Toolkit/Create Inventory Module", true, 15)]
         public static bool ValidateCreateInventory()
         {
             return inventoryModule == null && GameObject.FindWithTag("RPGToolkitInventory") == null;
         }
 
         // Quest Module
-        [MenuItem("RPG Toolkit/Create Quest Module", false, 14)]
+        [MenuItem("RPG Toolkit/Create Quest Module", false, 16)]
         public static GameObject CreateQuest()
         {
             if (questModule == null)
@@ -109,14 +147,14 @@ namespace RPGToolkit
             return null;
         }
 
-        [MenuItem("RPG Toolkit/Create Quest Module", true, 14)]
+        [MenuItem("RPG Toolkit/Create Quest Module", true, 16)]
         public static bool ValidateCreateQuest()
         {
             return questModule == null && GameObject.FindWithTag("RPGToolkitQuest") == null;
         }
 
         // Create new Quest
-        [MenuItem("RPG Toolkit/Create New Quest", false, 15)]
+        [MenuItem("RPG Toolkit/Create New Quest", false, 17)]
         public static void CreateNewQuestSO()
         {
             if (questModule != null || GameObject.FindWithTag("RPGToolkitQuest") != null)
@@ -125,14 +163,14 @@ namespace RPGToolkit
             }
         }
 
-        [MenuItem("RPG Toolkit/Create New Quest", true, 15)]
+        [MenuItem("RPG Toolkit/Create New Quest", true, 17)]
         public static bool ValidateCreateNewQuestSO()
         {
             return questModule != null || GameObject.FindWithTag("RPGToolkitQuest") != null;
         }
 
         // Create new NPC
-        [MenuItem("RPG Toolkit/Create New NPC", false, 16)]
+        [MenuItem("RPG Toolkit/Create New NPC", false, 18)]
         public static void CreateNewNPC()
         {
             if (questModule != null || GameObject.FindWithTag("RPGToolkitQuest") != null)
@@ -145,7 +183,7 @@ namespace RPGToolkit
             }
         }
 
-        [MenuItem("RPG Toolkit/Create New NPC", true, 16)]
+        [MenuItem("RPG Toolkit/Create New NPC", true, 18)]
         public static bool ValidateCreateNewNPC()
         {
             return true;
@@ -265,6 +303,38 @@ namespace RPGToolkit
             }
 
             return currModule;
+        }
+
+        private static GameObject CreateUI(string prefabPath)
+        {
+            uiCanvas = GameObject.FindWithTag("RPGToolkitUI");
+
+            if (uiCanvas != null)
+            {
+                GameObject uiPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
+                GameObject uiInstance = PrefabUtility.InstantiatePrefab(uiPrefab) as GameObject;
+
+                if (uiInstance != null)
+                {
+                    uiInstance.transform.SetParent(uiCanvas.transform);
+                    RectTransform uiRect = uiInstance.GetComponent<RectTransform>();
+                    SetPadding(uiRect, 0, 0);
+
+                    switch (uiInstance.name)
+                    {
+                        case "HealthUI":
+                            healthUI = uiInstance;
+                            break;
+                        case "ManaUI":
+                            manaUI = uiInstance;
+                            break;
+                    }
+
+                    return uiInstance;
+                }
+            }
+
+            return null;
         }
 
         private static void WaitForUIModule()

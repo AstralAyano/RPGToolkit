@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEditor;
+using UnityEngine.UI;
 
 namespace RPGToolkit
 {
@@ -12,7 +13,7 @@ namespace RPGToolkit
         public static float foldoutBottomSpace = 2;
 
         public GameObject uiCanvas;
-        public GameObject inventoryUI, questUI;
+        public GameObject inventoryUI, questUI, healthUI, manaUI;
         public GameObject playerModule, inventoryModule, questModule;
 
         private bool allowUI;
@@ -313,9 +314,44 @@ namespace RPGToolkit
                 if (showHealthSettings)
                 {
                     EditorGUI.indentLevel = 1;
+                    var hasHealthUI = serializedObject.FindProperty("hasHealthUI");
                     var maxHealth = serializedObject.FindProperty("maxHealth");
+                    RPGToolkitEditorHandler.DrawPropertyCW(hasHealthUI, customSkin, "Has Health UI", "Enable to allow Player to have Health Bar UI.", 145);
+                    
+                    EditorGUI.BeginChangeCheck();
                     RPGToolkitEditorHandler.DrawPropertyCW(maxHealth, customSkin, "Max Health", "Maximum Health point of the Player.", 145);
+                    bool maxHealthChanged = EditorGUI.EndChangeCheck();
+
                     EditorGUI.indentLevel = 0;
+                    
+                    if (hasHealthUI.boolValue)
+                    {
+                        healthUI = RPGToolkitModules.CreateHealthUI();
+                        
+                        if (healthUI != null)
+                        {
+                            healthUI.GetComponentInChildren<Slider>().maxValue = maxHealth.floatValue;
+                            healthUI.GetComponentInChildren<Slider>().value = healthUI.GetComponentInChildren<Slider>().maxValue;
+                        }
+                    }
+                    else
+                    {
+                        healthUI = GameObject.FindWithTag("RPGToolkitHealthUI");
+                        if (healthUI != null)
+                        {
+                            DestroyImmediate(healthUI);
+                        }
+                    }
+
+                    if (maxHealthChanged)
+                    {
+                        if (hasHealthUI.boolValue)
+                        {
+                            healthUI = GameObject.FindWithTag("RPGToolkitHealthUI");
+                            healthUI.GetComponentInChildren<Slider>().maxValue = maxHealth.floatValue;
+                            healthUI.GetComponentInChildren<Slider>().value = healthUI.GetComponentInChildren<Slider>().maxValue;
+                        }
+                    }
                 }
 
                 // Mana
@@ -324,21 +360,56 @@ namespace RPGToolkit
                 if (showManaSettings)
                 {
                     EditorGUI.indentLevel = 1;
+                    var hasManaUI = serializedObject.FindProperty("hasManaUI");
                     var maxMana = serializedObject.FindProperty("maxMana");
+                    RPGToolkitEditorHandler.DrawPropertyCW(hasManaUI, customSkin, "Has Mana UI", "Enable to allow Player to have Mana Bar UI.", 145);
+                    
+                    EditorGUI.BeginChangeCheck();
                     RPGToolkitEditorHandler.DrawPropertyCW(maxMana, customSkin, "Max Mana", "Maximum Mana point of the Player.", 145);
+                    bool maxManaChanged = EditorGUI.EndChangeCheck();
+                    
                     EditorGUI.indentLevel = 0;
+
+                    if (hasManaUI.boolValue)
+                    {
+                        manaUI = RPGToolkitModules.CreateManaUI();
+                        
+                        if (manaUI != null)
+                        {
+                            manaUI.GetComponentInChildren<Slider>().maxValue = maxMana.floatValue;
+                            manaUI.GetComponentInChildren<Slider>().value = manaUI.GetComponentInChildren<Slider>().maxValue;
+                        }
+                    }
+                    else
+                    {
+                        manaUI = GameObject.FindWithTag("RPGToolkitManaUI");
+                        if (manaUI != null)
+                        {
+                            DestroyImmediate(manaUI);
+                        }
+                    }
+
+                    if (maxManaChanged)
+                    {
+                        if (hasManaUI.boolValue)
+                        {
+                            manaUI = GameObject.FindWithTag("RPGToolkitManaUI");
+                            manaUI.GetComponentInChildren<Slider>().maxValue = maxMana.floatValue;
+                            manaUI.GetComponentInChildren<Slider>().value = manaUI.GetComponentInChildren<Slider>().maxValue;
+                        }
+                    }
                 }
 
                 // Stamina
-                RPGToolkitEditorHandler.DrawProperty(hasStamina, customSkin, "Has Stamina", "Enable to allow Player to have Stamina.");
-                showStaminaSettings = hasStamina.boolValue;
-                if (showStaminaSettings)
-                {
-                    EditorGUI.indentLevel = 1;
-                    var maxStamina = serializedObject.FindProperty("maxStamina");
-                    RPGToolkitEditorHandler.DrawPropertyCW(maxStamina, customSkin, "Max Stamina", "Maximum Stamina point of the Player.", 145);
-                    EditorGUI.indentLevel = 0;
-                }
+                // RPGToolkitEditorHandler.DrawProperty(hasStamina, customSkin, "Has Stamina", "Enable to allow Player to have Stamina.");
+                // showStaminaSettings = hasStamina.boolValue;
+                // if (showStaminaSettings)
+                // {
+                //     EditorGUI.indentLevel = 1;
+                //     var maxStamina = serializedObject.FindProperty("maxStamina");
+                //     RPGToolkitEditorHandler.DrawPropertyCW(maxStamina, customSkin, "Max Stamina", "Maximum Stamina point of the Player.", 145);
+                //     EditorGUI.indentLevel = 0;
+                // }
 
                 // Dash
                 RPGToolkitEditorHandler.DrawProperty(hasDash, customSkin, "Has Dash", "Allows Player to have Dash ability to dodge and phase through.");

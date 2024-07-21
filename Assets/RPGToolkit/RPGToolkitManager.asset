@@ -18,16 +18,16 @@ MonoBehaviour:
   interactKey: 102
   questBookKey: 113
   hasInventory: 1
-  hasLevel: 0
-  startingLevel: 0
+  hasLevel: 1
+  startingLevel: 1
   startingExperience: 0
-  maxExperience: 0
+  maxExperience: 100
   hasHealth: 0
   hasHealthUI: 0
-  maxHealth: 100
+  maxHealth: 0
   hasMana: 0
   hasManaUI: 0
-  maxMana: 50
+  maxMana: 0
   hasStamina: 0
   hasStaminaUI: 0
   maxStamina: 0
@@ -38,15 +38,15 @@ MonoBehaviour:
   dodgeableLayers:
   - serializedVersion: 2
     m_Bits: 256
-  dashPower: 5
-  dashDuration: 0.1
+  dashPower: 1
+  dashDuration: 0.15
   dashCooldown: 0.5
   hasWallJump: 1
   wallLayer:
     serializedVersion: 2
     m_Bits: 128
   wallJumpForce: {x: 5, y: 5}
-  wallJumpDuration: 0.1
+  wallJumpDuration: 1
   hasAttack: 0
   hasBlock: 0
   baseWalkSpeed: 0
@@ -60,17 +60,17 @@ MonoBehaviour:
   uiSecondaryColor: {r: 255, g: 255, b: 255, a: 255}
   uiTertiaryColor: {r: 255, g: 255, b: 255, a: 255}
   uiAccentColor: {r: 255, g: 255, b: 255, a: 255}
-  uiBackgroundColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 255}
-  uiAltBackgroundColor: {r: 0.5, g: 0.5, b: 0.5, a: 255}
+  uiBackgroundColor: {r: 0.14150941, g: 0.14150941, b: 0.14150941, a: 255}
+  uiAltBackgroundColor: {r: 0.2830189, g: 0.2830189, b: 0.2830189, a: 255}
   lightFont: {fileID: 11400000, guid: d4d9a9383331daa44874146444a0f68d, type: 2}
   regularFont: {fileID: 11400000, guid: b2558cd4379f19644852c129a54d86c1, type: 2}
   mediumFont: {fileID: 11400000, guid: 179e8be5c4593d34c83146b426a715f4, type: 2}
   semiBoldFont: {fileID: 11400000, guid: ac04923bb51ce74419b29405e9801608, type: 2}
   boldFont: {fileID: 11400000, guid: e9fde3f05fc203c4ea8cd9bf4eba4763, type: 2}
-  fontPrimaryColor: {r: 1, g: 0.8735091, b: 0.55345905, a: 255}
-  fontSecondaryColor: {r: 0.9912764, g: 1, b: 0.55345905, a: 255}
-  fontTertiaryColor: {r: 0.9937107, g: 1, b: 0.7987421, a: 255}
-  fontAccentColor: {r: 1, g: 0.8146851, b: 0.7232704, a: 255}
+  fontPrimaryColor: {r: 1, g: 0.9546732, b: 0.7704402, a: 255}
+  fontSecondaryColor: {r: 1, g: 0.91840863, b: 0.5157232, a: 255}
+  fontTertiaryColor: {r: 1, g: 0.7534186, b: 0.47798735, a: 255}
+  fontAccentColor: {r: 1, g: 0.6314332, b: 0.45911944, a: 255}
   backgroundMusic: {fileID: 0}
   hoverSound: {fileID: 0}
   clickSound: {fileID: 0}

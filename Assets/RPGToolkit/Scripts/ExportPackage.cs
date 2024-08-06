@@ -42,6 +42,9 @@ public static class ExportPackage
         assetFolders.CopyTo(exportItems, 0);
         projectSettings.CopyTo(exportItems, assetFolders.Length);
 
+        // Remove the file to exclude
+        exportItems = RemoveExcludedFile(exportItems, "Assets/RPGToolkit/Scripts/ExportPackage.cs");
+
         // Export the package with selected assets and settings
         AssetDatabase.ExportPackage(
             exportItems,
@@ -51,5 +54,12 @@ public static class ExportPackage
         );
 
         Debug.Log("Assets and settings exported");
+    }
+
+    private static string[] RemoveExcludedFile(string[] items, string fileToRemove)
+    {
+        var list = new System.Collections.Generic.List<string>(items);
+        list.Remove(fileToRemove);
+        return list.ToArray();
     }
 }

@@ -17,8 +17,8 @@ MonoBehaviour:
   editorHints: 1
   interactKey: 102
   questBookKey: 113
-  hasInventory: 1
-  hasLevel: 1
+  hasInventory: 0
+  hasLevel: 0
   startingLevel: 1
   startingExperience: 0
   maxExperience: 100
@@ -31,7 +31,7 @@ MonoBehaviour:
   hasStamina: 0
   hasStaminaUI: 0
   maxStamina: 0
-  hasDash: 1
+  hasDash: 0
   phaseThroughLayers:
   - serializedVersion: 2
     m_Bits: 256
@@ -41,7 +41,7 @@ MonoBehaviour:
   dashPower: 1
   dashDuration: 0.15
   dashCooldown: 0.5
-  hasWallJump: 1
+  hasWallJump: 0
   wallLayer:
     serializedVersion: 2
     m_Bits: 128

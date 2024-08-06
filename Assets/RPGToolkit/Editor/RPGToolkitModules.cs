@@ -24,6 +24,7 @@ namespace RPGToolkit
         public const string QuestSOPath = "Assets/Resources/RPGToolkit/Quests";
         public const string NPCPrefabPath = "Assets/RPGToolkit/Prefabs/Quest/QuestPoint2D.prefab";
         public const string DialogueUIPath = "Assets/RPGToolkit/Prefabs/Dialogue/DialogueUI.prefab";
+        public const string DialogueSOPath = "Assets/Resources/RPGToolkit/Dialogues";
         
         public static GameObject uiEvents, uiCanvas;
         public static GameObject inventoryUI, questUI, dialogueUI, healthUI, manaUI;
@@ -144,7 +145,7 @@ namespace RPGToolkit
         [MenuItem("RPG Toolkit/Create New Item", false, 16)]
         public static void CreateNewItemSO()
         {
-            CreateNewItem();
+            CreateScriptableObject(ItemSOPath, "item");
         }
 
         [MenuItem("RPG Toolkit/Create New Item", true, 16)]
@@ -209,7 +210,7 @@ namespace RPGToolkit
 
         // Dialogue Module
         [MenuItem("RPG Toolkit/Create Dialogue Module", false, 20)]
-        public static GameObject CreateDialogueModule()
+        public static GameObject CreateDialogue()
         {
             if (dialogueModule == null)
             {
@@ -220,11 +221,26 @@ namespace RPGToolkit
         }
 
         [MenuItem("RPG Toolkit/Create Dialogue Module", true, 20)]
-        public static bool ValidateCreateDialogueModule()
+        public static bool ValidateCreateDialogue()
         {
             return dialogueModule == null && GameObject.FindWithTag("RPGToolkitDialogue") == null;
         }
 
+        // New Dialogue
+        [MenuItem("RPG Toolkit/Create new Dialogue", false, 21)]
+        public static void CreateNewDialogueSO()
+        {
+            if (dialogueModule != null || GameObject.FindWithTag("RPGToolkitDialogue") != null)
+            {
+                CreateScriptableObject(DialogueSOPath, "dialogue");
+            }
+        }
+
+        [MenuItem("RPG Toolkit/Create new Dialogue", true, 21)]
+        public static bool ValidateCreateNewDialogueSO()
+        {
+            return dialogueModule != null && GameObject.FindWithTag("RPGToolkitDialogue") != null;
+        }
 
         private static GameObject CreateModule(string prefabPath, string moduleName)
         {
@@ -545,23 +561,23 @@ namespace RPGToolkit
             EditorGUIUtility.PingObject(asset);
         }
 
-        private static void CreateNewItem()
+        private static void CreateScriptableObject(string soPath, string soName)
         {
             string defaultFileName = "NewItem.asset";
 
-            if (!Directory.Exists(ItemSOPath))
+            if (!Directory.Exists(soPath))
             {
-                Debug.Log("Item Directory could not be found. Creating Directory...");
+                Debug.Log("Directory could not be found. Creating Directory...");
 
-                Directory.CreateDirectory(ItemSOPath);
+                Directory.CreateDirectory(soPath);
 
-                Debug.Log("Item Directory created : " + ItemSOPath);
+                Debug.Log("Directory created : " + soPath);
             }
 
             // Prompt the user to specify the file name and path
             string fileName = EditorUtility.SaveFilePanel(
             "Save Item ScriptableObject",
-            ItemSOPath,
+            soPath,
             defaultFileName,
             "asset"
             );
@@ -572,12 +588,12 @@ namespace RPGToolkit
                 return;
             }
 
-            Debug.Log("Creating new Item Scriptable Object...");
+            Debug.Log("Creating new Scriptable Object...");
             // Extract just the file name from the full path
             string assetFileName = Path.GetFileName(fileName);
 
             // Create the asset path using the predetermined directory and the user-specified file name
-            string assetPath = Path.Combine(ItemSOPath, assetFileName);
+            string assetPath = Path.Combine(soPath, assetFileName);
 
             // Ensure the asset path has the correct extension
             if (!assetPath.EndsWith(".asset"))
@@ -589,7 +605,17 @@ namespace RPGToolkit
             assetPath = AssetDatabase.GenerateUniqueAssetPath(assetPath);
 
             // Create the asset
-            ItemInfoSO asset = ScriptableObject.CreateInstance<ItemInfoSO>();
+            Object asset = null;
+
+            switch (soName.ToLower())
+            {
+                case "item":
+                    asset = ScriptableObject.CreateInstance<ItemInfoSO>();
+                    break;
+                case "dialogue":
+                    asset = ScriptableObject.CreateInstance<DialogueInfoSO>();
+                    break;
+            }
 
             // Create the asset in the specified path
             AssetDatabase.CreateAsset(asset, assetPath);
@@ -597,7 +623,7 @@ namespace RPGToolkit
             // Save the changes
             AssetDatabase.SaveAssets();
 
-            Debug.Log("Successfully created new Item Scriptable Object at : " + assetPath);
+            Debug.Log("Successfully created new Scriptable Object at : " + assetPath);
 
             // Focus on the project window
             EditorUtility.FocusProjectWindow();

@@ -16,10 +16,10 @@ namespace RPGToolkit
 
         public GameObject uiCanvas;
         public GameObject inventoryUI, questUI, healthUI, manaUI;
-        public GameObject playerModule, inventoryModule, questModule;
+        public GameObject playerModule, inventoryModule, questModule, dialogueModule;
 
         private bool allowUI;
-        private bool allowPlayerModule, allowInventoryModule, allowQuestModule;
+        private bool allowPlayerModule, allowInventoryModule, allowQuestModule, allowDialogueModule;
 
         protected static bool showKeybinds = false;
         protected static bool showPlayerModule = false;
@@ -81,11 +81,13 @@ namespace RPGToolkit
             playerModule = GameObject.FindWithTag("RPGToolkitPlayer");
             inventoryModule = GameObject.FindWithTag("RPGToolkitInventory");
             questModule = GameObject.FindWithTag("RPGToolkitQuest");
+            dialogueModule = GameObject.FindWithTag("RPGToolkitDialogue");
 
             allowUI = uiCanvas == null ? true : false;
             allowPlayerModule = playerModule == null ? true : false;
             allowInventoryModule = inventoryModule == null ? true : false;
             allowQuestModule = questModule == null ? true : false;
+            allowDialogueModule = dialogueModule == null ? true : false;
 
             // Foldout style
             foldoutStyle = customSkin.FindStyle("UIM Foldout");
@@ -212,6 +214,35 @@ namespace RPGToolkit
                     {
                         DestroyImmediate(GameObject.FindWithTag("RPGToolkitQuest"));
                         DestroyImmediate(GameObject.FindWithTag("RPGToolkitQuestUI"));
+                    }
+                }
+                GUILayout.EndHorizontal();
+            }
+
+            
+
+            // Dialogue Module
+            if (allowDialogueModule)
+            {
+                if (GUILayout.Button("Create Dialogue Module", customSkin.button))
+                {
+                    dialogueModule = RPGToolkitModules.CreateDialogue();
+                }
+            }
+            else
+            {
+                GUILayout.BeginHorizontal();
+                if (GUILayout.Button("Find Dialogue Module", customSkin.button))
+                {
+                    Selection.activeObject = dialogueModule;
+                    EditorGUIUtility.PingObject(dialogueModule);
+                }
+                if (GUILayout.Button("Delete Dialogue Module", customSkin.button))
+                {
+                    if (EditorUtility.DisplayDialog("Delete Dialogue Module?", "This will delete the Dialogue GameObject as well as the UI for it. Are you sure?", "Delete", "Cancel"))
+                    {
+                        DestroyImmediate(GameObject.FindWithTag("RPGToolkitDialogue"));
+                        DestroyImmediate(GameObject.FindWithTag("RPGToolkitDialogueUI"));
                     }
                 }
                 GUILayout.EndHorizontal();
@@ -506,7 +537,7 @@ namespace RPGToolkit
             
             GUILayout.Space(foldoutTopSpace);
             GUILayout.BeginHorizontal();
-            showNPCModule = EditorGUILayout.Foldout(showNPCModule, "NPC Module", true, foldoutStyle);
+            showNPCModule = EditorGUILayout.Foldout(showNPCModule, "NPC & Dialogue Module", true, foldoutStyle);
             showNPCModule = GUILayout.Toggle(showNPCModule, new GUIContent(""), customSkin.FindStyle("Toggle Helper"));
             GUILayout.EndHorizontal();
             GUILayout.Space(foldoutBottomSpace);
@@ -516,6 +547,11 @@ namespace RPGToolkit
                 if (GUILayout.Button("Create new NPC", customSkin.button))
                 {
                     RPGToolkitModules.CreateNewNPC();
+                }
+
+                if (GUILayout.Button("Create new Dialogue", customSkin.button))
+                {
+                    RPGToolkitModules.CreateNewDialogueSO();
                 }
             }
 

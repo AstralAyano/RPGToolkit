@@ -56,8 +56,8 @@ MonoBehaviour:
   hasQuestBookUI: 1
   saveQuest: 0
   loadQuest: 0
-  uiPrimaryColor: {r: 255, g: 255, b: 255, a: 255}
-  uiSecondaryColor: {r: 255, g: 255, b: 255, a: 255}
+  uiPrimaryColor: {r: 0.6039216, g: 0.2758505, b: 0.25490198, a: 255}
+  uiSecondaryColor: {r: 0.39421842, g: 0.4811321, b: 0.2208971, a: 255}
   uiTertiaryColor: {r: 255, g: 255, b: 255, a: 255}
   uiAccentColor: {r: 255, g: 255, b: 255, a: 255}
   uiBackgroundColor: {r: 0.14150941, g: 0.14150941, b: 0.14150941, a: 255}

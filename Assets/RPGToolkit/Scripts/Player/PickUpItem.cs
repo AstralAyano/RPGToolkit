@@ -58,7 +58,7 @@ namespace RPGToolkit
 
         private void CallCollectEvents(ItemInfoSO itemInfo)
         {
-            EventsManager.instance.collectEvents.ItemCollected(itemInfo);
+            EventsManager.Instance.collectEvents.ItemCollected(itemInfo);
         }
     }
 }

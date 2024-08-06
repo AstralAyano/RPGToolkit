@@ -24,14 +24,14 @@ namespace RPGToolkit
             if (!isFinished)
             {
                 isFinished = true;
-                EventsManager.instance.questEvents.AdvanceQuest(questID);
+                EventsManager.Instance.questEvents.AdvanceQuest(questID);
                 Destroy(this.gameObject);
             }
         }
 
         protected void ChangeState(string newState, string newStatus)
         {
-            EventsManager.instance.questEvents.QuestStepStateChange(
+            EventsManager.Instance.questEvents.QuestStepStateChange(
                 questID, 
                 stepIndex, 
                 new QuestStepState(newState, newStatus)

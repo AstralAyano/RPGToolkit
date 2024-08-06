@@ -13,8 +13,8 @@ namespace RPGToolkit
         private void Awake()
         {
             // Change key binds for specific actions
-            ChangeKeybind("RPGToolkitControls", "Interact", RPGToolkitAsset.interactKey);
-            ChangeKeybind("RPGToolkitControls", "Quest", RPGToolkitAsset.questBookKey);
+            ChangeKeybind("RPGToolkit", "Interact", RPGToolkitAsset.interactKey);
+            ChangeKeybind("RPGToolkit", "Quest", RPGToolkitAsset.questBookKey);
         }
 
         private void Start()

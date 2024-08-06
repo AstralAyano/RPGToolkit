@@ -18,14 +18,14 @@ namespace RPGToolkit
 
         private void OnEnable()
         {
-            EventsManager.instance.questEvents.onQuestStateChange += QuestStateChange;
-            EventsManager.instance.inputEvents.onSubmitPressed += SubmitPressed;
+            EventsManager.Instance.questEvents.onQuestStateChange += QuestStateChange;
+            EventsManager.Instance.inputEvents.onSubmitPressed += SubmitPressed;
         }
 
         private void OnDisable()
         {
-            EventsManager.instance.questEvents.onQuestStateChange -= QuestStateChange;
-            EventsManager.instance.inputEvents.onSubmitPressed -= SubmitPressed;
+            EventsManager.Instance.questEvents.onQuestStateChange -= QuestStateChange;
+            EventsManager.Instance.inputEvents.onSubmitPressed -= SubmitPressed;
         }
         
         private void Awake()
@@ -55,11 +55,11 @@ namespace RPGToolkit
             // Start or Finish a quest
             if (currentQuestState.Equals(QuestState.CAN_START) && startPoint)
             {
-                EventsManager.instance.questEvents.StartQuest(questID);
+                EventsManager.Instance.questEvents.StartQuest(questID);
             }
             else if (currentQuestState.Equals(QuestState.CAN_FINISH) && finishPoint)
             {
-                EventsManager.instance.questEvents.FinishQuest(questID);
+                EventsManager.Instance.questEvents.FinishQuest(questID);
             }
         }
 

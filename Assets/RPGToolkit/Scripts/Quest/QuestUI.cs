@@ -15,29 +15,29 @@ namespace RPGToolkit
 
         private void Start()
         {
-            if (!QuestManager.instance.hasQuestTrackUI)
+            if (!QuestManager.Instance.hasQuestTrackUI)
             {
                 gameObject.SetActive(false);
                 return;
             }
 
-            EventsManager.instance.questEvents.onStartQuest += StartQuest;
-            EventsManager.instance.questEvents.onQuestStateChange += QuestStateChange;
-            EventsManager.instance.questEvents.onFinishQuest += FinishQuest;
+            EventsManager.Instance.questEvents.onStartQuest += StartQuest;
+            EventsManager.Instance.questEvents.onQuestStateChange += QuestStateChange;
+            EventsManager.Instance.questEvents.onFinishQuest += FinishQuest;
 
             LoadQuest();
         }
 
         private void OnDisable()
         {
-            EventsManager.instance.questEvents.onStartQuest -= StartQuest;
-            EventsManager.instance.questEvents.onQuestStateChange -= QuestStateChange;
-            EventsManager.instance.questEvents.onFinishQuest -= FinishQuest;
+            EventsManager.Instance.questEvents.onStartQuest -= StartQuest;
+            EventsManager.Instance.questEvents.onQuestStateChange -= QuestStateChange;
+            EventsManager.Instance.questEvents.onFinishQuest -= FinishQuest;
         }
 
         private void LoadQuest()
         {
-            foreach (Quest quest in QuestManager.instance.questMap.Values)
+            foreach (Quest quest in QuestManager.Instance.questMap.Values)
             {
                 if (quest.state == QuestState.IN_PROGRESS)
                 {
@@ -48,13 +48,13 @@ namespace RPGToolkit
 
         private void StartQuest(string id)
         {
-            Quest quest = QuestManager.instance.GetQuestByID(id);
+            Quest quest = QuestManager.Instance.GetQuestByID(id);
             SpawnQuestTrackUI(quest);    
         }
 
         private void FinishQuest(string id)
         {
-            Quest quest = QuestManager.instance.GetQuestByID(id);
+            Quest quest = QuestManager.Instance.GetQuestByID(id);
             
             foreach (GameObject obj in questItem)
             {
@@ -71,7 +71,7 @@ namespace RPGToolkit
 
         private void SpawnQuestTrackUI(Quest quest)
         {
-            if (QuestManager.instance.hasQuestTrackUI && quest != null && quest.state == QuestState.IN_PROGRESS)
+            if (QuestManager.Instance.hasQuestTrackUI && quest != null && quest.state == QuestState.IN_PROGRESS)
             {
                 // Instantiate a row in QuestUI
                 GameObject item = Instantiate(questItemPrefab, contentParent.transform);

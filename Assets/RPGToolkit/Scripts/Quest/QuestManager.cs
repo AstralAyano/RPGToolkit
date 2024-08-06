@@ -5,7 +5,7 @@ namespace RPGToolkit
 {
     public class QuestManager : MonoBehaviour
     {
-        public static QuestManager instance;
+        public static QuestManager Instance { get; private set; }
 
         [HideInInspector] public bool hasQuestTrackUI;
         [HideInInspector] public bool hasQuestBookUI;
@@ -17,9 +17,9 @@ namespace RPGToolkit
 
         private void Awake()
         {
-            if (instance == null)
+            if (Instance == null)
             {
-                instance = this;
+                Instance = this;
                 DontDestroyOnLoad(gameObject);
             }
             else
@@ -41,30 +41,30 @@ namespace RPGToolkit
                 }
                 
                 // Broadcast the initial state of all quests on startup
-                EventsManager.instance.questEvents.QuestStateChange(quest);
+                EventsManager.Instance.questEvents.QuestStateChange(quest);
             }
         }
 
         private void OnEnable()
         {
-            EventsManager.instance.questEvents.onStartQuest += StartQuest;
-            EventsManager.instance.questEvents.onAdvanceQuest += AdvanceQuest;
-            EventsManager.instance.questEvents.onFinishQuest += FinishQuest;
+            EventsManager.Instance.questEvents.onStartQuest += StartQuest;
+            EventsManager.Instance.questEvents.onAdvanceQuest += AdvanceQuest;
+            EventsManager.Instance.questEvents.onFinishQuest += FinishQuest;
 
-            EventsManager.instance.questEvents.onQuestStepStateChange += QuestStepStateChange;
+            EventsManager.Instance.questEvents.onQuestStepStateChange += QuestStepStateChange;
 
-            EventsManager.instance.playerEvents.onPlayerLevelChange += PlayerLevelChange;
+            EventsManager.Instance.playerEvents.onPlayerLevelChange += PlayerLevelChange;
         }
 
         private void OnDisable()
         {
-            EventsManager.instance.questEvents.onStartQuest -= StartQuest;
-            EventsManager.instance.questEvents.onAdvanceQuest -= AdvanceQuest;
-            EventsManager.instance.questEvents.onFinishQuest -= FinishQuest;
+            EventsManager.Instance.questEvents.onStartQuest -= StartQuest;
+            EventsManager.Instance.questEvents.onAdvanceQuest -= AdvanceQuest;
+            EventsManager.Instance.questEvents.onFinishQuest -= FinishQuest;
 
-            EventsManager.instance.questEvents.onQuestStepStateChange -= QuestStepStateChange;
+            EventsManager.Instance.questEvents.onQuestStepStateChange -= QuestStepStateChange;
 
-            EventsManager.instance.playerEvents.onPlayerLevelChange -= PlayerLevelChange;
+            EventsManager.Instance.playerEvents.onPlayerLevelChange -= PlayerLevelChange;
         }
 
         private void Update()
@@ -117,7 +117,7 @@ namespace RPGToolkit
         {
             Quest quest = GetQuestByID(id);
             quest.state = state;
-            EventsManager.instance.questEvents.QuestStateChange(quest);
+            EventsManager.Instance.questEvents.QuestStateChange(quest);
         }
 
         private void StartQuest(string id) 

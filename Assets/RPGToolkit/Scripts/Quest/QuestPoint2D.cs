@@ -8,6 +8,9 @@ namespace RPGToolkit
         [Header("Quest")]
         public QuestInfoSO questInfoForPoint;
 
+        [Header("Dialogue")]
+        public DialogueInfoSO dialogueInfo;
+
         [Header("Settings")]
         [SerializeField] private bool startPoint = true;
         [SerializeField] private bool finishPoint = true;
@@ -19,14 +22,14 @@ namespace RPGToolkit
 
         private void Start()
         {
-            EventsManager.instance.questEvents.onQuestStateChange += QuestStateChange;
-            EventsManager.instance.inputEvents.onSubmitPressed += SubmitPressed;
+            EventsManager.Instance.questEvents.onQuestStateChange += QuestStateChange;
+            EventsManager.Instance.inputEvents.onSubmitPressed += SubmitPressed;
         }
 
         private void OnDisable()
         {
-            EventsManager.instance.questEvents.onQuestStateChange -= QuestStateChange;
-            EventsManager.instance.inputEvents.onSubmitPressed -= SubmitPressed;
+            EventsManager.Instance.questEvents.onQuestStateChange -= QuestStateChange;
+            EventsManager.Instance.inputEvents.onSubmitPressed -= SubmitPressed;
         }
         
         private void Awake()
@@ -54,15 +57,20 @@ namespace RPGToolkit
                 return;
             }
 
+            if (DialogueManager.Instance != null && dialogueInfo != null)
+            {
+                DialogueManager.Instance.StartDialogue(dialogueInfo);
+            }
+
             // Start or Finish a quest
-            if (currentQuestState.Equals(QuestState.CAN_START) && startPoint)
-            {
-                EventsManager.instance.questEvents.StartQuest(questID);
-            }
-            else if (currentQuestState.Equals(QuestState.CAN_FINISH) && finishPoint)
-            {
-                EventsManager.instance.questEvents.FinishQuest(questID);
-            }
+            // if (currentQuestState.Equals(QuestState.CAN_START) && startPoint)
+            // {
+            //     EventsManager.instance.questEvents.StartQuest(questID);
+            // }
+            // else if (currentQuestState.Equals(QuestState.CAN_FINISH) && finishPoint)
+            // {
+            //     EventsManager.instance.questEvents.FinishQuest(questID);
+            // }
         }
 
         private void OnTriggerEnter2D(Collider2D other)

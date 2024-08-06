@@ -10,7 +10,7 @@ namespace RPGToolkit
         {
             if (context.started)
             {
-                EventsManager.instance.inputEvents.SubmitPressed();
+                EventsManager.Instance.inputEvents.SubmitPressed();
             }
         }
 

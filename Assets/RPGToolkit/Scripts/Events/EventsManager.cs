@@ -6,7 +6,7 @@ namespace RPGToolkit
 {
     public class EventsManager : MonoBehaviour
     {
-        public static EventsManager instance;
+        public static EventsManager Instance { get; private set; }
         public InputEvents inputEvents;
         public PlayerEvents playerEvents;
         public QuestEvents questEvents;
@@ -14,9 +14,9 @@ namespace RPGToolkit
 
         private void Awake()
         {
-            if (instance == null)
+            if (Instance == null)
             {
-                instance = this;
+                Instance = this;
                 DontDestroyOnLoad(gameObject);
             }
             else

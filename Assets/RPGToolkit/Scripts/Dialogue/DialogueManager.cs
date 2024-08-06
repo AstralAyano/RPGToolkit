@@ -80,14 +80,11 @@ namespace RPGToolkit
 
             if (currentNode != null)
             {
-                // Display the current line
                 if (currentLineIndex < currentNode.textLines.Count)
                 {
-                    // Update the UI components
                     speakerNameText.text = currentNode.speaker;
                     dialogueText.text = currentNode.textLines[currentLineIndex];
 
-                    // Update the speaker sprite if it exists
                     if (currentNode.speakerSprite != null)
                     {
                         speakerSprite.sprite = currentNode.speakerSprite;
@@ -97,32 +94,7 @@ namespace RPGToolkit
                 }
                 else
                 {
-                    // All lines displayed, now check if we need to start or finish a quest
-                    if (currentNode.startsQuest && currentNode.questInfo != null)
-                    {
-                        // Check if we need to instantiate or get the Quest object for this quest
-                        if (currentQuest == null || currentQuest.info.questID != currentNode.questInfo.questID)
-                        {
-                            // Retrieve the existing Quest instance if available
-                            currentQuest = GetQuestByID(currentNode.questInfo.questID);
-                        }
-
-                        if (currentQuest != null)
-                        {
-                            QuestState questState = currentQuest.state;
-
-                            if (questState.Equals(QuestState.CAN_START) && currentNode.questInfo != null)
-                            {
-                                EventsManager.Instance.questEvents.StartQuest(currentNode.questInfo.questID);
-                            }
-                            else if (questState.Equals(QuestState.CAN_FINISH) && currentNode.questInfo != null)
-                            {
-                                EventsManager.Instance.questEvents.FinishQuest(currentNode.questInfo.questID);
-                            }
-                        }
-                    }
-
-                    // Now show options if available
+                    HandleQuestState();
                     if (currentNode.options != null && currentNode.options.Count > 0)
                     {
                         CreateOptionButtons(currentNode.options);
@@ -139,15 +111,35 @@ namespace RPGToolkit
             }
         }
 
+        private void HandleQuestState()
+        {
+            if (currentNode.questStartOrEnd && currentNode.questInfo != null)
+            {
+                currentQuest = GetQuestByID(currentNode.questInfo.questID);
+
+                if (currentQuest != null)
+                {
+                    QuestState questState = currentQuest.state;
+
+                    if (questState == QuestState.CAN_START)
+                    {
+                        EventsManager.Instance.questEvents.StartQuest(currentNode.questInfo.questID);
+                    }
+                    else if (questState == QuestState.CAN_FINISH)
+                    {
+                        EventsManager.Instance.questEvents.FinishQuest(currentNode.questInfo.questID);
+                    }
+                }
+            }
+        }
+
         private void CreateOptionButtons(List<DialogueInfoSO.DialogueOption> options)
         {
-            // Clear existing buttons
             foreach (Transform child in optionsPanel.transform)
             {
                 ReleaseButton(child.GetComponent<Button>());
             }
 
-            // Create new buttons for each option
             for (int i = 0; i < options.Count; i++)
             {
                 var option = options[i];
@@ -220,14 +212,12 @@ namespace RPGToolkit
 
         private Quest GetQuestByID(string questID)
         {
-            // Ensure the QuestManager instance is accessible
             if (QuestManager.Instance == null)
             {
                 Debug.LogError("QuestManager instance is not available.");
                 return null;
             }
 
-            // Retrieve the Quest object from QuestManager using the questID
             return QuestManager.Instance.GetQuestByID(questID);
         }
     }

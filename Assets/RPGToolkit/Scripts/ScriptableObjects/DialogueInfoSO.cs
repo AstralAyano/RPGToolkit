@@ -16,7 +16,7 @@ namespace RPGToolkit
             public string speaker;
             public List<string> textLines;
             public List<DialogueOption> options;
-            public bool startsQuest;
+            public bool questStartOrEnd;
             public QuestInfoSO questInfo;
         }
 

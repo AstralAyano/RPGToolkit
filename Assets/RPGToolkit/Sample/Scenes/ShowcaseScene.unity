@@ -4879,14 +4879,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2462711843040963138, guid: 6b90e5afa0da9d94b87f3c4a41d57d1d, type: 3}
-      propertyPath: RPGToolkitAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: b515d4b6ec16574489f08d4e57e77459, type: 2}
-    - target: {fileID: 2462711843040963138, guid: 6b90e5afa0da9d94b87f3c4a41d57d1d, type: 3}
-      propertyPath: inputActionAsset
-      value: 
-      objectReference: {fileID: -944628639613478452, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
     - target: {fileID: 2462711843040963143, guid: 6b90e5afa0da9d94b87f3c4a41d57d1d, type: 3}
       propertyPath: m_Name
       value: RPGToolkitEventSystem

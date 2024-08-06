@@ -14,6 +14,7 @@ namespace RPGToolkit
         {
             public Sprite speakerSprite;
             public string speaker;
+            [TextArea]
             public List<string> textLines;
             public List<DialogueOption> options;
             public bool questStartOrEnd;

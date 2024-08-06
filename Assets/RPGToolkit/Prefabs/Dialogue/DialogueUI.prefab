@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 309337832037039963}
   - component: {fileID: 309337832037039941}
   m_Layer: 5
-  m_Name: Dialogue
+  m_Name: SpeakerDialogue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -168,7 +168,7 @@ GameObject:
   - component: {fileID: 309337832342532583}
   - component: {fileID: 309337832342532577}
   m_Layer: 5
-  m_Name: PanelBackground
+  m_Name: DialoguePanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -282,7 +282,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &309337832441136967
 RectTransform:
   m_ObjectHideFlags: 0
@@ -316,7 +316,7 @@ GameObject:
   - component: {fileID: 309337832853095444}
   - component: {fileID: 309337832853095915}
   m_Layer: 5
-  m_Name: CharacterPortrait
+  m_Name: SpeakerPortrait
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -393,7 +393,7 @@ GameObject:
   - component: {fileID: 309337832984142393}
   - component: {fileID: 309337832984142395}
   m_Layer: 5
-  m_Name: OptionsPanel
+  m_Name: DialogueOptionsPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -587,7 +587,7 @@ GameObject:
   - component: {fileID: 309337833927806450}
   - component: {fileID: 309337833927806460}
   m_Layer: 5
-  m_Name: Name
+  m_Name: SpeakerName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

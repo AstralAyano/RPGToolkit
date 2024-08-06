@@ -61,16 +61,14 @@ namespace RPGToolkit
             {
                 DialogueManager.Instance.StartDialogue(dialogueInfo);
             }
-
-            // Start or Finish a quest
-            // if (currentQuestState.Equals(QuestState.CAN_START) && startPoint)
-            // {
-            //     EventsManager.instance.questEvents.StartQuest(questID);
-            // }
-            // else if (currentQuestState.Equals(QuestState.CAN_FINISH) && finishPoint)
-            // {
-            //     EventsManager.instance.questEvents.FinishQuest(questID);
-            // }
+            else if (currentQuestState.Equals(QuestState.CAN_START) && startPoint)
+            {
+                EventsManager.Instance.questEvents.StartQuest(questID);
+            }
+            else if (currentQuestState.Equals(QuestState.CAN_FINISH) && finishPoint)
+            {
+                EventsManager.Instance.questEvents.FinishQuest(questID);
+            }
         }
 
         private void OnTriggerEnter2D(Collider2D other)

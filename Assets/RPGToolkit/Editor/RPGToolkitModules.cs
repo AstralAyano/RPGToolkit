@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using System.IO;
+using UnityEngine.UI;
+using TMPro;
 
 namespace RPGToolkit
 {
@@ -12,6 +14,7 @@ namespace RPGToolkit
         public const string PlayerPath = "Assets/RPGToolkit/Prefabs/RPGToolkitPlayer.prefab";
         public const string InventoryPath = "Assets/RPGToolkit/Prefabs/RPGToolkitInventory.prefab";
         public const string QuestPath = "Assets/RPGToolkit/Prefabs/RPGToolkitQuest.prefab";
+        public const string DialoguePath = "Assets/RPGToolkit/Prefabs/RPGToolkitDialogue.prefab";
         public const string HealthUIPath = "Assets/RPGToolkit/Prefabs/Player/HealthUI.prefab";
         public const string ManaUIPath = "Assets/RPGToolkit/Prefabs/Player/ManaUI.prefab";
 
@@ -20,10 +23,11 @@ namespace RPGToolkit
         public const string QuestUIPath = "Assets/RPGToolkit/Prefabs/Quest/QuestUI.prefab";
         public const string QuestSOPath = "Assets/Resources/RPGToolkit/Quests";
         public const string NPCPrefabPath = "Assets/RPGToolkit/Prefabs/Quest/QuestPoint2D.prefab";
+        public const string DialogueUIPath = "Assets/RPGToolkit/Prefabs/Dialogue/DialogueUI.prefab";
         
         public static GameObject uiEvents, uiCanvas;
-        public static GameObject inventoryUI, questUI, healthUI, manaUI;
-        public static GameObject playerModule, inventoryModule, questModule;
+        public static GameObject inventoryUI, questUI, dialogueUI, healthUI, manaUI;
+        public static GameObject playerModule, inventoryModule, questModule, dialogueModule;
         private static string modulePath;
         private static string moduleName;
 
@@ -203,6 +207,25 @@ namespace RPGToolkit
             return true;
         }
 
+        // Dialogue Module
+        [MenuItem("RPG Toolkit/Create Dialogue Module", false, 20)]
+        public static GameObject CreateDialogueModule()
+        {
+            if (dialogueModule == null)
+            {
+                return CreateModuleWithUI(DialoguePath, "Dialogue Module", true);
+            }
+
+            return null;
+        }
+
+        [MenuItem("RPG Toolkit/Create Dialogue Module", true, 20)]
+        public static bool ValidateCreateDialogueModule()
+        {
+            return dialogueModule == null && GameObject.FindWithTag("RPGToolkitDialogue") == null;
+        }
+
+
         private static GameObject CreateModule(string prefabPath, string moduleName)
         {
             GameObject modulePrefab = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
@@ -239,6 +262,10 @@ namespace RPGToolkit
                         {
                             InventoryReferences(inventoryModule);
                         }
+                        if (dialogueModule != null)
+                        {
+                            DialogueReferences(dialogueModule);
+                        }
                         break;
                     case "Player Module":
                         playerModule = moduleInstance;
@@ -250,6 +277,9 @@ namespace RPGToolkit
                     case "Quest Module":
                         questModule = moduleInstance;
                         questModule.GetComponent<RPGToolkitQuestSettings>().RPGToolkitAsset = AssetDatabase.LoadAssetAtPath<RPGToolkitManager>("Assets/RPGToolkit/RPGToolkitManager.asset");
+                        break;
+                    case "Dialogue Module":
+                        dialogueModule = moduleInstance;
                         break;
                 }
 
@@ -302,6 +332,17 @@ namespace RPGToolkit
                         RectTransform questRect = questUI.GetComponent<RectTransform>();
                         SetPadding(questRect, 0, 0);
                         currModule = questUI;
+                        break;
+                    case "Dialogue Module":
+                        if (dialogueUI != null && GameObject.FindWithTag("RPGToolkitDialogueUI") != null)
+                        {
+                            break;
+                        }
+                        dialogueUI = CreateModule(DialogueUIPath, "Dialogue UI");
+                        dialogueUI.transform.SetParent(uiCanvas.transform);
+                        RectTransform dialogueRect = dialogueUI.GetComponent<RectTransform>();
+                        SetPadding(dialogueRect, 0, 0);
+                        currModule = dialogueUI;
                         break;
                 }
             }
@@ -360,11 +401,16 @@ namespace RPGToolkit
             {
                 // Create the Module
                 GameObject moduleInstance = CreateModule(modulePath, moduleName);
+
                 if (moduleInstance != null)
                 {
                     if (moduleName.Contains("Inventory"))
                     {
                         InventoryReferences(moduleInstance);
+                    }
+                    else if (moduleName.Contains("Dialogue"))
+                    {
+                        DialogueReferences(moduleInstance);
                     }
 
                     // Unsubscribe from the EditorApplication.update event to prevent further calls to WaitForUIModule
@@ -418,6 +464,20 @@ namespace RPGToolkit
             {
                 Debug.LogWarning("Inventory Module : InventoryManager component not found in InventoryManager Prefab.");
             }
+        }
+
+        private static void DialogueReferences(GameObject moduleInstance)
+        {
+            Debug.Log("Dialogue Module : Need References.");
+
+            DialogueManager dialogueManager = moduleInstance.GetComponent<DialogueManager>();
+
+            dialogueManager.dialogueUI = GameObject.Find("DialogueUI");
+            dialogueManager.speakerSprite = GameObject.Find("SpeakerPortrait").GetComponent<Image>();
+            dialogueManager.speakerNameText = GameObject.Find("SpeakerName").GetComponent<TMP_Text>();
+            dialogueManager.dialogueText = GameObject.Find("SpeakerDialogue").GetComponent<TMP_Text>();
+            dialogueManager.optionsPanel = GameObject.Find("DialogueOptionsPanel");
+            dialogueManager.dialoguePanel = GameObject.Find("DialoguePanel");
         }
 
         private static void CreateNewQuest()

@@ -11,9 +11,9 @@ namespace RPGToolkit
                 Destroy(PlayerControllerA.instance.gameObject);
             }
             
-            if (InventoryManager.instance)
+            if (InventoryManager.Instance)
             {
-                Destroy(InventoryManager.instance.gameObject);
+                Destroy(InventoryManager.Instance.gameObject);
             }
 
             if (PauseMenu.instance)

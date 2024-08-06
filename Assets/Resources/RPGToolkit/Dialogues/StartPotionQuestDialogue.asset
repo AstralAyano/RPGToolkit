@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4eafff7f7b4b91f468d46922b705668c, type: 3}
-  m_Name: TestDialogue
+  m_Name: StartPotionQuestDialogue
   m_EditorClassIdentifier: 
-  dialogueID: PotionQuestPartOne
+  dialogueID: StartPotionQuest
   nodes:
   - speakerSprite: {fileID: 2098720813, guid: 8b941d234479d2f429065c140366fcf7, type: 3}
     speaker: Slime
@@ -27,7 +27,7 @@ MonoBehaviour:
         - Oh thank you so much ! Could you help me gather my lost potions?
         - Some other slime attacked me and my stuff is scattered around.
         options: []
-        startsQuest: 1
+        questStartOrEnd: 1
         questInfo: {fileID: 11400000, guid: 9978f0267170208429e16211a6e034da, type: 2}
     - optionText: No, I'm way too busy.
       nextNode:
@@ -36,7 +36,7 @@ MonoBehaviour:
         textLines:
         - Oh I see... Okay, thats understandable...
         options: []
-        startsQuest: 0
+        questStartOrEnd: 0
         questInfo: {fileID: 0}
-    startsQuest: 0
+    questStartOrEnd: 0
     questInfo: {fileID: 0}

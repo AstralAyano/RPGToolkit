@@ -5,8 +5,8 @@ namespace RPGToolkit
     public class CollectQuestStep : QuestStep
     {
         public ItemInfoSO itemToCollect;
-        [SerializeField] private int amountToComplete = 0;
-        [SerializeField] private int amountCollected = 0;
+        public int amountToComplete = 0;
+        public int amountCollected = 0;
 
         private void OnEnable()
         {

@@ -95,6 +95,7 @@ namespace RPGToolkit
                 else
                 {
                     HandleQuestState();
+                    
                     if (currentNode.options != null && currentNode.options.Count > 0)
                     {
                         CreateOptionButtons(currentNode.options);

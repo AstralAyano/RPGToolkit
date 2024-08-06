@@ -4,7 +4,7 @@ namespace RPGToolkit
 {
     public class InventoryManager : MonoBehaviour
     {
-        public static GameObject instance;
+        public static InventoryManager Instance { get; private set; }
 
         [Header("Objects")]
         public InventorySlot[] invSlots;
@@ -13,9 +13,9 @@ namespace RPGToolkit
 
         private void Awake()
         {
-            if (instance == null)
+            if (Instance == null)
             {
-                instance = gameObject;
+                Instance = this;
                 DontDestroyOnLoad(gameObject);
             }
             else
@@ -70,6 +70,56 @@ namespace RPGToolkit
             }
 
             return false;
+        }
+
+        public void RemoveItem(ItemInfoSO item, int amount)
+        {
+            int remainingAmount = amount;
+
+            for (int i = 0; i < invSlots.Length && remainingAmount > 0; i++)
+            {
+                InventorySlot slot = invSlots[i];
+                InventoryItem[] itemsInSlot = slot.GetComponentsInChildren<InventoryItem>();
+
+                foreach (InventoryItem itemSlot in itemsInSlot)
+                {
+                    if (itemSlot.item == item)
+                    {
+                        if (item.stackable)
+                        {
+                            // Handle stackable items
+                            itemSlot.count -= remainingAmount;
+
+                            if (itemSlot.count <= 0)
+                            {
+                                Destroy(itemSlot.gameObject);
+                                remainingAmount = -itemSlot.count;
+                            }
+                            else
+                            {
+                                itemSlot.UpdateCount();
+                                remainingAmount = 0;
+                            }
+                        }
+                        else
+                        {
+                            // Handle non-stackable items
+                            Destroy(itemSlot.gameObject);
+                            remainingAmount--;
+                        }
+
+                        if (remainingAmount <= 0)
+                        {
+                            return;
+                        }
+                    }
+                }
+            }
+
+            if (remainingAmount > 0)
+            {
+                Debug.LogWarning("Not enough items in inventory to remove.");
+            }
         }
 
         private void SpawnNewItem(ItemInfoSO item, InventorySlot slot)

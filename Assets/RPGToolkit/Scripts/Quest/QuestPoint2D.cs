@@ -9,7 +9,8 @@ namespace RPGToolkit
         public QuestInfoSO questInfoForPoint;
 
         [Header("Dialogue")]
-        public DialogueInfoSO dialogueInfo;
+        public DialogueInfoSO startQuestDialogue;
+        public DialogueInfoSO finishQuestDialogue;
 
         [Header("Settings")]
         [SerializeField] private bool startPoint = true;
@@ -17,6 +18,7 @@ namespace RPGToolkit
 
         private bool playerIsNear = false;
         private string questID;
+        private Quest currentQuest;
         private QuestState currentQuestState;
         private QuestIcon questIcon;
 
@@ -43,6 +45,7 @@ namespace RPGToolkit
             // Only update the quest state if this point has the corresponding quest
             if (quest.info.questID.Equals(questID))
             {
+                currentQuest = quest;
                 currentQuestState = quest.state;
                 questIcon.SetState(currentQuestState, startPoint, finishPoint);
 
@@ -57,17 +60,35 @@ namespace RPGToolkit
                 return;
             }
 
-            if (DialogueManager.Instance != null && dialogueInfo != null)
+            if (startPoint)
             {
-                DialogueManager.Instance.StartDialogue(dialogueInfo);
+                if (DialogueManager.Instance != null)
+                {
+                    DialogueManager.Instance.StartDialogue(startQuestDialogue);
+                }
+                else if (currentQuestState.Equals(QuestState.CAN_START))
+                {
+                    EventsManager.Instance.questEvents.StartQuest(questID);
+                }
             }
-            else if (currentQuestState.Equals(QuestState.CAN_START) && startPoint)
+            else if (finishPoint)
             {
-                EventsManager.Instance.questEvents.StartQuest(questID);
-            }
-            else if (currentQuestState.Equals(QuestState.CAN_FINISH) && finishPoint)
-            {
-                EventsManager.Instance.questEvents.FinishQuest(questID);
+                if (DialogueManager.Instance != null)
+                {
+                    DialogueManager.Instance.StartDialogue(finishQuestDialogue);
+
+                    if (currentQuest.info.questType == QuestInfoSO.QuestType.COLLECTING)
+                    {
+                        ItemInfoSO itemToCollect = currentQuest.info.questSteps[currentQuest.currentQuestStepIndex - 1].GetComponent<CollectQuestStep>().itemToCollect;
+                        int amountToCollect = currentQuest.info.questSteps[currentQuest.currentQuestStepIndex - 1].GetComponent<CollectQuestStep>().amountToComplete;
+
+                        InventoryManager.Instance.RemoveItem(itemToCollect, amountToCollect);
+                    }
+                }
+                else if (currentQuestState.Equals(QuestState.CAN_FINISH))
+                {
+                    EventsManager.Instance.questEvents.FinishQuest(questID);
+                }
             }
         }
 

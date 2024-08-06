@@ -653,8 +653,8 @@ namespace RPGToolkit
             if (showSounds)
             {
                 // RPGToolkitEditorHandler.DrawProperty(backgroundMusic, customSkin, "Background Music");
-                // RPGToolkitEditorHandler.DrawProperty(hoverSound, customSkin, "Hover SFX");
-                // RPGToolkitEditorHandler.DrawProperty(clickSound, customSkin, "Click SFX");
+                RPGToolkitEditorHandler.DrawProperty(hoverSound, customSkin, "Hover SFX", "The sound that plays when hovering a UI Button.");
+                RPGToolkitEditorHandler.DrawProperty(clickSound, customSkin, "Click SFX", "The sound that plays when clicking a UI Button.");
             }
         }
 

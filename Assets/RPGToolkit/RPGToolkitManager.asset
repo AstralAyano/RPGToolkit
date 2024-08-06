@@ -72,5 +72,5 @@ MonoBehaviour:
   fontTertiaryColor: {r: 1, g: 0.7534186, b: 0.47798735, a: 255}
   fontAccentColor: {r: 1, g: 0.6314332, b: 0.45911944, a: 255}
   backgroundMusic: {fileID: 0}
-  hoverSound: {fileID: 0}
-  clickSound: {fileID: 0}
+  hoverSound: {fileID: 8300000, guid: 22de4cf6da2b46847b496ae83f465a61, type: 3}
+  clickSound: {fileID: 8300000, guid: 2373cbe89bd780a4ca3ce9bd596f741d, type: 3}

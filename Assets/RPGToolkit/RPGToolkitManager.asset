@@ -56,11 +56,11 @@ MonoBehaviour:
   hasQuestBookUI: 1
   saveQuest: 0
   loadQuest: 0
-  uiPrimaryColor: {r: 0.6039216, g: 0.2758505, b: 0.25490198, a: 255}
-  uiSecondaryColor: {r: 0.39421842, g: 0.4811321, b: 0.2208971, a: 255}
-  uiTertiaryColor: {r: 255, g: 255, b: 255, a: 255}
-  uiAccentColor: {r: 255, g: 255, b: 255, a: 255}
-  uiBackgroundColor: {r: 0.14150941, g: 0.14150941, b: 0.14150941, a: 255}
+  uiPrimaryColor: {r: 0.6415094, g: 0.27975082, b: 0.25821757, a: 255}
+  uiSecondaryColor: {r: 1, g: 0.58115923, b: 0.44025153, a: 255}
+  uiTertiaryColor: {r: 1, g: 0.786469, b: 0.36477983, a: 255}
+  uiAccentColor: {r: 0.6603774, g: 0.5279935, b: 0.34057194, a: 255}
+  uiBackgroundColor: {r: 0.7735849, g: 0.41355163, b: 0.41355163, a: 255}
   uiAltBackgroundColor: {r: 0.2830189, g: 0.2830189, b: 0.2830189, a: 255}
   lightFont: {fileID: 11400000, guid: d4d9a9383331daa44874146444a0f68d, type: 2}
   regularFont: {fileID: 11400000, guid: b2558cd4379f19644852c129a54d86c1, type: 2}

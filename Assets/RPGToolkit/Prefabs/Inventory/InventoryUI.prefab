@@ -467,6 +467,18 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: RPGToolkit.InventoryUI, Assembly-CSharp
       objectReference: {fileID: 0}
+    - target: {fileID: 2912128001692326688, guid: 629537998e1e5f14c80e77849789dc45, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 2912128001692326688, guid: 629537998e1e5f14c80e77849789dc45, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 2912128001692326688, guid: 629537998e1e5f14c80e77849789dc45, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 230
+      objectReference: {fileID: 0}
     - target: {fileID: 2912128001692326689, guid: 629537998e1e5f14c80e77849789dc45, type: 3}
       propertyPath: m_Sprite
       value: 

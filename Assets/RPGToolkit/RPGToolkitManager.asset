@@ -24,10 +24,10 @@ MonoBehaviour:
   maxExperience: 100
   hasHealth: 0
   hasHealthUI: 0
-  maxHealth: 0
+  maxHealth: 50
   hasMana: 0
   hasManaUI: 0
-  maxMana: 0
+  maxMana: 50
   hasStamina: 0
   hasStaminaUI: 0
   maxStamina: 0

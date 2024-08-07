@@ -46,13 +46,20 @@ namespace RPGToolkit
 
             string itemName = other.gameObject.name.ToLower();
 
-            if (itemDictionary.TryGetValue(itemName, out ItemInfoSO itemInfo))
+            try
             {
-                if (invManager.AddItem(itemInfo))
+                if (itemDictionary.TryGetValue(itemName, out ItemInfoSO itemInfo))
                 {
-                    Destroy(other.gameObject);
-                    CallCollectEvents(itemInfo);
+                    if (invManager.AddItem(itemInfo))
+                    {
+                        Destroy(other.gameObject);
+                        CallCollectEvents(itemInfo);
+                    }
                 }
+            }
+            catch
+            {
+                
             }
         }
 

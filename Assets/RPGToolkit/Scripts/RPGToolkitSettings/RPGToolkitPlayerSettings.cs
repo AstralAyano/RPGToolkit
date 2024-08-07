@@ -21,6 +21,7 @@ namespace RPGToolkit
                 // Level
                 playerController.hasLevel = RPGToolkitAsset.hasLevel;
                 playerController.currentLevel = RPGToolkitAsset.startingLevel;
+                EventsManager.Instance.playerEvents.PlayerLevelChange(playerController.currentLevel);
                 playerController.currentExperience = RPGToolkitAsset.startingExperience;
                 playerController.maxExperience = RPGToolkitAsset.maxExperience;
 

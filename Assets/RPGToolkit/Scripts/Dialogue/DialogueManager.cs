@@ -40,6 +40,7 @@ namespace RPGToolkit
                 Destroy(gameObject);
             }
 
+            dialogueUI.GetComponent<CanvasGroup>().alpha = 1;
             dialogueUI.SetActive(false);
             optionsPanel.SetActive(false);
         }

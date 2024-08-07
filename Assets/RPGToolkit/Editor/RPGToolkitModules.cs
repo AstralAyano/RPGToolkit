@@ -494,6 +494,8 @@ namespace RPGToolkit
             dialogueManager.dialogueText = GameObject.Find("SpeakerDialogue").GetComponent<TMP_Text>();
             dialogueManager.optionsPanel = GameObject.Find("DialogueOptionsPanel");
             dialogueManager.dialoguePanel = GameObject.Find("DialoguePanel");
+
+            dialogueUI.GetComponent<CanvasGroup>().alpha = 0;
         }
 
         private static void CreateNewQuest()
